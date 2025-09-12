@@ -1,0 +1,22 @@
+{
+  "name": "canna-bomb-ecommerce",
+  "version": "1.0.0",
+  "description": "Modern e-commerce application for cannabis products",
+  "main": "server/index.js",
+  "scripts": {
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "dev:mobile": "concurrently \"npm run server\" \"npm run client:mobile\"",
+    "server": "cd server && npm run dev",
+    "client": "cd client && npm start",
+    "client:mobile": "cd client && npm run start:mobile",
+    "build": "cd client && npm run build",
+    "install-all": "npm install && cd server && npm install && cd ../client && npm install",
+    "seed-users": "cd server && npm run seed-users"
+  },
+  "keywords": ["ecommerce", "cannabis", "react", "nodejs"],
+  "author": "Your Name",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
