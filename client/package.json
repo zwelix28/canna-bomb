@@ -11,12 +11,10 @@
     "axios": "^1.4.0",
     "html2canvas": "^1.4.1",
     "jspdf": "^3.0.2",
-    "multer": "^2.0.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.11.2",
     "react-scripts": "5.0.1",
-    "sharp": "^0.34.3",
     "styled-components": "^6.0.0-rc.1",
     "web-vitals": "^2.1.4"
   },
@@ -47,6 +45,22 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "overrides": {
+    "rimraf": "^5.0.0",
+    "glob": "^10.0.0",
+    "inflight": "npm:@npmcli/inflight@^1.0.0",
+    "abab": "^2.0.6",
+    "stable": "^0.1.8",
+    "w3c-hr-time": "^1.0.2",
+    "sourcemap-codec": "^1.4.8",
+    "q": "^1.5.1",
+    "domexception": "^2.0.1",
+    "workbox-google-analytics": "^6.6.0",
+    "@humanwhocodes/object-schema": "^2.0.3",
+    "@humanwhocodes/config-array": "^0.13.0",
+    "svgo": "^2.8.0",
+    "source-map": "^0.8.0-beta.0"
   },
   "proxy": "http://localhost:5001"
 }
