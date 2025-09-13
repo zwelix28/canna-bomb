@@ -115,50 +115,7 @@ const NewTag = styled.span`
 
 // Removed unused AIFeaturesGrid component
 
-const AIFeatureCard = styled.div`
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(20px);
-  border-radius: 20px;
-  padding: 28px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  position: relative;
-  overflow: hidden;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, #10b981 0%, #34d399 50%, #6ee7b7 100%);
-    opacity: 0.8;
-  }
-  
-  &::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(135deg, rgba(16, 185, 129, 0.05) 0%, rgba(59, 130, 246, 0.05) 100%);
-    opacity: 0;
-    transition: opacity 0.4s ease;
-  }
-  
-  &:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 16px 48px rgba(16, 185, 129, 0.2);
-    border-color: rgba(16, 185, 129, 0.3);
-    
-    &::after {
-      opacity: 1;
-    }
-  }
-`;
+// Removed unused AIFeatureCard component
 
 // Removed unused FeatureIcon component
 
@@ -168,21 +125,7 @@ const AIFeatureCard = styled.div`
 
 // Removed unused FeatureBenefits component
 
-const BenefitItem = styled.li`
-  color: #e2e8f0;
-  font-size: 0.8rem;
-  margin-bottom: 6px;
-  padding-left: 18px;
-  position: relative;
-  
-  &::before {
-    content: '✓';
-    position: absolute;
-    left: 0;
-    color: #10b981;
-    font-weight: bold;
-  }
-`;
+// Removed unused BenefitItem component
 
 const AnalyticsDashboard = styled.div`
   background: rgba(255, 255, 255, 0.05);
@@ -229,26 +172,9 @@ const DashboardTitle = styled.h2`
   }
 `;
 
-const InsightsGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
-  margin-bottom: 32px;
-`;
+// Removed unused InsightsGrid component
 
-const InsightCard = styled.div`
-  background: rgba(255, 255, 255, 0.03);
-  border-radius: 14px;
-  padding: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  transition: all 0.3s ease;
-  
-  &:hover {
-    background: rgba(255, 255, 255, 0.05);
-    border-color: rgba(16, 185, 129, 0.3);
-    transform: translateY(-2px);
-  }
-`;
+// Removed unused InsightCard component
 
 // Removed unused InsightTitle component
 

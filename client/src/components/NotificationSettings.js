@@ -141,11 +141,6 @@ const NotificationSettings = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { showSuccess, showError } = useNotification();
 
-  useEffect(() => {
-    checkNotificationSupport();
-    checkNotificationStatus();
-  }, [checkNotificationStatus]);
-
   const checkNotificationSupport = () => {
     const supported = notificationService.isNotificationSupported();
     setIsSupported(supported);
@@ -158,6 +153,11 @@ const NotificationSettings = () => {
       setNotificationsEnabled(permission === 'granted' && profileEnabled);
     }
   }, [isSupported]);
+
+  useEffect(() => {
+    checkNotificationSupport();
+    checkNotificationStatus();
+  }, [checkNotificationStatus]);
 
   const handleToggleNotifications = async () => {
     if (!isSupported) {
