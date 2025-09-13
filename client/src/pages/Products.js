@@ -468,7 +468,15 @@ const Products = () => {
       const isProduction = process.env.NODE_ENV === 'production';
       const hasApiUrl = process.env.REACT_APP_API_URL && process.env.REACT_APP_API_URL !== '';
       
+      console.log('Environment check:', {
+        isProduction,
+        hasApiUrl,
+        apiUrl: process.env.REACT_APP_API_URL
+      });
+      
+      // Only show sample products if we're in production AND have no API URL
       if (isProduction && !hasApiUrl) {
+        console.log('Demo mode: No API URL configured, showing sample products');
         // Show sample products immediately for Netlify demo
         const sampleProducts = [
         {
@@ -552,6 +560,7 @@ const Products = () => {
       }
       
       // Normal API call for development or production with backend
+      console.log('Making API call to:', process.env.REACT_APP_API_URL);
       const params = new URLSearchParams({
         page: currentPage,
         limit: 12,
@@ -559,6 +568,7 @@ const Products = () => {
       });
 
       const response = await api.get(`/api/products?${params}`);
+      console.log('API response:', response.data);
       setProducts(response.data.products);
       setTotalPages(response.data.totalPages);
       
