@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#10b981" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Canna Bomb" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="msapplication-TileColor" content="#10b981" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    
+    <!-- SEO Meta Tags -->
+    <meta
+      name="description"
+      content="Canna Bomb - Premium Cannabis Products. Professional cannabis dispensary with quality products, expert guidance, and discreet delivery."
+    />
+    <meta name="keywords" content="cannabis, marijuana, dispensary, CBD, THC, edibles, concentrates, premium" />
+    <meta name="author" content="Canna Bomb" />
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Canna Bomb - Premium Cannabis Products" />
+    <meta property="og:description" content="Professional cannabis dispensary with quality products and expert guidance." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://cannabomb.com" />
+    <meta property="og:image" content="%PUBLIC_URL%/icons/icon-512x512.png" />
+    <meta property="og:site_name" content="Canna Bomb" />
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Canna Bomb - Premium Cannabis Products" />
+    <meta name="twitter:description" content="Professional cannabis dispensary with quality products and expert guidance." />
+    <meta name="twitter:image" content="%PUBLIC_URL%/icons/icon-512x512.png" />
+    
+    <!-- PWA Icons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="%PUBLIC_URL%/icons/icon-192x192.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="%PUBLIC_URL%/icons/icon-192x192.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="%PUBLIC_URL%/icons/icon-192x192.png" />
+    <link rel="mask-icon" href="%PUBLIC_URL%/icons/icon-192x192.png" color="#10b981" />
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <title>Canna Bomb - Premium Cannabis Products</title>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+    
+    <!-- PWA Service Worker Registration (disabled on localhost to prevent dev reload loops) -->
+    <script>
+      (function() {
+        const isLocalhost = Boolean(
+          window.location.hostname === 'localhost' ||
+          window.location.hostname === '127.0.0.1' ||
+          window.location.hostname === '::1'
+        );
+
+        if ('serviceWorker' in navigator) {
+          window.addEventListener('load', async () => {
+            try {
+              if (isLocalhost) {
+                // Unregister any existing SWs during local development to avoid refresh loops
+                const registrations = await navigator.serviceWorker.getRegistrations();
+                for (const reg of registrations) {
+                  try { await reg.unregister(); } catch (e) {}
+                }
+                // Also clear caches created by SW
+                if (window.caches && caches.keys) {
+                  const keys = await caches.keys();
+                  await Promise.all(keys.map(k => caches.delete(k)));
+                }
+                console.log('Service Worker disabled on localhost for development');
+                return;
+              }
+
+              // Only register SW in non-local environments
+              const registration = await navigator.serviceWorker.register('/sw.js');
+              console.log('Service Worker registered successfully:', registration.scope);
+
+              // Check for updates
+              registration.addEventListener('updatefound', () => {
+                const newWorker = registration.installing;
+                newWorker && newWorker.addEventListener('statechange', () => {
+                  if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                    if (confirm('New version available! Reload to update?')) {
+                      window.location.reload();
+                    }
+                  }
+                });
+              });
+            } catch (error) {
+              console.log('Service Worker setup error:', error);
+            }
+          });
+        }
+      })();
+      
+      // PWA Install Prompt
+      let deferredPrompt;
+      window.addEventListener('beforeinstallprompt', (e) => {
+        console.log('PWA install prompt triggered');
+        e.preventDefault();
+        deferredPrompt = e;
+        
+        // Show install button or notification
+        showInstallPrompt();
+      });
+      
+      function showInstallPrompt() {
+        // Create install notification
+        const installNotification = document.createElement('div');
+        installNotification.style.cssText = `
+          position: fixed;
+          bottom: 20px;
+          left: 20px;
+          right: 20px;
+          background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+          color: white;
+          padding: 16px;
+          border-radius: 12px;
+          box-shadow: 0 8px 24px rgba(16, 185, 129, 0.3);
+          z-index: 10000;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        `;
+        
+        installNotification.innerHTML = `
+          <div style="display: flex; align-items: center;">
+            <span style="font-size: 24px; margin-right: 12px;">📱</span>
+            <div>
+              <div style="font-weight: 600; margin-bottom: 4px;">Install Canna Bomb</div>
+              <div style="font-size: 14px; opacity: 0.9;">Get the app for a better experience</div>
+            </div>
+          </div>
+          <div style="display: flex; gap: 8px;">
+            <button id="installLater" style="background: rgba(255,255,255,0.2); border: none; color: white; padding: 8px 16px; border-radius: 8px; cursor: pointer; font-size: 14px;">Later</button>
+            <button id="installNow" style="background: white; border: none; color: #10b981; padding: 8px 16px; border-radius: 8px; cursor: pointer; font-size: 14px; font-weight: 600;">Install</button>
+          </div>
+        `;
+        
+        document.body.appendChild(installNotification);
+        
+        // Install button handler
+        document.getElementById('installNow').addEventListener('click', async () => {
+          if (deferredPrompt) {
+            deferredPrompt.prompt();
+            const { outcome } = await deferredPrompt.userChoice;
+            console.log('PWA install outcome:', outcome);
+            deferredPrompt = null;
+          }
+          document.body.removeChild(installNotification);
+        });
+        
+        // Later button handler
+        document.getElementById('installLater').addEventListener('click', () => {
+          document.body.removeChild(installNotification);
+        });
+        
+        // Auto-hide after 10 seconds
+        setTimeout(() => {
+          if (document.body.contains(installNotification)) {
+            document.body.removeChild(installNotification);
+          }
+        }, 10000);
+      }
+      
+      // Handle successful PWA installation
+      window.addEventListener('appinstalled', () => {
+        console.log('PWA was installed successfully');
+        // Track installation event
+        if (typeof window !== 'undefined' && typeof window.gtag !== 'undefined') {
+          window.gtag('event', 'pwa_install', {
+            event_category: 'engagement',
+            event_label: 'canna_bomb_app'
+          });
+        }
+      });
+    </script>
+  </body>
+</html>

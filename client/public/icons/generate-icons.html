@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PWA Icon Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .icon-preview {
+            display: inline-block;
+            margin: 10px;
+            text-align: center;
+        }
+        canvas {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        .download-btn {
+            display: block;
+            margin-top: 5px;
+            padding: 5px 10px;
+            background: #10b981;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Canna Bomb PWA Icon Generator</h1>
+    <p>This page generates PWA icons for the Canna Bomb application.</p>
+    
+    <div id="icons"></div>
+
+    <script>
+        const sizes = [72, 96, 128, 144, 152, 192, 384, 512];
+        const iconsContainer = document.getElementById('icons');
+
+        sizes.forEach(size => {
+            const canvas = document.createElement('canvas');
+            canvas.width = size;
+            canvas.height = size;
+            const ctx = canvas.getContext('2d');
+
+            // Create gradient background
+            const gradient = ctx.createLinearGradient(0, 0, size, size);
+            gradient.addColorStop(0, '#10b981');
+            gradient.addColorStop(0.5, '#34d399');
+            gradient.addColorStop(1, '#6ee7b7');
+            
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, size, size);
+
+            // Add rounded corners
+            ctx.globalCompositeOperation = 'destination-in';
+            ctx.beginPath();
+            ctx.roundRect(0, 0, size, size, size * 0.2);
+            ctx.fill();
+
+            // Reset composite operation
+            ctx.globalCompositeOperation = 'source-over';
+
+            // Add cannabis leaf emoji
+            ctx.font = `${size * 0.6}px Arial`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillStyle = 'white';
+            ctx.fillText('🌿', size / 2, size / 2);
+
+            // Add border
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
+            ctx.lineWidth = 2;
+            ctx.strokeRect(1, 1, size - 2, size - 2);
+
+            // Create container
+            const container = document.createElement('div');
+            container.className = 'icon-preview';
+            
+            container.appendChild(canvas);
+            
+            // Add download link
+            const downloadLink = document.createElement('a');
+            downloadLink.href = canvas.toDataURL();
+            downloadLink.download = `icon-${size}x${size}.png`;
+            downloadLink.textContent = `Download ${size}x${size}`;
+            downloadLink.className = 'download-btn';
+            
+            container.appendChild(downloadLink);
+            iconsContainer.appendChild(container);
+        });
+    </script>
+</body>
+</html>
+
+
+
