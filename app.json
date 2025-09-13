@@ -1,0 +1,48 @@
+{
+  "name": "Canna Bomb E-commerce",
+  "description": "Professional cannabis e-commerce platform with AI analytics",
+  "repository": "https://github.com/yourusername/canna-bomb",
+  "logo": "https://via.placeholder.com/150x150/10b981/ffffff?text=CB",
+  "keywords": ["cannabis", "ecommerce", "react", "nodejs", "mongodb"],
+  "env": {
+    "NODE_ENV": {
+      "description": "Environment",
+      "value": "production"
+    },
+    "MONGODB_URI": {
+      "description": "MongoDB connection string",
+      "value": "mongodb+srv://username:password@cluster.mongodb.net/cannabomb"
+    },
+    "JWT_SECRET": {
+      "description": "JWT secret key",
+      "generator": "secret"
+    },
+    "EMAIL_USER": {
+      "description": "Gmail address for sending emails",
+      "value": "your-email@gmail.com"
+    },
+    "EMAIL_PASS": {
+      "description": "Gmail app password",
+      "value": "your-app-password"
+    },
+    "STRIPE_SECRET_KEY": {
+      "description": "Stripe secret key",
+      "value": "sk_live_your_stripe_secret_key"
+    },
+    "STRIPE_WEBHOOK_SECRET": {
+      "description": "Stripe webhook secret",
+      "value": "whsec_your_webhook_secret"
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "basic"
+    }
+  },
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ]
+}
