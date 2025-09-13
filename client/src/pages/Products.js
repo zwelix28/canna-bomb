@@ -483,6 +483,85 @@ const Products = () => {
       
     } catch (error) {
       console.error('Error fetching products:', error);
+      
+      // Fallback: Show sample products when API is not available
+      const sampleProducts = [
+        {
+          _id: '1',
+          name: 'Premium OG Kush',
+          description: 'A classic indica strain known for its relaxing effects and earthy aroma.',
+          price: 45.99,
+          category: 'flower',
+          brand: 'Premium Cannabis Co',
+          stock: 25,
+          images: ['/placeholder-product.svg'],
+          thc: 22.5,
+          cbd: 0.8
+        },
+        {
+          _id: '2',
+          name: 'CBD Gummy Bears',
+          description: 'Delicious gummy bears infused with high-quality CBD for relaxation.',
+          price: 29.99,
+          category: 'edibles',
+          brand: 'Wellness Edibles',
+          stock: 50,
+          images: ['/placeholder-product.svg'],
+          thc: 0.3,
+          cbd: 25.0
+        },
+        {
+          _id: '3',
+          name: 'Live Resin Concentrate',
+          description: 'Premium live resin extract with exceptional flavor and potency.',
+          price: 65.99,
+          category: 'concentrates',
+          brand: 'Extract Masters',
+          stock: 15,
+          images: ['/placeholder-product.svg'],
+          thc: 85.2,
+          cbd: 2.1
+        },
+        {
+          _id: '4',
+          name: 'CBD Pain Relief Cream',
+          description: 'Topical cream infused with CBD for targeted pain relief.',
+          price: 39.99,
+          category: 'topicals',
+          brand: 'Healing Touch',
+          stock: 30,
+          images: ['/placeholder-product.svg'],
+          thc: 0.0,
+          cbd: 500.0
+        },
+        {
+          _id: '5',
+          name: 'Vape Pen Starter Kit',
+          description: 'Complete vape pen kit with premium cannabis oil cartridge.',
+          price: 55.99,
+          category: 'vapes',
+          brand: 'VapeTech',
+          stock: 20,
+          images: ['/placeholder-product.svg'],
+          thc: 75.0,
+          cbd: 5.0
+        },
+        {
+          _id: '6',
+          name: 'Premium Grinder',
+          description: 'High-quality 4-piece grinder with pollen catcher.',
+          price: 24.99,
+          category: 'accessories',
+          brand: 'GrindMaster',
+          stock: 40,
+          images: ['/placeholder-product.svg'],
+          thc: 0.0,
+          cbd: 0.0
+        }
+      ];
+      
+      setProducts(sampleProducts);
+      setTotalPages(1);
     } finally {
       setLoading(false);
     }
@@ -609,6 +688,21 @@ const Products = () => {
         </NoProducts>
       ) : (
         <>
+          {products.some(p => p._id === '1') && (
+            <div style={{
+              background: 'linear-gradient(135deg, #fef3c7 0%, #fde68a 100%)',
+              border: '1px solid #f59e0b',
+              borderRadius: '12px',
+              padding: '16px',
+              margin: '0 auto 32px',
+              maxWidth: '1400px',
+              textAlign: 'center',
+              color: '#92400e',
+              fontWeight: '500'
+            }}>
+              <strong>📱 Demo Mode:</strong> You're viewing sample products. Connect your backend to see real inventory.
+            </div>
+          )}
           <ProductsGrid>
             {products.map(product => (
               <ProductCard key={product._id} product={product} />
