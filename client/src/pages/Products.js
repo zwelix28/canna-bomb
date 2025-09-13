@@ -464,6 +464,94 @@ const Products = () => {
     try {
       setLoading(true);
       
+      // Check if we're in production without a backend (Netlify demo mode)
+      const isProduction = process.env.NODE_ENV === 'production';
+      const hasApiUrl = process.env.REACT_APP_API_URL && process.env.REACT_APP_API_URL !== '';
+      
+      if (isProduction && !hasApiUrl) {
+        // Show sample products immediately for Netlify demo
+        const sampleProducts = [
+        {
+          _id: '1',
+          name: 'Premium OG Kush',
+          description: 'A classic indica strain known for its relaxing effects and earthy aroma.',
+          price: 45.99,
+          category: 'flower',
+          brand: 'Premium Cannabis Co',
+          stock: 25,
+          images: ['/placeholder-product.svg'],
+          thc: 22.5,
+          cbd: 0.8
+        },
+        {
+          _id: '2',
+          name: 'CBD Gummy Bears',
+          description: 'Delicious gummy bears infused with high-quality CBD for relaxation.',
+          price: 29.99,
+          category: 'edibles',
+          brand: 'Wellness Edibles',
+          stock: 50,
+          images: ['/placeholder-product.svg'],
+          thc: 0.3,
+          cbd: 25.0
+        },
+        {
+          _id: '3',
+          name: 'Live Resin Concentrate',
+          description: 'Premium live resin extract with exceptional flavor and potency.',
+          price: 65.99,
+          category: 'concentrates',
+          brand: 'Extract Masters',
+          stock: 15,
+          images: ['/placeholder-product.svg'],
+          thc: 85.2,
+          cbd: 2.1
+        },
+        {
+          _id: '4',
+          name: 'CBD Pain Relief Cream',
+          description: 'Topical cream infused with CBD for targeted pain relief.',
+          price: 39.99,
+          category: 'topicals',
+          brand: 'Healing Touch',
+          stock: 30,
+          images: ['/placeholder-product.svg'],
+          thc: 0.0,
+          cbd: 500.0
+        },
+        {
+          _id: '5',
+          name: 'Vape Pen Starter Kit',
+          description: 'Complete vape pen kit with premium cannabis oil cartridge.',
+          price: 55.99,
+          category: 'vapes',
+          brand: 'VapeTech',
+          stock: 20,
+          images: ['/placeholder-product.svg'],
+          thc: 75.0,
+          cbd: 5.0
+        },
+        {
+          _id: '6',
+          name: 'Premium Grinder',
+          description: 'High-quality 4-piece grinder with pollen catcher.',
+          price: 24.99,
+          category: 'accessories',
+          brand: 'GrindMaster',
+          stock: 40,
+          images: ['/placeholder-product.svg'],
+          thc: 0.0,
+          cbd: 0.0
+        }
+      ];
+      
+        setProducts(sampleProducts);
+        setTotalPages(1);
+        setLoading(false);
+        return;
+      }
+      
+      // Normal API call for development or production with backend
       const params = new URLSearchParams({
         page: currentPage,
         limit: 12,
