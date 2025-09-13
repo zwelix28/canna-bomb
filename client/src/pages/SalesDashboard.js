@@ -327,52 +327,13 @@ const SimpleChart = styled.div`
   overflow-y: auto;
 `;
 
-const ChartBar = styled.div`
-  width: ${props => props.width}%;
-  height: 14px;
-  background: linear-gradient(90deg, ${props => props.color} 0%, ${props => props.colorSecondary} 100%);
-  border-radius: 7px;
-  position: relative;
-  transition: all 0.3s ease;
-  min-width: 10px;
-  
-  &:hover {
-    transform: scaleY(1.1);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-  }
-`;
+// Removed unused ChartBar component
 
-const ChartLabel = styled.div`
-  color: #94a3b8;
-  font-size: 0.8rem;
-  font-weight: 500;
-  margin-bottom: 6px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-`;
+// Removed unused ChartLabel component
 
-const ChartValue = styled.div`
-  color: #ffffff;
-  font-size: 0.95rem;
-  font-weight: 700;
-  margin-top: 6px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-`;
+// Removed unused ChartValue component
 
-const ChartItem = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  margin-bottom: 10px;
-  min-height: 36px;
-  
-  &:last-child {
-    margin-bottom: 0;
-  }
-`;
+// Removed unused ChartItem component
 
 // New chart types for better data representation
 const DataGrid = styled.div`

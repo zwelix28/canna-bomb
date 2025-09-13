@@ -113,12 +113,7 @@ const NewTag = styled.span`
   }
 `;
 
-const AIFeaturesGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 24px;
-  margin-bottom: 48px;
-`;
+// Removed unused AIFeaturesGrid component
 
 const AIFeatureCard = styled.div`
   background: rgba(255, 255, 255, 0.05);
@@ -165,48 +160,13 @@ const AIFeatureCard = styled.div`
   }
 `;
 
-const FeatureIcon = styled.div`
-  width: 56px;
-  height: 56px;
-  border-radius: 16px;
-  background: linear-gradient(135deg, #10b981 0%, #34d399 50%, #6ee7b7 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 22px;
-  margin-bottom: 18px;
-  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.3);
-  transition: all 0.4s ease;
-  
-  ${AIFeatureCard}:hover & {
-    transform: scale(1.1) rotate(5deg);
-    box-shadow: 0 8px 24px rgba(16, 185, 129, 0.4);
-  }
-`;
+// Removed unused FeatureIcon component
 
-const FeatureTitle = styled.h3`
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: #ffffff;
-  margin-bottom: 12px;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-`;
+// Removed unused FeatureTitle component
 
-const FeatureDescription = styled.p`
-  color: #94a3b8;
-  font-size: 0.9rem;
-  line-height: 1.5;
-  margin-bottom: 16px;
-`;
+// Removed unused FeatureDescription component
 
-const FeatureBenefits = styled.ul`
-  list-style: none;
-  padding: 0;
-  margin: 0;
-`;
+// Removed unused FeatureBenefits component
 
 const BenefitItem = styled.li`
   color: #e2e8f0;
@@ -290,27 +250,11 @@ const InsightCard = styled.div`
   }
 `;
 
-const InsightTitle = styled.h4`
-  color: #10b981;
-  font-size: 0.9rem;
-  font-weight: 600;
-  margin-bottom: 10px;
-  text-transform: uppercase;
-  letter-spacing: 0.8px;
-`;
+// Removed unused InsightTitle component
 
-const InsightValue = styled.div`
-  color: #ffffff;
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin-bottom: 6px;
-`;
+// Removed unused InsightValue component
 
-const InsightDescription = styled.p`
-  color: #94a3b8;
-  font-size: 0.8rem;
-  line-height: 1.4;
-`;
+// Removed unused InsightDescription component
 
 const TrendAnalysis = styled.div`
   background: rgba(255, 255, 255, 0.03);
@@ -614,63 +558,7 @@ const AIAnalytics = () => {
     fetchAIAnalytics();
   }, []);
 
-  const aiFeatures = [
-    {
-      icon: '📊',
-      title: 'Predictive Analytics',
-      description: 'AI-powered forecasting for sales trends, inventory needs, and customer behavior patterns.',
-      benefits: [
-        'Sales forecasting with 85%+ accuracy',
-        'Demand prediction for inventory optimization',
-        'Customer behavior analysis',
-        'Seasonal trend identification'
-      ]
-    },
-    {
-      icon: '🎯',
-      title: 'Smart Recommendations',
-      description: 'Intelligent product recommendations and pricing optimization based on market analysis.',
-      benefits: [
-        'Dynamic pricing optimization',
-        'Cross-selling opportunity identification',
-        'Product bundling suggestions',
-        'Market positioning insights'
-      ]
-    },
-    {
-      icon: '📈',
-      title: 'Performance Optimization',
-      description: 'AI-driven insights to optimize business operations and maximize profitability.',
-      benefits: [
-        'Operational efficiency analysis',
-        'Cost optimization recommendations',
-        'Resource allocation optimization',
-        'Performance benchmarking'
-      ]
-    },
-    {
-      icon: '🧠',
-      title: 'Customer Intelligence',
-      description: 'Deep analysis of customer data to improve retention and acquisition strategies.',
-      benefits: [
-        'Customer lifetime value prediction',
-        'Churn risk identification',
-        'Segmentation and targeting',
-        'Personalization opportunities'
-      ]
-    },
-    {
-      icon: '⚡',
-      title: 'Real-time Insights',
-      description: 'Live monitoring and instant alerts for critical business metrics and opportunities.',
-      benefits: [
-        'Real-time dashboard updates',
-        'Instant alert notifications',
-        'Live performance monitoring',
-        'Immediate opportunity detection'
-      ]
-    }
-  ];
+  // Removed unused aiFeatures array
 
   if (loading) {
     return (

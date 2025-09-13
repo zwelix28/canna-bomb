@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import styled from 'styled-components';
 import notificationService from '../utils/notificationService';
 import { useNotification } from '../contexts/NotificationContext';
@@ -144,20 +144,20 @@ const NotificationSettings = () => {
   useEffect(() => {
     checkNotificationSupport();
     checkNotificationStatus();
-  }, []);
+  }, [checkNotificationStatus]);
 
   const checkNotificationSupport = () => {
     const supported = notificationService.isNotificationSupported();
     setIsSupported(supported);
   };
 
-  const checkNotificationStatus = async () => {
+  const checkNotificationStatus = useCallback(async () => {
     if (isSupported) {
       const permission = Notification.permission;
       const profileEnabled = await notificationService.areNotificationsEnabled();
       setNotificationsEnabled(permission === 'granted' && profileEnabled);
     }
-  };
+  }, [isSupported]);
 
   const handleToggleNotifications = async () => {
     if (!isSupported) {
