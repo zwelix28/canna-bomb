@@ -17,10 +17,9 @@ const ProfileContent = styled.div`
 `;
 
 const ProfileHeader = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 20px;
+  text-align: center;
+  margin-bottom: 50px;
+  padding: 0 24px;
 `;
 
 const ProfileTitle = styled.h1`
