@@ -10,9 +10,9 @@ const Page = styled.div`
 `;
 
 const Wrap = styled.div`
-  max-width: 1400px;
+  max-width: 1600px;
   margin: 0 auto;
-  padding: 24px 20px;
+  padding: 20px 16px;
 `;
 
 const Header = styled.div`
@@ -33,21 +33,27 @@ const Title = styled.h1`
 
 const Layout = styled.div`
   display: grid;
-  grid-template-columns: 1.2fr 1.8fr;
-  gap: 16px;
-  @media (max-width: 1024px) { grid-template-columns: 1fr; }
+  grid-template-columns: 1fr 1.4fr;
+  gap: 20px;
+  height: calc(100vh - 120px);
+  @media (max-width: 1024px) { 
+    grid-template-columns: 1fr; 
+    height: auto;
+  }
 `;
 
 const Panel = styled.div`
   background: rgba(255,255,255,0.06);
   border: 1px solid rgba(255,255,255,0.12);
   border-radius: 16px;
-  padding: 14px;
-  min-height: 380px; /* stabilize layout on detail mount */
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 `;
 
 const DetailPanel = styled(Panel)`
-  height: 520px; /* fix height to prevent column reflow */
+  height: 100%;
   overflow: auto;
 `;
 
@@ -79,19 +85,19 @@ const SearchInput = styled.input`
 
 const OrdersList = styled.div`
   display: grid;
-  gap: 10px;
-  margin-top: 10px;
-  max-height: 520px; /* match detail height */
+  gap: 8px;
+  flex: 1;
   overflow: auto;
+  padding-right: 4px;
 `;
 
 const Row = styled.div`
   width: 100%;
   display: grid;
   grid-template-columns: 1.2fr 1fr auto;
-  gap: 10px;
+  gap: 8px;
   align-items: center;
-  padding: 12px;
+  padding: 10px;
   border-radius: 12px;
   background: rgba(255,255,255,0.04);
   border: 1px solid rgba(255,255,255,0.1);
@@ -111,13 +117,13 @@ const OrderNum = styled.div`
 
 const OrderMeta = styled.div`
   color: #94a3b8;
-  font-size: 12px;
+  font-size: 11px;
 `;
 
 const Badge = styled.span`
-  padding: 6px 10px;
-  border-radius: 12px;
-  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 10px;
+  font-size: 11px;
   border: 1px solid;
   background: ${p => p.status === 'pending' ? 'rgba(245, 158, 11, 0.15)'
     : p.status === 'confirmed' ? 'rgba(59, 130, 246, 0.15)'
@@ -180,9 +186,9 @@ const Divider = styled.div`
 const Section = styled.div`
   background: rgba(255,255,255,0.04);
   border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 12px;
-  padding: 12px;
-  margin-top: 10px;
+  border-radius: 10px;
+  padding: 10px;
+  margin-top: 8px;
   color: #e2e8f0;
   will-change: contents; /* hint to avoid jitter on content update */
 `;
@@ -196,10 +202,10 @@ const Item = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 8px;
+  padding: 6px;
   background: rgba(255,255,255,0.03);
   border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 10px;
+  border-radius: 8px;
 `;
 
 export default function TestOrder() {
@@ -245,11 +251,27 @@ export default function TestOrder() {
 
   const filtered = useMemo(() => {
     const q = search.trim().toLowerCase();
-    if (!q) return orders;
-    return orders.filter(o => {
+    let filteredOrders = q ? orders.filter(o => {
       const num = (o.orderNumber || '').toLowerCase();
       const name = `${o.customerInfo?.firstName || ''} ${o.customerInfo?.lastName || ''}`.toLowerCase();
       return num.includes(q) || name.includes(q);
+    }) : orders;
+    
+    // Sort by status priority: pending, processing, ready, confirmed, completed, cancelled
+    const statusPriority = {
+      pending: 0,
+      processing: 1,
+      ready: 2,
+      confirmed: 3,
+      completed: 4,
+      cancelled: 5
+    };
+    
+    return filteredOrders.sort((a, b) => {
+      const priorityA = statusPriority[a.status] ?? 99;
+      const priorityB = statusPriority[b.status] ?? 99;
+      if (priorityA !== priorityB) return priorityA - priorityB;
+      return new Date(b.createdAt) - new Date(a.createdAt); // newest first within same status
     });
   }, [orders, search]);
 
@@ -294,8 +316,8 @@ export default function TestOrder() {
                 <Row key={o._id} onClick={() => setSelected(o)} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setSelected(o); }}>
                   <OrderNum>{o.orderNumber}</OrderNum>
                   <OrderMeta>{(o.customerInfo?.firstName || '') + ' ' + (o.customerInfo?.lastName || '')}</OrderMeta>
-                  <Badge status={o.status}>{statusIcon[o.status]} <span style={{ marginLeft: 6, textTransform: 'capitalize' }}>{o.status}</span></Badge>
-                  <div style={{ gridColumn: '1 / -1', color: '#94a3b8', fontSize: 12, marginTop: 4 }}>{new Date(o.createdAt).toLocaleString()}</div>
+                  <Badge status={o.status}>{statusIcon[o.status]} <span style={{ marginLeft: 4, textTransform: 'capitalize' }}>{o.status}</span></Badge>
+                  <div style={{ gridColumn: '1 / -1', color: '#94a3b8', fontSize: 10, marginTop: 2 }}>{new Date(o.createdAt).toLocaleDateString()}</div>
                 </Row>
               ))}
               {filtered.length === 0 && (
@@ -333,32 +355,32 @@ export default function TestOrder() {
                 </Stepper>
 
                 <Section>
-                  <div style={{ fontWeight: 700, marginBottom: 8 }}>Recipient</div>
-                  <div>{selected.customerInfo?.firstName || 'N/A'} {selected.customerInfo?.lastName || ''}</div>
-                  <div style={{ color:'#94a3b8', fontSize: 12 }}>{selected.customerInfo?.email || 'N/A'}</div>
+                  <div style={{ fontWeight: 700, marginBottom: 6, fontSize: 13 }}>Recipient</div>
+                  <div style={{ fontSize: 13 }}>{selected.customerInfo?.firstName || 'N/A'} {selected.customerInfo?.lastName || ''}</div>
+                  <div style={{ color:'#94a3b8', fontSize: 11 }}>{selected.customerInfo?.email || 'N/A'}</div>
                 </Section>
 
                 <Section>
-                  <div style={{ fontWeight: 700, marginBottom: 8 }}>Collection</div>
-                  <div>Method: {selected.collectionMethod || 'N/A'}</div>
-                  <div>Date: {selected.collectionDate || 'N/A'}</div>
-                  <div>Time: {selected.collectionTime || 'N/A'}</div>
-                  {selected.orderNotes && <div>Notes: {selected.orderNotes}</div>}
+                  <div style={{ fontWeight: 700, marginBottom: 6, fontSize: 13 }}>Collection</div>
+                  <div style={{ fontSize: 12 }}>Method: {selected.collectionMethod || 'N/A'}</div>
+                  <div style={{ fontSize: 12 }}>Date: {selected.collectionDate || 'N/A'}</div>
+                  <div style={{ fontSize: 12 }}>Time: {selected.collectionTime || 'N/A'}</div>
+                  {selected.orderNotes && <div style={{ fontSize: 12 }}>Notes: {selected.orderNotes}</div>}
                 </Section>
 
                 <Section>
-                  <div style={{ fontWeight: 700, marginBottom: 8 }}>Items ({selected.items?.length || 0})</div>
+                  <div style={{ fontWeight: 700, marginBottom: 6, fontSize: 13 }}>Items ({selected.items?.length || 0})</div>
                   <Items>
                     {(selected.items || []).map((it, i) => (
                       <Item key={i}>
-                        <div style={{ display:'flex', gap:8, alignItems:'center' }}>
-                          <img src={it.image || '/placeholder-product.svg'} alt={it.name} width={36} height={36} style={{ borderRadius: 6, objectFit:'cover' }} onError={(e) => { e.currentTarget.src = '/placeholder-product.svg'; }} />
+                        <div style={{ display:'flex', gap:6, alignItems:'center' }}>
+                          <img src={it.image || '/placeholder-product.svg'} alt={it.name} width={28} height={28} style={{ borderRadius: 4, objectFit:'cover' }} onError={(e) => { e.currentTarget.src = '/placeholder-product.svg'; }} />
                           <div>
-                            <div style={{ fontWeight:600 }}>{it.name || 'Unknown Item'}</div>
-                            <div style={{ color:'#94a3b8', fontSize:12 }}>Qty: {it.quantity || 0}</div>
+                            <div style={{ fontWeight:600, fontSize: 12 }}>{it.name || 'Unknown Item'}</div>
+                            <div style={{ color:'#94a3b8', fontSize:10 }}>Qty: {it.quantity || 0}</div>
                           </div>
                         </div>
-                        <div style={{ fontWeight:700 }}>R{(it.total || 0).toFixed(2)}</div>
+                        <div style={{ fontWeight:700, fontSize: 12 }}>R{(it.total || 0).toFixed(2)}</div>
                       </Item>
                     ))}
                   </Items>
@@ -366,8 +388,8 @@ export default function TestOrder() {
 
                 <Section>
                   <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center' }}>
-                    <div style={{ fontWeight:700 }}>Total</div>
-                    <div style={{ fontWeight:800, color:'#10b981' }}>R{(selected.total || 0).toFixed(2)}</div>
+                    <div style={{ fontWeight:700, fontSize: 13 }}>Total</div>
+                    <div style={{ fontWeight:800, color:'#10b981', fontSize: 14 }}>R{(selected.total || 0).toFixed(2)}</div>
                   </div>
                 </Section>
                 {updating && <div style={{ marginTop:8, color:'#94a3b8', fontSize:12 }}>Updating...</div>}
