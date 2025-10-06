@@ -757,7 +757,7 @@ const Header = () => {
                     <DropdownItem to="/admin/test-order" onClick={() => setIsDropdownOpen(false)}>
                       <RiTestTubeLine /> Order Management
                     </DropdownItem>
-                    <DropdownItem to="/admin/test-statistics" onClick={() => setIsDropdownOpen(false)}>
+                    <DropdownItem to="/admin/advanced-statistics" onClick={() => setIsDropdownOpen(false)}>
                       <RiBarChart2Line /> Statistics & Business Insight
                     </DropdownItem>
                 <DropdownItem to="/ai-analytics" onClick={() => setIsDropdownOpen(false)} style={{ fontSize: '14px' }}>
