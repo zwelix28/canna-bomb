@@ -1,8 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
+import { RiMapPin2Line, RiPhoneLine, RiMailLine, RiFacebookBoxFill, RiInstagramLine, RiTwitterXLine, RiLinkedinBoxFill } from 'react-icons/ri';
 
 const FooterContainer = styled.footer`
-  background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+  background:
+    radial-gradient(1000px 300px at 0% 0%, rgba(16,185,129,0.12), transparent 55%),
+    linear-gradient(135deg, #0b1222 0%, #0f172a 50%, #1e293b 100%);
   color: white;
   margin-top: auto;
   position: relative;
@@ -15,7 +18,7 @@ const FooterContainer = styled.footer`
     left: 0;
     right: 0;
     height: 1px;
-    background: linear-gradient(90deg, transparent 0%, #10b981 50%, transparent 100%);
+    background: linear-gradient(90deg, transparent 0%, rgba(16,185,129,0.9) 50%, transparent 100%);
   }
 `;
 
@@ -52,7 +55,7 @@ const BrandSection = styled.div`
   }
   
   p {
-    color: #cbd5e1;
+    color: #cfe7dc;
     line-height: 1.7;
     font-size: 1rem;
     margin-bottom: 24px;
@@ -70,11 +73,7 @@ const ContactInfo = styled.div`
     color: #94a3b8;
     font-size: 0.95rem;
     
-    .icon {
-      margin-right: 12px;
-      font-size: 1.1rem;
-      color: #10b981;
-    }
+    .icon { margin-right: 12px; font-size: 1.1rem; color: #10b981; }
   }
 `;
 
@@ -166,27 +165,8 @@ const SocialLinks = styled.div`
     gap: 12px;
   }
   
-  .social-icon {
-    width: 40px;
-    height: 40px;
-    background: rgba(16, 185, 129, 0.1);
-    border: 1px solid rgba(16, 185, 129, 0.2);
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #10b981;
-    font-size: 1.2rem;
-    transition: all 0.3s ease;
-    cursor: pointer;
-    
-    &:hover {
-      background: rgba(16, 185, 129, 0.2);
-      border-color: #10b981;
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
-    }
-  }
+  .social-icon { width: 40px; height: 40px; background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.2); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #10b981; font-size: 1.2rem; transition: all 0.3s ease; cursor: pointer; }
+  .social-icon:hover { background: rgba(16,185,129,0.2); border-color: #10b981; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(16,185,129,0.3); }
 `;
 
 const FooterBottom = styled.div`
@@ -271,27 +251,18 @@ const Footer = () => {
           </p>
           
           <ContactInfo>
-            <div className="contact-item">
-              <span className="icon">📍</span>
-              <span>Cape Town, Western Cape 8000</span>
-            </div>
-            <div className="contact-item">
-              <span className="icon">📞</span>
-              <span>+27 (0) 21 123 4567</span>
-            </div>
-            <div className="contact-item">
-              <span className="icon">✉️</span>
-              <span>info@cannabomb.co.za</span>
-            </div>
+            <div className="contact-item"><span className="icon"><RiMapPin2Line /></span><span>Cape Town, Western Cape 8000</span></div>
+            <div className="contact-item"><span className="icon"><RiPhoneLine /></span><span>+27 (0) 21 123 4567</span></div>
+            <div className="contact-item"><span className="icon"><RiMailLine /></span><span>info@cannabomb.co.za</span></div>
           </ContactInfo>
           
           <SocialLinks>
             <h5>Follow Us</h5>
             <div className="social-icons">
-              <div className="social-icon">📘</div>
-              <div className="social-icon">📷</div>
-              <div className="social-icon">🐦</div>
-              <div className="social-icon">💼</div>
+              <div className="social-icon" aria-label="Facebook"><RiFacebookBoxFill /></div>
+              <div className="social-icon" aria-label="Instagram"><RiInstagramLine /></div>
+              <div className="social-icon" aria-label="Twitter"><RiTwitterXLine /></div>
+              <div className="social-icon" aria-label="LinkedIn"><RiLinkedinBoxFill /></div>
             </div>
           </SocialLinks>
         </BrandSection>

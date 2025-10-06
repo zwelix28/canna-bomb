@@ -23,7 +23,9 @@ A modern, user-friendly e-commerce platform for cannabis products with seamless 
 - **bcryptjs** for password hashing
 
 ### Frontend
-- **React 18** with hooks
+- **React 18** with h
+
+ooks
 - **React Router** for navigation
 - **Styled Components** for styling
 - **Axios** for API communication

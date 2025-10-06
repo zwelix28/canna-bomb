@@ -4,18 +4,18 @@ import styled from 'styled-components';
 import { useCart } from '../contexts/CartContext';
 
 const Card = styled.div`
-  background: #ffffff;
+  background: linear-gradient(180deg, #ffffff 0%, #fbfffd 60%, #f2fff8 100%);
   border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 8px 22px rgba(16, 185, 129, 0.12);
   border: 2px solid #ffffff;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
   position: relative;
   
   &:hover {
     transform: translateY(-6px);
-    box-shadow: 0 16px 32px rgba(16, 185, 129, 0.15);
-    border-color: #f0f9ff;
+    box-shadow: 0 22px 44px rgba(16, 185, 129, 0.18);
+    border-color: #d6ffe9;
   }
   
   /* Mobile PWA optimizations */
@@ -34,7 +34,7 @@ const ImageContainer = styled.div`
   position: relative;
   aspect-ratio: 1;
   overflow: hidden;
-  background: #ffffff;
+  background: linear-gradient(180deg, #ffffff 0%, #f7fffb 100%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -45,7 +45,7 @@ const ProductImage = styled.img`
   height: 100%;
   object-fit: contain;
   object-position: center;
-  background: #ffffff;
+  background: transparent;
   transition: transform 0.4s ease;
   
   ${Card}:hover & {
@@ -178,7 +178,7 @@ const InfoItem = styled.div`
 
 const AddToCartButton = styled.button`
   width: 100%;
-  background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+  background: linear-gradient(135deg, #12d8a5 0%, #10b981 60%, #0ea97a 100%);
   color: white;
   border: none;
   padding: 12px;
@@ -187,12 +187,12 @@ const AddToCartButton = styled.button`
   font-size: 14px;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+  box-shadow: 0 8px 18px rgba(16, 185, 129, 0.35);
   
   &:hover {
-    background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+    background: linear-gradient(135deg, #10b981 0%, #0ea97a 50%, #0d8f68 100%);
     transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(16, 185, 129, 0.4);
+    box-shadow: 0 10px 24px rgba(16, 185, 129, 0.4);
   }
   
   &:disabled {
@@ -301,10 +301,14 @@ const ProductCard = ({ product, simplified = false }) => {
       <Card>
         <ImageContainer>
           <ProductImage 
-            src={product.images[0] || '/placeholder-product.jpg'} 
+            src={product.images[0] || '/placeholder-product.svg'} 
             alt={product.name}
+            loading="lazy"
+            decoding="async"
             onError={(e) => {
-              e.target.src = '/placeholder-product.jpg';
+              // Prevent infinite onError loop and set correct placeholder
+              e.currentTarget.onerror = null;
+              e.currentTarget.src = '/placeholder-product.svg';
             }}
           />
           {isOnSale && (
@@ -345,10 +349,14 @@ const ProductCard = ({ product, simplified = false }) => {
     <Card>
       <ImageContainer>
         <ProductImage 
-          src={product.images[0] || '/placeholder-product.jpg'} 
+          src={product.images[0] || '/placeholder-product.svg'} 
           alt={product.name}
+          loading="lazy"
+          decoding="async"
           onError={(e) => {
-            e.target.src = '/placeholder-product.jpg';
+            // Prevent infinite onError loop and set correct placeholder
+            e.currentTarget.onerror = null;
+            e.currentTarget.src = '/placeholder-product.svg';
           }}
         />
         {isOnSale && (

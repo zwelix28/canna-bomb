@@ -6,8 +6,8 @@ import ProductCard from '../components/ProductCard';
 
 const ProductsContainer = styled.div`
   min-height: 100vh;
-  padding: 40px 0;
-  background: linear-gradient(135deg, #f8fafc 0%, #ffffff 50%, #f1f5f9 100%);
+  padding: 32px 0;
+  background: linear-gradient(135deg, #0b1222 0%, #0f172a 50%, #1e293b 100%);
   position: relative;
   
   &::before {
@@ -28,9 +28,9 @@ const ProductsHeader = styled.div`
 `;
 
 const Title = styled.h1`
-  font-size: 3rem;
+  font-size: 2.8rem;
   font-weight: 900;
-  background: linear-gradient(135deg, #0f172a 0%, #10b981 50%, #34d399 100%);
+  background: linear-gradient(135deg, #ffffff 0%, #10b981 30%, #34d399 60%, #6ee7b7 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -44,8 +44,8 @@ const Title = styled.h1`
     bottom: -8px;
     left: 50%;
     transform: translateX(-50%);
-    width: 60px;
-    height: 3px;
+    width: 100px;
+    height: 2px;
     background: linear-gradient(90deg, #10b981 0%, #34d399 100%);
     border-radius: 2px;
   }
@@ -56,10 +56,10 @@ const Title = styled.h1`
 `;
 
 const Subtitle = styled.p`
-  color: #64748b;
+  color: #94a3b8;
   font-size: 1.1rem;
   font-weight: 500;
-  max-width: 500px;
+  max-width: 600px;
   margin: 0 auto;
   line-height: 1.6;
 `;
@@ -81,12 +81,12 @@ const FiltersSection = styled.div`
 `;
 
 const FiltersContainer = styled.div`
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.06);
   backdrop-filter: blur(20px);
   border-radius: 16px;
-  padding: 24px;
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   
   @media (max-width: 768px) {
     padding: 16px;
@@ -136,7 +136,7 @@ const FilterGroup = styled.div`
 
 const FilterLabel = styled.label`
   font-weight: 700;
-  color: #0f172a;
+  color: #e2e8f0;
   font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 0.4px;
@@ -153,25 +153,25 @@ const FilterLabel = styled.label`
 `;
 
 const FilterSelect = styled.select`
-  padding: 12px 16px;
-  border: 2px solid rgba(16, 185, 129, 0.15);
-  border-radius: 10px;
+  padding: 10px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 12px;
   font-size: 13px;
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.08);
+  color: #e2e8f0;
   font-weight: 600;
-  transition: border-color 0.3s ease, background-color 0.3s ease, transform 0.3s ease;
+  transition: all 0.3s ease;
   cursor: pointer;
   
   &:focus {
     outline: none;
-    border-color: #10b981;
-    background: white;
-    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+    border-color: rgba(16, 185, 129, 0.35);
+    background: rgba(16, 185, 129, 0.1);
     transform: translateY(-1px);
   }
   
   &:hover {
-    border-color: rgba(16, 185, 129, 0.3);
+    border-color: rgba(16, 185, 129, 0.35);
     transform: translateY(-1px);
   }
   
@@ -189,29 +189,29 @@ const FilterSelect = styled.select`
 `;
 
 const FilterInput = styled.input`
-  padding: 12px 16px;
-  border: 2px solid rgba(16, 185, 129, 0.15);
-  border-radius: 10px;
+  padding: 10px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 12px;
   font-size: 13px;
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.08);
+  color: #e2e8f0;
   font-weight: 600;
-  transition: border-color 0.3s ease, background-color 0.3s ease, transform 0.3s ease;
+  transition: all 0.3s ease;
   
   &:focus {
     outline: none;
-    border-color: #10b981;
-    background: white;
-    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+    border-color: rgba(16, 185, 129, 0.35);
+    background: rgba(16, 185, 129, 0.1);
     transform: translateY(-1px);
   }
   
   &:hover {
-    border-color: rgba(16, 185, 129, 0.3);
+    border-color: rgba(16, 185, 129, 0.35);
     transform: translateY(-1px);
   }
   
   &::placeholder {
-    color: #94a3b8;
+    color: #a3b0c2;
     font-weight: 500;
   }
   

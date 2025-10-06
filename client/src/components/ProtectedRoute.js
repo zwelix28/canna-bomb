@@ -3,8 +3,8 @@ import { Navigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import LoadingSpinner from './LoadingSpinner';
 
-const ProtectedRoute = ({ children }) => {
-  const { isAuthenticated, loading } = useAuth();
+const ProtectedRoute = ({ children, adminOnly = false }) => {
+  const { isAuthenticated, loading, user } = useAuth();
 
   if (loading) {
     return <LoadingSpinner />;
@@ -12,6 +12,10 @@ const ProtectedRoute = ({ children }) => {
 
   if (!isAuthenticated) {
     return <Navigate to="/login" replace />;
+  }
+
+  if (adminOnly && user?.role !== 'admin') {
+    return <Navigate to="/" replace />;
   }
 
   return children;

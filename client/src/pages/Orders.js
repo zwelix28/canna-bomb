@@ -1,9 +1,10 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import api from '../utils/axios';
 import { useNotification } from '../contexts/NotificationContext';
 import { useAuth } from '../contexts/AuthContext';
+import { RiSearchLine, RiCheckLine, RiCloseLine, RiTimer2Line, RiTruckLine, RiCheckboxCircleLine, RiAlertLine } from 'react-icons/ri';
 
 const OrdersContainer = styled.div`
   min-height: 100vh;
@@ -103,6 +104,7 @@ const Subtitle = styled.p`
   letter-spacing: 0.3px;
 `;
 
+/* StatsGrid removed — tiles live on Admin Dashboard */
 const StatsGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(${props => props.isAdmin ? '200px' : '280px'}, 1fr));
@@ -118,6 +120,7 @@ const StatsGrid = styled.div`
   }
 `;
 
+/* StatCard removed — tiles live on Admin Dashboard */
 const StatCard = styled.div`
   background: ${props => props.isAdmin ? 
     'rgba(255, 255, 255, 0.05)' :
@@ -190,6 +193,7 @@ const StatCard = styled.div`
   }
 `;
 
+/* StatNumber removed — tiles live on Admin Dashboard */
 const StatNumber = styled.div`
   font-size: ${props => props.isAdmin ? '2.2rem' : '3rem'};
   font-weight: 900;
@@ -212,6 +216,7 @@ const StatNumber = styled.div`
   }
 `;
 
+/* StatLabel removed — tiles live on Admin Dashboard */
 const StatLabel = styled.div`
   color: ${props => props.isAdmin ? '#94a3b8' : '#64748b'};
   font-size: ${props => props.isAdmin ? '0.85rem' : '1rem'};
@@ -240,6 +245,31 @@ const FilterBar = styled.div`
   border-radius: ${props => props.isAdmin ? '16px' : '0'};
   padding: ${props => props.isAdmin ? '16px' : '0'};
   border: ${props => props.isAdmin ? '1px solid rgba(255, 255, 255, 0.1)' : 'none'};
+  position: ${props => props.isAdmin ? 'sticky' : 'static'};
+  top: ${props => props.isAdmin ? '80px' : 'auto'};
+  z-index: 5;
+`;
+
+const SearchInputWrap = styled.div`
+  display: ${props => props.isAdmin ? 'flex' : 'none'};
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 12px;
+  padding: 8px 12px;
+  min-width: 260px;
+  color: #e2e8f0;
+`;
+
+const SearchInput = styled.input`
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #e2e8f0;
+  width: 220px;
+  font-size: 14px;
+  ::placeholder { color: #a3b0c2; }
 `;
 
 const FilterButton = styled.button`
@@ -284,8 +314,8 @@ const FilterButton = styled.button`
 
 const OrdersGrid = styled.div`
   display: grid;
-  gap: ${props => props.isAdmin ? '20px' : '32px'};
-  margin-bottom: ${props => props.isAdmin ? '32px' : '48px'};
+  gap: ${props => props.isAdmin ? '12px' : '32px'};
+  margin-bottom: ${props => props.isAdmin ? '24px' : '48px'};
 `;
 
 const OrderCard = styled.div`
@@ -294,8 +324,8 @@ const OrderCard = styled.div`
     'linear-gradient(135deg, #ffffff 0%, #f8fafc 100%)'
   };
   backdrop-filter: ${props => props.isAdmin ? 'blur(20px)' : 'none'};
-  border-radius: ${props => props.isAdmin ? '16px' : '24px'};
-  padding: ${props => props.isAdmin ? '24px' : '40px'};
+  border-radius: ${props => props.isAdmin ? '12px' : '24px'};
+  padding: ${props => props.isAdmin ? '14px 16px' : '40px'};
   box-shadow: ${props => props.isAdmin ? 
     '0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1)' :
     '0 4px 20px rgba(0, 0, 0, 0.08)'
@@ -361,11 +391,11 @@ const OrderCard = styled.div`
 `;
 
 const OrderHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: ${props => props.isAdmin ? '16px' : '20px'};
-  gap: 16px;
+  display: grid;
+  grid-template-columns: ${props => props.isAdmin ? '24px 1.4fr 0.8fr auto' : '1fr'};
+  align-items: center;
+  margin-bottom: ${props => props.isAdmin ? '0' : '20px'};
+  gap: ${props => props.isAdmin ? '12px' : '16px'};
   
   /* Mobile PWA optimizations */
   @media (max-width: 768px) {
@@ -376,15 +406,27 @@ const OrderHeader = styled.div`
   }
 `;
 
+const SelectCell = styled.div`
+  display: ${props => props.isAdmin ? 'block' : 'none'};
+`;
+
+const RowCheckbox = styled.input`
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+`;
+
 const OrderInfo = styled.div`
-  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
 `;
 
 const OrderNumber = styled.h3`
-  font-size: ${props => props.isAdmin ? '1.1rem' : '1.3rem'};
+  font-size: ${props => props.isAdmin ? '1rem' : '1.3rem'};
   font-weight: 600;
   color: ${props => props.isAdmin ? '#ffffff' : '#1e293b'};
-  margin-bottom: ${props => props.isAdmin ? '6px' : '8px'};
+  margin-bottom: ${props => props.isAdmin ? '2px' : '8px'};
   font-family: ${props => props.isAdmin ? "'Inter', -apple-system, BlinkMacSystemFont, sans-serif" : 'inherit'};
 `;
 
@@ -397,7 +439,7 @@ const OrderDate = styled.p`
 const CustomerName = styled.p`
   color: ${props => props.isAdmin ? '#ffffff' : '#1e293b'};
   font-weight: 500;
-  font-size: ${props => props.isAdmin ? '14px' : '16px'};
+  font-size: ${props => props.isAdmin ? '13px' : '16px'};
 `;
 
 const OrderTotalText = styled.p`
@@ -408,9 +450,38 @@ const OrderTotalText = styled.p`
 
 const OrderStatus = styled.div`
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 8px;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+`;
+
+const Stepper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 6px;
+`;
+
+const Step = styled.button`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 1px solid ${props => props.active ? '#10b981' : 'rgba(255,255,255,0.25)'};
+  background: ${props => props.active ? 'rgba(16,185,129,0.15)' : 'rgba(255,255,255,0.08)'};
+  color: ${props => props.active ? '#10b981' : '#e2e8f0'};
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  &:hover { border-color: #10b981; color: #10b981; transform: translateY(-1px); }
+`;
+
+const StepDivider = styled.div`
+  width: 16px;
+  height: 2px;
+  border-radius: 2px;
+  background: ${props => props.filled ? '#10b981' : 'rgba(255,255,255,0.25)'};
 `;
 
 const StatusBadge = styled.span`
@@ -454,7 +525,7 @@ const StatusBadge = styled.span`
       switch (props.status) {
         case 'pending': return '#fbbf24';
         case 'confirmed': return '#60a5fa';
-        case 'processing': return '#fbbf24';
+        case 'processing': return '#6366f1';
         case 'ready': return '#34d399';
         case 'completed': return '#34d399';
         case 'cancelled': return '#fca5a5';
@@ -478,7 +549,7 @@ const StatusBadge = styled.span`
       switch (props.status) {
         case 'pending': return 'rgba(245, 158, 11, 0.3)';
         case 'confirmed': return 'rgba(59, 130, 246, 0.3)';
-        case 'processing': return 'rgba(245, 158, 11, 0.3)';
+        case 'processing': return 'rgba(99, 102, 241, 0.3)';
         case 'ready': return 'rgba(16, 185, 129, 0.3)';
         case 'completed': return 'rgba(16, 185, 129, 0.3)';
         case 'cancelled': return 'rgba(239, 68, 68, 0.3)';
@@ -495,72 +566,35 @@ const StatusBadge = styled.span`
   }
 `;
 
-const StatusTimeline = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: 8px;
-  
-  /* Hide status timeline on mobile PWA for cleaner look */
-  @media (max-width: 768px) {
-    display: none;
-  }
-`;
-
-const TimelineStep = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  font-size: 12px;
-  color: ${props => props.active ? '#10b981' : '#9ca3af'};
-  font-weight: ${props => props.active ? '600' : '400'};
-`;
-
-const TimelineDot = styled.div`
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: ${props => props.active ? '#10b981' : '#d1d5db'};
-`;
+/* Timeline components removed in compact admin view to reduce bundle and fix ESLint warnings */
 
 const NotificationBanner = styled.div`
-  background: ${props => {
-    switch (props.status) {
-      case 'ready': return '#dcfce7';
-      case 'completed': return '#dcfce7';
-      case 'cancelled': return '#fee2e2';
-      default: return '#f0f9ff';
-    }
-  }};
-  border: 1px solid ${props => {
-    switch (props.status) {
-      case 'ready': return '#10b981';
-      case 'completed': return '#10b981';
-      case 'cancelled': return '#ef4444';
-      default: return '#0ea5e9';
-    }
-  }};
-  border-radius: 8px;
+  background: ${props => props.isAdmin ? 'rgba(255, 255, 255, 0.06)' : (
+    props.status === 'ready' || props.status === 'completed' ? '#dcfce7' : props.status === 'cancelled' ? '#fee2e2' : '#f0f9ff'
+  )};
+  border: ${props => props.isAdmin ? '1px solid rgba(255, 255, 255, 0.12)' : (
+    props.status === 'ready' || props.status === 'completed' ? '1px solid #10b981' : props.status === 'cancelled' ? '1px solid #ef4444' : '1px solid #0ea5e9'
+  )};
+  border-radius: 12px;
   padding: 12px 16px;
   margin-bottom: 16px;
   display: flex;
   align-items: center;
   gap: 8px;
+  backdrop-filter: ${props => props.isAdmin ? 'blur(16px)' : 'none'};
+  color: ${props => props.isAdmin ? '#e2e8f0' : 'inherit'};
 `;
 
 const NotificationIcon = styled.span`
   font-size: 16px;
+  display: inline-flex;
+  align-items: center;
 `;
 
 const NotificationText = styled.div`
-  color: ${props => {
-    switch (props.status) {
-      case 'ready': return '#166534';
-      case 'completed': return '#166534';
-      case 'cancelled': return '#991b1b';
-      default: return '#0c4a6e';
-    }
-  }};
+  color: ${props => props.isAdmin ? '#e2e8f0' : (
+    props.status === 'ready' || props.status === 'completed' ? '#166534' : props.status === 'cancelled' ? '#991b1b' : '#0c4a6e'
+  )};
   font-weight: 500;
   font-size: 14px;
 `;
@@ -643,7 +677,7 @@ const TotalAmount = styled.div`
 
 const ActionButtons = styled.div`
   display: flex;
-  gap: 12px;
+  gap: 8px;
   flex-wrap: wrap;
   
   /* Mobile PWA optimizations */
@@ -654,13 +688,13 @@ const ActionButtons = styled.div`
 `;
 
 const ActionButton = styled.button`
-  padding: 12px 20px;
+  padding: 10px 14px;
   border: none;
   border-radius: 10px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  font-size: 14px;
+  font-size: 13px;
   
   &.primary {
     background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
@@ -712,6 +746,70 @@ const ActionButton = styled.button`
   }
 `;
 
+const IconAction = styled.button`
+  padding: 8px;
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 10px;
+  background: rgba(255,255,255,0.08);
+  color: #e2e8f0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  &:hover { border-color: #10b981; color: #10b981; transform: translateY(-1px); }
+`;
+
+const BulkBar = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  padding: 10px 12px;
+  margin-bottom: 12px;
+  color: #e2e8f0;
+`;
+
+const BulkActions = styled.div`
+  display: flex;
+  gap: 8px;
+`;
+
+const PaginationBar = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  color: ${props => props.isAdmin ? '#e2e8f0' : '#1f2937'};
+`;
+
+const Pager = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+`;
+
+const PagerButton = styled.button`
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid ${props => props.isAdmin ? 'rgba(255,255,255,0.2)' : 'rgba(16,185,129,0.2)'};
+  background: ${props => props.isAdmin ? 'rgba(255,255,255,0.06)' : 'white'};
+  color: inherit;
+  cursor: pointer;
+  &:disabled { opacity: 0.5; cursor: not-allowed; }
+`;
+
+const PerPageSelect = styled.select`
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid ${props => props.isAdmin ? 'rgba(255,255,255,0.2)' : 'rgba(16,185,129,0.2)'};
+  background: ${props => props.isAdmin ? 'rgba(255,255,255,0.06)' : 'white'};
+  color: inherit;
+`;
+
 const CollectionInfo = styled.div`
   background: #f0f9ff;
   border: 1px solid #0ea5e9;
@@ -754,6 +852,10 @@ const Orders = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [statusFilter, setStatusFilter] = useState('all');
+  const [search, setSearch] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [perPage, setPerPage] = useState(10);
+  const [selectedIds, setSelectedIds] = useState([]);
   const { showSuccess, showError } = useNotification();
   const [stats, setStats] = useState({
     total: 0,
@@ -765,6 +867,27 @@ const Orders = () => {
   const navigate = useNavigate();
 
   const isAdmin = user?.role === 'admin';
+
+  // Persist and hydrate filters (admin)
+  useEffect(() => {
+    if (!isAdmin) return;
+    try {
+      const raw = localStorage.getItem('orders_filters');
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (parsed.status) setStatusFilter(parsed.status);
+        if (typeof parsed.perPage === 'number') setPerPage(parsed.perPage);
+        if (typeof parsed.search === 'string') setSearch(parsed.search);
+      }
+    } catch {}
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isAdmin]);
+
+  useEffect(() => {
+    if (!isAdmin) return;
+    const payload = { status: statusFilter, perPage, search };
+    try { localStorage.setItem('orders_filters', JSON.stringify(payload)); } catch {}
+  }, [isAdmin, statusFilter, perPage, search]);
 
   const fetchOrders = useCallback(async () => {
     try {
@@ -787,10 +910,21 @@ const Orders = () => {
         allOrders = [];
       }
       
-      // Filter orders based on status
+      // Filter by status
       let filteredOrders = statusFilter === 'all' 
         ? allOrders 
         : allOrders.filter(order => order.status === statusFilter);
+      
+      // Search filter (by order number, customer name, email)
+      const q = search.trim().toLowerCase();
+      if (q) {
+        filteredOrders = filteredOrders.filter(o => {
+          const name = `${o.customerInfo?.firstName || ''} ${o.customerInfo?.lastName || ''}`.toLowerCase();
+          const email = (o.customerInfo?.email || o.user?.email || '').toLowerCase();
+          const num = (o.orderNumber || '').toLowerCase();
+          return name.includes(q) || email.includes(q) || num.includes(q);
+        });
+      }
       
       // Sort orders: pending first, then completed, then others by date (newest first)
       filteredOrders.sort((a, b) => {
@@ -814,6 +948,7 @@ const Orders = () => {
       });
       
       setOrders(filteredOrders);
+      setCurrentPage(1);
       
       // Calculate stats
       const statsData = {
@@ -840,7 +975,7 @@ const Orders = () => {
       setLoading(false);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isAdmin, statusFilter, showError]);
+  }, [isAdmin, statusFilter, search, showError]);
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -849,7 +984,7 @@ const Orders = () => {
       setLoading(false);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isAuthenticated, statusFilter]);
+  }, [isAuthenticated, statusFilter, search]);
 
   const updateOrderStatus = async (orderId, newStatus) => {
     try {
@@ -899,6 +1034,39 @@ const Orders = () => {
     return actions;
   };
 
+  const statusIcon = useMemo(() => ({
+    pending: <RiTimer2Line />, confirmed: <RiCheckLine />, processing: <RiTruckLine />, ready: <RiCheckboxCircleLine />, completed: <RiCheckboxCircleLine />, cancelled: <RiCloseLine />
+  }), []);
+
+  const totalPages = useMemo(() => Math.max(1, Math.ceil(orders.length / perPage)), [orders.length, perPage]);
+  const pageSlice = useMemo(() => {
+    const start = (currentPage - 1) * perPage;
+    return orders.slice(start, start + perPage);
+  }, [orders, currentPage, perPage]);
+
+  const toggleSelected = (id) => {
+    setSelectedIds((prev) => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]);
+  };
+
+  const selectAllOnPage = () => {
+    const ids = pageSlice.map(o => o._id);
+    setSelectedIds((prev) => Array.from(new Set([...prev, ...ids])));
+  };
+
+  const clearSelection = () => setSelectedIds([]);
+
+  const bulkUpdate = async (newStatus) => {
+    if (selectedIds.length === 0) return;
+    try {
+      await Promise.allSettled(selectedIds.map(id => api.put(`/api/orders/${id}/status`, { status: newStatus })));
+      showSuccess(`Updated ${selectedIds.length} orders to ${newStatus}`, 'Bulk Update');
+      clearSelection();
+      fetchOrders();
+    } catch (e) {
+      showError('Bulk update failed for some orders', 'Bulk Update');
+    }
+  };
+
   const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString('en-US', {
       year: 'numeric',
@@ -940,35 +1108,20 @@ const Orders = () => {
           </Subtitle>
         </OrdersHeader>
 
-        {/* Stats Dashboard - Show for admins or if user has orders */}
-        {(isAdmin || stats.total > 0) && (
-          <StatsGrid isAdmin={isAdmin}>
-            <StatCard isAdmin={isAdmin} color="#3b82f6">
-              <StatNumber isAdmin={isAdmin} color="#3b82f6">{stats.total}</StatNumber>
-              <StatLabel isAdmin={isAdmin}>Total Orders</StatLabel>
-            </StatCard>
-            <StatCard isAdmin={isAdmin} color="#f59e0b">
-              <StatNumber isAdmin={isAdmin} color="#f59e0b">{stats.pending}</StatNumber>
-              <StatLabel isAdmin={isAdmin}>Pending</StatLabel>
-            </StatCard>
-            <StatCard isAdmin={isAdmin} color="#f59e0b">
-              <StatNumber isAdmin={isAdmin} color="#f59e0b">{stats.processing}</StatNumber>
-              <StatLabel isAdmin={isAdmin}>Processing</StatLabel>
-            </StatCard>
-            <StatCard isAdmin={isAdmin} color="#10b981">
-              <StatNumber isAdmin={isAdmin} color="#10b981">{stats.ready}</StatNumber>
-              <StatLabel isAdmin={isAdmin}>Ready</StatLabel>
-            </StatCard>
-            <StatCard isAdmin={isAdmin} color="#10b981">
-              <StatNumber isAdmin={isAdmin} color="#10b981">{stats.completed}</StatNumber>
-              <StatLabel isAdmin={isAdmin}>Completed</StatLabel>
-            </StatCard>
-          </StatsGrid>
-        )}
+        {/* Stats tiles removed from Orders page to avoid duplication with Admin Dashboard */}
 
         {/* Filter Bar - Show for admins or if user has orders */}
         {(isAdmin || stats.total > 0) && (
           <FilterBar isAdmin={isAdmin}>
+            <SearchInputWrap isAdmin={isAdmin}>
+              <RiSearchLine />
+              <SearchInput
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                placeholder="Search orders, customer, email"
+                aria-label="Search orders"
+              />
+            </SearchInputWrap>
             <FilterButton 
               isAdmin={isAdmin}
               active={statusFilter === 'all'} 
@@ -1011,6 +1164,17 @@ const Orders = () => {
             >
               Completed
             </FilterButton>
+            {isAdmin && selectedIds.length > 0 && (
+              <BulkBar>
+                <div>{selectedIds.length} selected</div>
+                <BulkActions>
+                  <ActionButton className="primary" onClick={() => bulkUpdate('ready')}>Mark Ready</ActionButton>
+                  <ActionButton className="primary" onClick={() => bulkUpdate('completed')}>Mark Completed</ActionButton>
+                  <ActionButton className="danger" onClick={() => bulkUpdate('cancelled')}>Cancel</ActionButton>
+                  <ActionButton className="secondary" onClick={clearSelection}>Clear</ActionButton>
+                </BulkActions>
+              </BulkBar>
+            )}
           </FilterBar>
         )}
 
@@ -1021,7 +1185,7 @@ const Orders = () => {
           </NoOrders>
         ) : (
           <OrdersGrid isAdmin={isAdmin}>
-            {orders.map(order => (
+            {pageSlice.map(order => (
               <OrderCard key={order._id} isAdmin={isAdmin} onClick={() => handleOrderClick(order._id)}>
                 {/* Status Notification Banner */}
                 {(order.status === 'ready' || order.status === 'completed' || order.status === 'cancelled') && (
@@ -1040,6 +1204,17 @@ const Orders = () => {
                 )}
                 
                 <OrderHeader isAdmin={isAdmin}>
+                  <SelectCell isAdmin={isAdmin}>
+                    {isAdmin && (
+                      <RowCheckbox
+                        type="checkbox"
+                        checked={selectedIds.includes(order._id)}
+                        onChange={(e) => { e.stopPropagation(); toggleSelected(order._id); }}
+                        onClick={(e) => e.stopPropagation()}
+                        aria-label="Select order"
+                      />
+                    )}
+                  </SelectCell>
                   <OrderInfo>
                     <OrderNumber isAdmin={isAdmin}>{order.orderNumber}</OrderNumber>
                     <OrderDate isAdmin={isAdmin}>
@@ -1054,34 +1229,46 @@ const Orders = () => {
                      )}
                   </OrderInfo>
                   <OrderStatus>
-                    <StatusBadge isAdmin={isAdmin} status={order.status}>
-                      {order.status}
+                    <StatusBadge isAdmin={isAdmin} status={order.status} title={order.status}>
+                      {statusIcon[order.status] || <RiAlertLine />} {order.status}
                     </StatusBadge>
-                    
-                    {/* Status Timeline */}
-                    <StatusTimeline>
-                      <TimelineStep active={['pending', 'confirmed', 'processing', 'ready', 'completed'].includes(order.status)}>
-                        <TimelineDot active={['pending', 'confirmed', 'processing', 'ready', 'completed'].includes(order.status)} />
-                        <span>Order Placed</span>
-                      </TimelineStep>
-                      <TimelineStep active={['confirmed', 'processing', 'ready', 'completed'].includes(order.status)}>
-                        <TimelineDot active={['confirmed', 'processing', 'ready', 'completed'].includes(order.status)} />
-                        <span>Confirmed</span>
-                      </TimelineStep>
-                      <TimelineStep active={['processing', 'ready', 'completed'].includes(order.status)}>
-                        <TimelineDot active={['processing', 'ready', 'completed'].includes(order.status)} />
-                        <span>Processing</span>
-                      </TimelineStep>
-                      <TimelineStep active={['ready', 'completed'].includes(order.status)}>
-                        <TimelineDot active={['ready', 'completed'].includes(order.status)} />
-                        <span>Ready</span>
-                      </TimelineStep>
-                      <TimelineStep active={order.status === 'completed'}>
-                        <TimelineDot active={order.status === 'completed'} />
-                        <span>Completed</span>
-                      </TimelineStep>
-                    </StatusTimeline>
+                    {isAdmin && (
+                      <div onClick={(e) => e.stopPropagation()}>
+                        {getNextStatus(order.status) && (
+                          <IconAction title={`Mark as ${getNextStatus(order.status)}`} onClick={() => updateOrderStatus(order._id, getNextStatus(order.status))}>
+                            <RiCheckLine />
+                          </IconAction>
+                        )}
+                        {order.status === 'pending' && (
+                          <IconAction title="Cancel order" onClick={() => updateOrderStatus(order._id, 'cancelled')}>
+                            <RiCloseLine />
+                          </IconAction>
+                        )}
+                      </div>
+                    )}
                   </OrderStatus>
+
+                  {isAdmin && (
+                    <div style={{ gridColumn: '1 / -1', display: 'flex', justifyContent: 'flex-end', marginTop: 8 }} onClick={(e) => e.stopPropagation()}>
+                      <Stepper>
+                        {['pending','confirmed','processing','ready','completed'].map((stage, idx, arr) => {
+                          const active = arr.indexOf(order.status) >= idx;
+                          const onClick = () => updateOrderStatus(order._id, stage);
+                          return (
+                            <React.Fragment key={stage}>
+                              <Step type="button" active={active} title={stage} onClick={onClick}>{idx+1}</Step>
+                              {idx < arr.length - 1 && (
+                                <StepDivider filled={arr.indexOf(order.status) > idx} />
+                              )}
+                            </React.Fragment>
+                          );
+                        })}
+                        <IconAction title="Cancel order" onClick={() => updateOrderStatus(order._id, 'cancelled')} style={{ marginLeft: 6 }}>
+                          <RiCloseLine />
+                        </IconAction>
+                      </Stepper>
+                    </div>
+                  )}
                 </OrderHeader>
 
                 <CollectionInfo>
@@ -1125,8 +1312,8 @@ const Orders = () => {
                   <TotalAmount>R{order.total.toFixed(2)}</TotalAmount>
                 </OrderTotal>
 
-                {/* Action Buttons - Only show for admins */}
-                {isAdmin && (
+                {/* Action Buttons - Only show for admins (kept, but compact icons above are primary) */}
+                {isAdmin && getStatusActions(order).length > 0 && (
                   <ActionButtons onClick={(e) => e.stopPropagation()}>
                     {getStatusActions(order).map((action, index) => (
                       <ActionButton
@@ -1142,6 +1329,28 @@ const Orders = () => {
               </OrderCard>
             ))}
           </OrdersGrid>
+        )}
+
+        {/* Pagination */}
+        {(isAdmin || stats.total > 0) && orders.length > 0 && (
+          <PaginationBar isAdmin={isAdmin}>
+            <Pager>
+              <PagerButton isAdmin={isAdmin} onClick={() => setCurrentPage(p => Math.max(1, p - 1))} disabled={currentPage === 1}>Prev</PagerButton>
+              <span>Page {currentPage} of {totalPages}</span>
+              <PagerButton isAdmin={isAdmin} onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))} disabled={currentPage === totalPages}>Next</PagerButton>
+            </Pager>
+            <div>
+              <label htmlFor="perPage" style={{ marginRight: 8 }}>Per page</label>
+              <PerPageSelect id="perPage" value={perPage} onChange={(e) => { setPerPage(parseInt(e.target.value)); setCurrentPage(1); }}>
+                <option value={10}>10</option>
+                <option value={20}>20</option>
+                <option value={50}>50</option>
+              </PerPageSelect>
+              {isAdmin && (
+                <PagerButton style={{ marginLeft: 8 }} onClick={selectAllOnPage}>Select page</PagerButton>
+              )}
+            </div>
+          </PaginationBar>
         )}
       </OrdersContent>
     </OrdersContainer>

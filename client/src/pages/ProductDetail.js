@@ -647,10 +647,13 @@ const ProductDetail = () => {
       <ProductContent>
         <ImageSection>
           <MainImage 
-            src={product.images[selectedImage] || '/placeholder-product.jpg'} 
+            src={product.images[selectedImage] || '/placeholder-product.svg'} 
             alt={product.name}
+            loading="lazy"
+            decoding="async"
             onError={(e) => {
-              e.target.src = '/placeholder-product.jpg';
+              e.currentTarget.onerror = null;
+              e.currentTarget.src = '/placeholder-product.svg';
             }}
           />
           
@@ -663,8 +666,11 @@ const ProductDetail = () => {
                   alt={`${product.name} ${index + 1}`}
                   className={index === selectedImage ? 'active' : ''}
                   onClick={() => setSelectedImage(index)}
+                  loading="lazy"
+                  decoding="async"
                   onError={(e) => {
-                    e.target.src = '/placeholder-product.jpg';
+                    e.currentTarget.onerror = null;
+                    e.currentTarget.src = '/placeholder-product.svg';
                   }}
                 />
               ))}

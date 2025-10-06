@@ -66,7 +66,18 @@
         if ('serviceWorker' in navigator) {
           window.addEventListener('load', async () => {
             try {
-              if (isLocalhost) {
+              // Allow opting-in to SW on localhost for testing
+              const urlParams = new URLSearchParams(window.location.search);
+              const enableSwParam = urlParams.get('pwaLocal');
+              if (enableSwParam === 'true') {
+                localStorage.setItem('ENABLE_SW_LOCAL', 'true');
+              } else if (enableSwParam === 'false') {
+                localStorage.removeItem('ENABLE_SW_LOCAL');
+              }
+
+              const enableSwOnLocalhost = localStorage.getItem('ENABLE_SW_LOCAL') === 'true';
+
+              if (isLocalhost && !enableSwOnLocalhost) {
                 // Unregister any existing SWs during local development to avoid refresh loops
                 const registrations = await navigator.serviceWorker.getRegistrations();
                 for (const reg of registrations) {

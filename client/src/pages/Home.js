@@ -4,11 +4,15 @@ import styled from 'styled-components';
 
 const HomeContainer = styled.div`
   min-height: 100vh;
-  background: linear-gradient(180deg, #0f172a 0%, #1e293b 50%, #f8fafc 100%);
+  background:
+    radial-gradient(1200px 400px at 10% -20%, rgba(16, 185, 129, 0.12), transparent 60%),
+    linear-gradient(180deg, #0b1222 0%, #0f172a 35%, #1b2540 65%, #f8fafc 100%);
 `;
 
 const HeroSection = styled.section`
-  background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #10b981 100%);
+  background:
+    radial-gradient(1200px 400px at 0% -10%, rgba(16,185,129,0.18), transparent 60%),
+    linear-gradient(135deg, #0b1222 0%, #101a2e 50%, #0e2e25 75%, #0b3a2d 85%, #10b981 100%);
   color: white;
   padding: 36px 0;
   text-align: center;
@@ -22,7 +26,7 @@ const HeroSection = styled.section`
     left: 0;
     right: 0;
     bottom: 0;
-    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="50" cy="10" r="0.5" fill="rgba(255,255,255,0.05)"/><circle cx="10" cy="60" r="0.5" fill="rgba(255,255,255,0.05)"/><circle cx="90" cy="40" r="0.5" fill="rgba(255,255,255,0.05)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.12)"/><circle cx="75" cy="75" r="1" fill="rgba(255,255,255,0.12)"/><circle cx="50" cy="10" r="0.5" fill="rgba(255,255,255,0.06)"/><circle cx="10" cy="60" r="0.5" fill="rgba(255,255,255,0.06)"/><circle cx="90" cy="40" r="0.5" fill="rgba(255,255,255,0.06)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
     opacity: 0.3;
   }
   
@@ -55,7 +59,7 @@ const HeroTitle = styled.h1`
   font-size: 3rem;
   font-weight: 800;
   margin-bottom: 16px;
-  background: linear-gradient(135deg, #ffffff 0%, #10b981 50%, #34d399 100%);
+  background: linear-gradient(135deg, #ffffff 0%, #e7fff5 25%, #baf7dc 45%, #6ee7b7 70%, #10b981 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -63,6 +67,19 @@ const HeroTitle = styled.h1`
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  position: relative;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: 20%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(90deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 60%);
+    filter: blur(8px);
+    pointer-events: none;
+  }
   
   @media (max-width: 768px) {
     font-size: 2.2rem;
@@ -95,21 +112,21 @@ const HeroSubtitle = styled.p`
 
 const HeroButton = styled(Link)`
   display: inline-block;
-  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
-  color: #0f172a;
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 40%, #e7fff5 100%);
+  color: #0a1426;
   padding: 14px 28px;
   border-radius: 10px;
   text-decoration: none;
   font-weight: 700;
   font-size: 1rem;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.2);
-  border: 2px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.25);
+  border: 2px solid rgba(255, 255, 255, 0.28);
   
   &:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
-    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    box-shadow: 0 12px 32px rgba(16, 185, 129, 0.35);
+    background: linear-gradient(135deg, #f8fafc 0%, #ebfaf4 60%, #d6ffe9 100%);
   }
   
   @media (max-width: 768px) {
@@ -128,7 +145,9 @@ const HeroButton = styled(Link)`
 const Section = styled.section`
   padding: 100px 0;
   position: relative;
-  background: rgba(248, 250, 252, 0.95);
+  background:
+    radial-gradient(800px 200px at 100% 0%, rgba(16,185,129,0.12), transparent 60%),
+    rgba(248, 250, 252, 0.95);
   backdrop-filter: blur(10px);
   
   @media (max-width: 768px) {
@@ -145,7 +164,7 @@ const SectionTitle = styled.h2`
   font-size: 3rem;
   font-weight: 800;
   margin-bottom: 24px;
-  background: linear-gradient(135deg, #0f172a 0%, #10b981 100%);
+  background: linear-gradient(135deg, #0a1426 0%, #0f172a 20%, #10b981 80%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -225,8 +244,8 @@ const CategoryCard = styled(Link)`
   text-align: center;
   text-decoration: none;
   color: inherit;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
-  border: 1px solid rgba(16, 185, 129, 0.1);
+  box-shadow: 0 8px 20px rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.18);
   transition: all 0.4s ease;
   position: relative;
   overflow: hidden;
@@ -238,15 +257,15 @@ const CategoryCard = styled(Link)`
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(135deg, rgba(16, 185, 129, 0.05) 0%, rgba(52, 211, 153, 0.05) 100%);
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.09) 0%, rgba(52, 211, 153, 0.09) 100%);
     opacity: 0;
     transition: opacity 0.3s ease;
   }
   
   &:hover {
     transform: translateY(-8px);
-    box-shadow: 0 20px 40px rgba(16, 185, 129, 0.15);
-    border-color: rgba(16, 185, 129, 0.3);
+    box-shadow: 0 24px 48px rgba(16, 185, 129, 0.18);
+    border-color: rgba(16, 185, 129, 0.35);
     
     &::before {
       opacity: 1;
@@ -342,7 +361,9 @@ const CategoryDescription = styled.p`
 `;
 
 const StatsSection = styled.section`
-  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  background:
+    radial-gradient(1000px 300px at 0% 0%, rgba(16,185,129,0.14), transparent 55%),
+    linear-gradient(135deg, #0b1222 0%, #0f172a 50%, #1e293b 100%);
   padding: 50px 0;
   position: relative;
   
@@ -436,10 +457,10 @@ const StatItem = styled.div`
   }
 `;
 
-const StatNumber = styled.div`
+const StatsNumber = styled.div`
   font-size: 2.8rem;
   font-weight: 800;
-  background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+  background: linear-gradient(135deg, #e7fff5 0%, #baf7dc 35%, #6ee7b7 70%, #10b981 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -536,19 +557,19 @@ const Home = () => {
         <StatsTitle>Why Choose Canna Bomb?</StatsTitle>
         <StatsGrid>
           <StatItem>
-            <StatNumber>1000+</StatNumber>
+            <StatsNumber>1000+</StatsNumber>
             <StatLabel>Happy Customers</StatLabel>
           </StatItem>
           <StatItem>
-            <StatNumber>50+</StatNumber>
+            <StatsNumber>50+</StatsNumber>
             <StatLabel>Premium Brands</StatLabel>
           </StatItem>
           <StatItem>
-            <StatNumber>24/7</StatNumber>
+            <StatsNumber>24/7</StatsNumber>
             <StatLabel>Customer Support</StatLabel>
           </StatItem>
           <StatItem>
-            <StatNumber>100%</StatNumber>
+            <StatsNumber>100%</StatsNumber>
             <StatLabel>Quality Guaranteed</StatLabel>
           </StatItem>
         </StatsGrid>
