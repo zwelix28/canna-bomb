@@ -275,6 +275,13 @@ export default function TestOrder() {
     });
   }, [orders, search]);
 
+  // Auto-select first order when orders load
+  useEffect(() => {
+    if (filtered.length > 0 && !selected) {
+      setSelected(filtered[0]);
+    }
+  }, [filtered, selected]);
+
   const statusIcon = useMemo(() => ({
     pending: <RiTimer2Line />, confirmed: <RiCheckLine />, processing: <RiTruckLine />, ready: <RiCheckboxCircleLine />, completed: <RiCheckboxCircleLine />, cancelled: <RiCloseLine />
   }), []);
