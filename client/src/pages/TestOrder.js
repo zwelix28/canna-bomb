@@ -43,6 +43,7 @@ const Panel = styled.div`
   border: 1px solid rgba(255,255,255,0.12);
   border-radius: 16px;
   padding: 14px;
+  min-height: 380px; /* stabilize layout on detail mount */
 `;
 
 const SectionTitle = styled.h3`
@@ -90,8 +91,10 @@ const Row = styled.button`
   color: #e2e8f0;
   text-align: left;
   cursor: pointer;
-  transition: border-color 0.2s ease, transform 0.2s ease;
-  &:hover { border-color: #10b981; transform: translateY(-1px); }
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+  &:hover { border-color: #10b981; box-shadow: 0 6px 16px rgba(16,185,129,0.20); }
+  &:focus { outline: none; box-shadow: 0 0 0 2px rgba(16,185,129,0.35); }
 `;
 
 const OrderNum = styled.div`
@@ -134,12 +137,14 @@ const DetailHeader = styled.div`
   align-items: center;
   justify-content: space-between;
   margin-bottom: 12px;
+  min-height: 36px; /* reserve space to avoid shift when badge renders */
 `;
 
 const Stepper = styled.div`
   display: flex;
   align-items: center;
   gap: 6px;
+  min-height: 32px; /* reserve vertical space to avoid bounce when active styles change */
 `;
 
 const Step = styled.button`
@@ -172,6 +177,7 @@ const Section = styled.div`
   padding: 12px;
   margin-top: 10px;
   color: #e2e8f0;
+  will-change: contents; /* hint to avoid jitter on content update */
 `;
 
 const Items = styled.div`
@@ -195,6 +201,7 @@ export default function TestOrder() {
   const [search, setSearch] = useState('');
   const [selected, setSelected] = useState(null);
   const [updating, setUpdating] = useState(false);
+  const [isClicking, setIsClicking] = useState(false);
 
   const isAdmin = user?.role === 'admin';
 
@@ -234,12 +241,15 @@ export default function TestOrder() {
   }), []);
 
   const updateStatus = async (orderId, status) => {
+    if (isClicking) return; // prevent rapid re-click jitter
+    setIsClicking(true);
     setUpdating(true);
     try {
       await api.put(`/api/orders/${orderId}/status`, { status });
       await loadOrders();
     } catch {}
     setUpdating(false);
+    setTimeout(() => setIsClicking(false), 250);
   };
 
   const stages = ['pending','confirmed','processing','ready','completed'];
