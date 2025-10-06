@@ -16,10 +16,9 @@ const InventoryContent = styled.div`
 `;
 
 const InventoryHeader = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 20px;
+  text-align: center;
+  margin-bottom: 50px;
+  padding: 0 24px;
 `;
 
 const Title = styled.h1`
@@ -894,9 +893,11 @@ const Inventory = () => {
       <InventoryContent>
         <InventoryHeader>
           <Title>Inventory Management</Title>
-          <AddProductButton onClick={openAddModal}>
-            + Add New Product
-          </AddProductButton>
+          <div style={{ marginTop: '16px' }}>
+            <AddProductButton onClick={openAddModal}>
+              + Add New Product
+            </AddProductButton>
+          </div>
         </InventoryHeader>
 
         {products.length === 0 ? (
