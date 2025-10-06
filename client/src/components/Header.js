@@ -726,9 +726,6 @@ const Header = () => {
           {isAuthenticated && user?.role === 'admin' && (
             <NavLink to="/admin">Admin</NavLink>
           )}
-          {isAuthenticated && (
-            <NavLink to="/orders">Orders</NavLink>
-          )}
         </NavLinks>
         
         <RightSection>
@@ -799,11 +796,6 @@ const Header = () => {
             <MobileNavLink to="/products" onClick={closeMobileMenu}>
               <RiClipboardLine /> Products
             </MobileNavLink>
-            {isAuthenticated && (
-              <MobileNavLink to="/orders" onClick={closeMobileMenu}>
-                <RiClipboardLine /> Orders
-              </MobileNavLink>
-            )}
           </MobileNavLinks>
           
           {isAuthenticated ? (
