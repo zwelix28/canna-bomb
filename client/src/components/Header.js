@@ -751,9 +751,6 @@ const Header = () => {
                     <DropdownItem to="/inventory" onClick={() => setIsDropdownOpen(false)}>
                       <RiDashboardLine /> Inventory
                     </DropdownItem>
-                    <DropdownItem to="/statistics" onClick={() => setIsDropdownOpen(false)}>
-                      <RiBarChart2Line /> Statistics
-                    </DropdownItem>
                     <DropdownItem to="/sales-dashboard" onClick={() => setIsDropdownOpen(false)}>
                       <RiMoneyDollarCircleLine /> Sales Dashboard
                     </DropdownItem>
