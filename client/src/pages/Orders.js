@@ -858,6 +858,16 @@ const Orders = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthenticated, statusFilter, search]);
 
+  // Lightweight polling so regular users see near real-time status
+  useEffect(() => {
+    if (!isAuthenticated || isAdmin) return;
+    const id = setInterval(() => {
+      fetchOrders();
+    }, 15000);
+    return () => clearInterval(id);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isAuthenticated, isAdmin, fetchOrders]);
+
   const updateOrderStatus = async (orderId, newStatus) => {
     try {
       await api.put(`/api/orders/${orderId}/status`, { status: newStatus });
