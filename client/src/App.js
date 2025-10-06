@@ -22,6 +22,7 @@ import SalesDashboard from './pages/SalesDashboard';
 import AdminDashboard from './pages/AdminDashboard';
 import TestOrder from './pages/TestOrder';
 import TestStatistics from './pages/TestStatistics';
+import TestSales from './pages/TestSales';
 
 import ProtectedRoute from './components/ProtectedRoute';
 import LoadingSpinner from './components/LoadingSpinner';
@@ -97,6 +98,11 @@ const AppContent = () => {
           <Route path="/admin/advanced-statistics" element={
             <ProtectedRoute adminOnly>
               <TestStatistics />
+            </ProtectedRoute>
+          } />
+          <Route path="/admin/test-sales" element={
+            <ProtectedRoute adminOnly>
+              <TestSales />
             </ProtectedRoute>
           } />
           <Route path="/users" element={
