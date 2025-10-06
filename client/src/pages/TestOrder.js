@@ -85,7 +85,7 @@ const SearchInput = styled.input`
 
 const OrdersList = styled.div`
   display: grid;
-  gap: 8px;
+  gap: 4px;
   flex: 1;
   overflow: auto;
   padding-right: 4px;
@@ -95,10 +95,10 @@ const Row = styled.div`
   width: 100%;
   display: grid;
   grid-template-columns: 1.2fr 1fr auto;
-  gap: 8px;
+  gap: 6px;
   align-items: center;
-  padding: 10px;
-  border-radius: 12px;
+  padding: 6px 8px;
+  border-radius: 8px;
   background: rgba(255,255,255,0.04);
   border: 1px solid rgba(255,255,255,0.1);
   color: #e2e8f0;
@@ -106,7 +106,7 @@ const Row = styled.div`
   cursor: pointer;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
   -webkit-tap-highlight-color: transparent;
-  &:hover { border-color: #10b981; box-shadow: 0 6px 16px rgba(16,185,129,0.20); }
+  &:hover { border-color: #10b981; box-shadow: 0 4px 12px rgba(16,185,129,0.20); }
   &:focus { outline: none; box-shadow: 0 0 0 2px rgba(16,185,129,0.35); }
 `;
 
@@ -117,13 +117,13 @@ const OrderNum = styled.div`
 
 const OrderMeta = styled.div`
   color: #94a3b8;
-  font-size: 11px;
+  font-size: 10px;
 `;
 
 const Badge = styled.span`
-  padding: 4px 8px;
-  border-radius: 10px;
-  font-size: 11px;
+  padding: 3px 6px;
+  border-radius: 8px;
+  font-size: 10px;
   border: 1px solid;
   background: ${p => p.status === 'pending' ? 'rgba(245, 158, 11, 0.15)'
     : p.status === 'confirmed' ? 'rgba(59, 130, 246, 0.15)'
