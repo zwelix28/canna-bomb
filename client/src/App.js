@@ -21,6 +21,7 @@ import AIAnalytics from './pages/AIAnalytics';
 import SalesDashboard from './pages/SalesDashboard';
 import AdminDashboard from './pages/AdminDashboard';
 import TestOrder from './pages/TestOrder';
+import TestStatistics from './pages/TestStatistics';
 
 import ProtectedRoute from './components/ProtectedRoute';
 import LoadingSpinner from './components/LoadingSpinner';
@@ -91,6 +92,11 @@ const AppContent = () => {
           <Route path="/admin/test-order" element={
             <ProtectedRoute adminOnly>
               <TestOrder />
+            </ProtectedRoute>
+          } />
+          <Route path="/admin/test-statistics" element={
+            <ProtectedRoute adminOnly>
+              <TestStatistics />
             </ProtectedRoute>
           } />
           <Route path="/users" element={
