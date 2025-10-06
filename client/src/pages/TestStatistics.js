@@ -382,6 +382,11 @@ const TestStatistics = () => {
       setStats(statsRes.data);
       setProducts(productsRes.data.products || productsRes.data);
       setOrders(ordersRes.data.orders || ordersRes.data);
+      
+      // Debug logging
+      console.log('Statistics data:', statsRes.data);
+      console.log('Orders data:', ordersRes.data.orders || ordersRes.data);
+      console.log('First order structure:', (ordersRes.data.orders || ordersRes.data)[0]);
     } catch (error) {
       console.error('Error fetching statistics:', error);
       setError('Failed to load statistics data');
@@ -417,13 +422,13 @@ const TestStatistics = () => {
   }, [products]);
 
   const revenueData = useMemo(() => {
-    const totalRevenue = orders.reduce((sum, order) => sum + (order.totalAmount || 0), 0);
+    const totalRevenue = orders.reduce((sum, order) => sum + (order.total || 0), 0);
     const pendingRevenue = orders
       .filter(order => order.status === 'pending')
-      .reduce((sum, order) => sum + (order.totalAmount || 0), 0);
+      .reduce((sum, order) => sum + (order.total || 0), 0);
     const completedRevenue = orders
       .filter(order => order.status === 'completed')
-      .reduce((sum, order) => sum + (order.totalAmount || 0), 0);
+      .reduce((sum, order) => sum + (order.total || 0), 0);
     
     return {
       total: totalRevenue,
@@ -447,7 +452,7 @@ const TestStatistics = () => {
       return {
         date,
         orders: dayOrders.length,
-        revenue: dayOrders.reduce((sum, order) => sum + (order.totalAmount || 0), 0)
+        revenue: dayOrders.reduce((sum, order) => sum + (order.total || 0), 0)
       };
     });
   }, [orders]);
