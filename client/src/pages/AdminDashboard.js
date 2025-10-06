@@ -345,7 +345,7 @@ export default function AdminDashboard() {
             </CardTitle>
             <List>
               {recentDisplayOrders.map((o) => (
-                <ListItem key={o._id} to={`/orders/${o._id}`}>
+                <ListItem key={o._id} to="/admin/test-order">
                   <span style={{ fontWeight: 600 }}>
                     {o.customerInfo?.firstName || o.user?.firstName || 'Customer'} {o.customerInfo?.lastName || o.user?.lastName || ''}
                   </span>
@@ -376,7 +376,7 @@ export default function AdminDashboard() {
           <Card>
             <CardTitle>Quick Links</CardTitle>
             <List>
-              <ListItem to="/orders" style={{ padding:'8px' }}><span style={{ fontSize: '0.9rem' }}>Manage Orders</span><Badge>Go</Badge></ListItem>
+              <ListItem to="/admin/test-order" style={{ padding:'8px' }}><span style={{ fontSize: '0.9rem' }}>Manage Orders</span><Badge>Go</Badge></ListItem>
               <ListItem to="/statistics" style={{ padding:'8px' }}><span style={{ fontSize: '0.9rem' }}>Inventory & Stats</span><Badge>Go</Badge></ListItem>
               <ListItem to="/sales-dashboard" style={{ padding:'8px' }}><span style={{ fontSize: '0.9rem' }}>Sales Analytics</span><Badge>Go</Badge></ListItem>
               <ListItem to="/users" style={{ padding:'8px' }}><span style={{ fontSize: '0.9rem' }}>Users</span><Badge>Go</Badge></ListItem>
