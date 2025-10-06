@@ -27,10 +27,9 @@ const StatisticsContent = styled.div`
 `;
 
 const StatisticsHeader = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 20px;
+  text-align: center;
+  margin-bottom: 50px;
+  padding: 0 24px;
 `;
 
 const Title = styled.h1`
@@ -501,9 +500,11 @@ const TestStatistics = () => {
       <StatisticsContent>
         <StatisticsHeader>
           <Title>Statistics & Business Insight</Title>
-          <RefreshButton onClick={fetchStatistics}>
-            <RiRefreshLine /> Refresh Data
-          </RefreshButton>
+          <div style={{ marginTop: '16px' }}>
+            <RefreshButton onClick={fetchStatistics}>
+              <RiRefreshLine /> Refresh Data
+            </RefreshButton>
+          </div>
         </StatisticsHeader>
 
         {/* Key Metrics */}

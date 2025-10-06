@@ -16,10 +16,9 @@ const Wrap = styled.div`
 `;
 
 const Header = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 16px;
+  text-align: center;
+  margin-bottom: 50px;
+  padding: 0 24px;
 `;
 
 const Title = styled.h1`
@@ -309,10 +308,12 @@ export default function TestOrder() {
       <Wrap>
         <Header>
           <Title>Order Management</Title>
-          <SearchWrap>
-            <RiSearchLine />
-            <SearchInput value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search order number or recipient" />
-          </SearchWrap>
+          <div style={{ marginTop: '16px' }}>
+            <SearchWrap>
+              <RiSearchLine />
+              <SearchInput value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search order number or recipient" />
+            </SearchWrap>
+          </div>
         </Header>
 
         <Layout>
