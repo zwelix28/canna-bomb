@@ -7,131 +7,107 @@ import NotificationSettings from '../components/NotificationSettings';
 
 const ProfileContainer = styled.div`
   min-height: 100vh;
-  padding: 40px 0;
-  background: linear-gradient(135deg, #f8fafc 0%, #ffffff 50%, #f1f5f9 100%);
-
-  @media (max-width: 768px) {
-    padding: 20px 0;
-  }
+  background: linear-gradient(135deg, #0b1222 0%, #0f172a 50%, #1e293b 100%);
 `;
 
 const ProfileContent = styled.div`
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 32px 20px;
 `;
 
 const ProfileHeader = styled.div`
-  text-align: center;
-  margin-bottom: 40px;
-
-  @media (max-width: 768px) {
-    margin-bottom: 30px;
-  }
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
 `;
 
 const ProfileTitle = styled.h1`
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: #1a202c;
-  margin-bottom: 10px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  font-size: 2rem;
+  font-weight: 900;
+  background: linear-gradient(135deg, #ffffff 0%, #10b981 60%, #34d399 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-
-  @media (max-width: 768px) {
-    font-size: 2rem;
-  }
-`;
-
-const ProfileSubtitle = styled.p`
-  font-size: 1.1rem;
-  color: #64748b;
-  margin-bottom: 0;
-
-  @media (max-width: 768px) {
-    font-size: 1rem;
-  }
 `;
 
 const ProfileGrid = styled.div`
   display: grid;
   grid-template-columns: 1fr 2fr;
-  gap: 40px;
-  margin-bottom: 40px;
+  gap: 20px;
+  margin-bottom: 20px;
 
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
-    gap: 30px;
-    margin-bottom: 30px;
+    gap: 16px;
+    margin-bottom: 16px;
   }
 `;
 
 const ProfileCard = styled.div`
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(20px);
-  border-radius: 24px;
-  padding: 40px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
 
   @media (max-width: 768px) {
-    padding: 30px 20px;
-    border-radius: 20px;
+    padding: 12px;
+    border-radius: 12px;
   }
 `;
 
 const AvatarSection = styled.div`
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 16px;
 `;
 
 const Avatar = styled.div`
-  width: 120px;
-  height: 120px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto 20px;
-  font-size: 3rem;
+  margin: 0 auto 12px;
+  font-size: 1.8rem;
   font-weight: 700;
   color: white;
-  box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+  box-shadow: 0 8px 24px rgba(16, 185, 129, 0.3);
 
   @media (max-width: 768px) {
-    width: 100px;
-    height: 100px;
-    font-size: 2.5rem;
+    width: 70px;
+    height: 70px;
+    font-size: 1.5rem;
   }
 `;
 
 const UserName = styled.h2`
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   font-weight: 600;
-  color: #1a202c;
-  margin-bottom: 5px;
+  color: #e2e8f0;
+  margin-bottom: 4px;
 
   @media (max-width: 768px) {
-    font-size: 1.3rem;
+    font-size: 1.1rem;
   }
 `;
 
 const UserEmail = styled.p`
-  color: #64748b;
-  font-size: 1rem;
-  margin-bottom: 10px;
+  color: #94a3b8;
+  font-size: 0.9rem;
+  margin-bottom: 8px;
 `;
 
 const UserRole = styled.span`
   display: inline-block;
-  padding: 6px 16px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 4px 12px;
+  background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
   color: white;
-  border-radius: 20px;
-  font-size: 0.9rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -140,84 +116,84 @@ const UserRole = styled.span`
 const QuickStats = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 20px;
-  margin-top: 30px;
+  gap: 12px;
+  margin-top: 16px;
 
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
-    gap: 15px;
+    gap: 8px;
   }
 `;
 
 const StatItem = styled.div`
   text-align: center;
-  padding: 20px;
-  background: rgba(102, 126, 234, 0.05);
-  border-radius: 16px;
-  border: 1px solid rgba(102, 126, 234, 0.1);
+  padding: 12px;
+  background: rgba(16, 185, 129, 0.08);
+  border-radius: 12px;
+  border: 1px solid rgba(16, 185, 129, 0.15);
 
   @media (max-width: 768px) {
-    padding: 15px;
+    padding: 10px;
   }
 `;
 
 const StatNumber = styled.div`
-  font-size: 1.8rem;
+  font-size: 1.4rem;
   font-weight: 700;
-  color: #667eea;
-  margin-bottom: 5px;
+  color: #10b981;
+  margin-bottom: 4px;
 
   @media (max-width: 768px) {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
   }
 `;
 
 const StatLabel = styled.div`
-  font-size: 0.9rem;
-  color: #64748b;
+  font-size: 0.8rem;
+  color: #94a3b8;
   font-weight: 500;
 `;
 
 const FormSection = styled.div`
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 
   @media (max-width: 768px) {
-    margin-bottom: 30px;
+    margin-bottom: 16px;
   }
 `;
 
 const SectionTitle = styled.h3`
-  font-size: 1.3rem;
+  font-size: 1rem;
   font-weight: 600;
-  color: #1a202c;
-  margin-bottom: 20px;
-  padding-bottom: 10px;
-  border-bottom: 2px solid #e2e8f0;
+  color: #e2e8f0;
+  margin-bottom: 12px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
 
   @media (max-width: 768px) {
-    font-size: 1.2rem;
-    margin-bottom: 15px;
+    font-size: 0.9rem;
+    margin-bottom: 10px;
   }
 `;
 
 const Form = styled.form`
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 12px;
 
   @media (max-width: 768px) {
-    gap: 15px;
+    gap: 10px;
   }
 `;
 
 const FormRow = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 20px;
+  gap: 12px;
 
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
-    gap: 15px;
+    gap: 10px;
   }
 `;
 
@@ -227,73 +203,75 @@ const FormGroup = styled.div`
 `;
 
 const Label = styled.label`
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   font-weight: 500;
-  color: #374151;
-  margin-bottom: 8px;
+  color: #94a3b8;
+  margin-bottom: 6px;
 `;
 
 const Input = styled.input`
-  padding: 12px 16px;
-  border: 2px solid #e2e8f0;
-  border-radius: 12px;
-  font-size: 1rem;
+  padding: 10px 12px;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 10px;
+  font-size: 0.9rem;
   transition: all 0.3s ease;
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(255,255,255,0.06);
+  color: #e2e8f0;
 
   &:focus {
     outline: none;
-    border-color: #667eea;
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    border-color: #10b981;
+    box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
   }
 
   &::placeholder {
-    color: #9ca3af;
+    color: #64748b;
   }
 
   @media (max-width: 768px) {
-    padding: 10px 14px;
-    font-size: 0.95rem;
+    padding: 8px 10px;
+    font-size: 0.85rem;
   }
 `;
 
 const Select = styled.select`
-  padding: 12px 16px;
-  border: 2px solid #e2e8f0;
-  border-radius: 12px;
-  font-size: 1rem;
+  padding: 10px 12px;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 10px;
+  font-size: 0.9rem;
   transition: all 0.3s ease;
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(255,255,255,0.06);
+  color: #e2e8f0;
   cursor: pointer;
 
   &:focus {
     outline: none;
-    border-color: #667eea;
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    border-color: #10b981;
+    box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
   }
 
   @media (max-width: 768px) {
-    padding: 10px 14px;
-    font-size: 0.95rem;
+    padding: 8px 10px;
+    font-size: 0.85rem;
   }
 `;
 
 
 const Button = styled.button`
-  padding: 12px 24px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 10px 20px;
+  background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
   color: white;
   border: none;
-  border-radius: 12px;
-  font-size: 1rem;
+  border-radius: 10px;
+  font-size: 0.9rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
   align-self: flex-start;
 
   &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(16, 185, 129, 0.3);
   }
 
   &:active {
@@ -307,18 +285,18 @@ const Button = styled.button`
   }
 
   @media (max-width: 768px) {
-    padding: 10px 20px;
-    font-size: 0.95rem;
+    padding: 8px 16px;
+    font-size: 0.85rem;
     width: 100%;
   }
 `;
 
 const DangerButton = styled(Button)`
   background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
-  margin-top: 20px;
+  margin-top: 12px;
 
   &:hover {
-    box-shadow: 0 10px 25px rgba(239, 68, 68, 0.3);
+    box-shadow: 0 6px 16px rgba(239, 68, 68, 0.3);
   }
 `;
 
@@ -493,7 +471,6 @@ const Profile = () => {
       <ProfileContent>
         <ProfileHeader>
           <ProfileTitle>Profile Management</ProfileTitle>
-          <ProfileSubtitle>Manage your account settings and personal information</ProfileSubtitle>
         </ProfileHeader>
 
         <ProfileGrid>
@@ -779,8 +756,8 @@ const Profile = () => {
         {/* Danger Zone */}
         <ProfileCard>
           <FormSection>
-            <SectionTitle style={{ color: '#ef4444', borderColor: '#ef4444' }}>Danger Zone</SectionTitle>
-            <p style={{ color: '#64748b', marginBottom: '20px' }}>
+            <SectionTitle style={{ color: '#ef4444', borderColor: 'rgba(239, 68, 68, 0.3)' }}>Danger Zone</SectionTitle>
+            <p style={{ color: '#94a3b8', marginBottom: '12px' }}>
               Once you delete your account, there is no going back. Please be certain.
             </p>
             <DangerButton onClick={handleDeleteAccount} disabled={loading}>
