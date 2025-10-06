@@ -46,6 +46,11 @@ const Panel = styled.div`
   min-height: 380px; /* stabilize layout on detail mount */
 `;
 
+const DetailPanel = styled(Panel)`
+  height: 520px; /* fix height to prevent column reflow */
+  overflow: auto;
+`;
+
 const SectionTitle = styled.h3`
   color: #e2e8f0;
   font-size: 1rem;
@@ -76,9 +81,11 @@ const OrdersList = styled.div`
   display: grid;
   gap: 10px;
   margin-top: 10px;
+  max-height: 520px; /* match detail height */
+  overflow: auto;
 `;
 
-const Row = styled.button`
+const Row = styled.div`
   width: 100%;
   display: grid;
   grid-template-columns: 1.2fr 1fr auto;
@@ -222,7 +229,14 @@ export default function TestOrder() {
   useEffect(() => { if (isAdmin) { loadOrders(); } }, [isAdmin, loadOrders]);
   useEffect(() => {
     if (!isAdmin) return;
-    const id = setInterval(loadOrders, 15000);
+    // avoid refresh right after selection to reduce perceived jitter
+    let pending = false;
+    const id = setInterval(async () => {
+      if (pending) return;
+      pending = true;
+      await loadOrders();
+      pending = false;
+    }, 20000);
     return () => clearInterval(id);
   }, [isAdmin, loadOrders]);
 
@@ -272,7 +286,7 @@ export default function TestOrder() {
             <SectionTitle>Orders</SectionTitle>
             <OrdersList>
               {filtered.map(o => (
-                <Row key={o._id} onClick={() => setSelected(o)}>
+                <Row key={o._id} onClick={() => setSelected(o)} role="button" tabIndex={0} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setSelected(o); }}>
                   <OrderNum>{o.orderNumber}</OrderNum>
                   <OrderMeta>{(o.customerInfo?.firstName || '') + ' ' + (o.customerInfo?.lastName || '')}</OrderMeta>
                   <Badge status={o.status}>{statusIcon[o.status]} <span style={{ marginLeft: 6, textTransform: 'capitalize' }}>{o.status}</span></Badge>
@@ -285,7 +299,7 @@ export default function TestOrder() {
             </OrdersList>
           </Panel>
 
-          <Panel>
+          <DetailPanel>
             <SectionTitle>Details</SectionTitle>
             {!selected && (
               <div style={{ color:'#94a3b8' }}>Select an order to view and manage</div>
@@ -354,7 +368,7 @@ export default function TestOrder() {
                 {updating && <div style={{ marginTop:8, color:'#94a3b8', fontSize:12 }}>Updating...</div>}
               </>
             )}
-          </Panel>
+          </DetailPanel>
         </Layout>
       </Wrap>
     </Page>
