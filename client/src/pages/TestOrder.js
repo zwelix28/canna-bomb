@@ -217,16 +217,19 @@ export default function TestOrder() {
       const res = await api.get('/api/orders/admin');
       const list = res.data?.orders || [];
       setOrders(list);
-      if (selected) {
-        const refreshed = list.find(o => o._id === selected._id);
-        if (refreshed) setSelected(refreshed);
-      }
     } catch (e) {
       setOrders([]);
     }
-  }, [selected]);
+  }, []);
+
+  const refreshSelected = useCallback(() => {
+    if (!selected) return;
+    const refreshed = orders.find(o => o._id === selected._id);
+    if (refreshed) setSelected(refreshed);
+  }, [selected, orders]);
 
   useEffect(() => { if (isAdmin) { loadOrders(); } }, [isAdmin, loadOrders]);
+  useEffect(() => { refreshSelected(); }, [refreshSelected]);
   useEffect(() => {
     if (!isAdmin) return;
     // avoid refresh right after selection to reduce perceived jitter
@@ -261,6 +264,8 @@ export default function TestOrder() {
     try {
       await api.put(`/api/orders/${orderId}/status`, { status });
       await loadOrders();
+      // Refresh selected order after status update
+      setTimeout(() => refreshSelected(), 100);
     } catch {}
     setUpdating(false);
     setTimeout(() => setIsClicking(false), 250);
@@ -329,28 +334,28 @@ export default function TestOrder() {
 
                 <Section>
                   <div style={{ fontWeight: 700, marginBottom: 8 }}>Recipient</div>
-                  <div>{selected.customerInfo?.firstName} {selected.customerInfo?.lastName}</div>
-                  <div style={{ color:'#94a3b8', fontSize: 12 }}>{selected.customerInfo?.email}</div>
+                  <div>{selected.customerInfo?.firstName || 'N/A'} {selected.customerInfo?.lastName || ''}</div>
+                  <div style={{ color:'#94a3b8', fontSize: 12 }}>{selected.customerInfo?.email || 'N/A'}</div>
                 </Section>
 
                 <Section>
                   <div style={{ fontWeight: 700, marginBottom: 8 }}>Collection</div>
-                  <div>Method: {selected.collectionMethod}</div>
-                  <div>Date: {selected.collectionDate}</div>
-                  <div>Time: {selected.collectionTime}</div>
+                  <div>Method: {selected.collectionMethod || 'N/A'}</div>
+                  <div>Date: {selected.collectionDate || 'N/A'}</div>
+                  <div>Time: {selected.collectionTime || 'N/A'}</div>
                   {selected.orderNotes && <div>Notes: {selected.orderNotes}</div>}
                 </Section>
 
                 <Section>
-                  <div style={{ fontWeight: 700, marginBottom: 8 }}>Items</div>
+                  <div style={{ fontWeight: 700, marginBottom: 8 }}>Items ({selected.items?.length || 0})</div>
                   <Items>
-                    {selected.items.map((it, i) => (
+                    {(selected.items || []).map((it, i) => (
                       <Item key={i}>
                         <div style={{ display:'flex', gap:8, alignItems:'center' }}>
                           <img src={it.image || '/placeholder-product.svg'} alt={it.name} width={36} height={36} style={{ borderRadius: 6, objectFit:'cover' }} onError={(e) => { e.currentTarget.src = '/placeholder-product.svg'; }} />
                           <div>
-                            <div style={{ fontWeight:600 }}>{it.name}</div>
-                            <div style={{ color:'#94a3b8', fontSize:12 }}>Qty: {it.quantity}</div>
+                            <div style={{ fontWeight:600 }}>{it.name || 'Unknown Item'}</div>
+                            <div style={{ color:'#94a3b8', fontSize:12 }}>Qty: {it.quantity || 0}</div>
                           </div>
                         </div>
                         <div style={{ fontWeight:700 }}>R{(it.total || 0).toFixed(2)}</div>
