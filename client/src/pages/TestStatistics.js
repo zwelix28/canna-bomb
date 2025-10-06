@@ -500,7 +500,7 @@ const TestStatistics = () => {
     <StatisticsContainer>
       <StatisticsContent>
         <StatisticsHeader>
-          <Title>Test Statistics</Title>
+          <Title>Statistics & Business Insight</Title>
           <RefreshButton onClick={fetchStatistics}>
             <RiRefreshLine /> Refresh Data
           </RefreshButton>
