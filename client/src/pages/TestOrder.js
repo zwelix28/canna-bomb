@@ -308,7 +308,7 @@ export default function TestOrder() {
     <Page>
       <Wrap>
         <Header>
-          <Title>Test Order</Title>
+          <Title>Order Management</Title>
           <SearchWrap>
             <RiSearchLine />
             <SearchInput value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search order number or recipient" />

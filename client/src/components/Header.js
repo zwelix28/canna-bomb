@@ -761,7 +761,7 @@ const Header = () => {
                       <RiMoneyDollarCircleLine /> Sales Dashboard
                     </DropdownItem>
                     <DropdownItem to="/admin/test-order" onClick={() => setIsDropdownOpen(false)}>
-                      <RiTestTubeLine /> Test Order
+                      <RiTestTubeLine /> Order Management
                     </DropdownItem>
                 <DropdownItem to="/ai-analytics" onClick={() => setIsDropdownOpen(false)} style={{ fontSize: '14px' }}>
                   <RiRobot2Line /> AI Analytics <NewTag>New</NewTag>
