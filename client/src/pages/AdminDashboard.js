@@ -317,11 +317,11 @@ export default function AdminDashboard() {
         </ControlsBar>
 
         <Grid>
-          <Tile to="/orders">
+          <Tile to="/admin/test-order">
             <TileTitle>Total Orders</TileTitle>
             <TileValue>{stats?.totalOrders ?? '—'}</TileValue>
           </Tile>
-          <Tile to="/orders">
+          <Tile to="/admin/test-order">
             <TileTitle>Pending Orders</TileTitle>
             <TileValue>{stats?.pendingOrders ?? '—'}</TileValue>
           </Tile>
