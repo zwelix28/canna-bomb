@@ -27,9 +27,11 @@ export const AuthProvider = ({ children }) => {
     try {
       const response = await api.get('/api/auth/profile');
       setUser(response.data);
+      localStorage.setItem('user', JSON.stringify(response.data));
     } catch (error) {
       console.error('Auth check failed:', error);
       localStorage.removeItem('token');
+      localStorage.removeItem('user');
       setToken(null);
       setUser(null);
     } finally {
@@ -53,6 +55,7 @@ export const AuthProvider = ({ children }) => {
       const { token: newToken, user: userData } = response.data;
       
       localStorage.setItem('token', newToken);
+      localStorage.setItem('user', JSON.stringify(userData));
       setToken(newToken);
       setUser(userData);
       
@@ -72,6 +75,7 @@ export const AuthProvider = ({ children }) => {
       const { token: newToken, user: newUser } = response.data;
       
       localStorage.setItem('token', newToken);
+      localStorage.setItem('user', JSON.stringify(newUser));
       setToken(newToken);
       setUser(newUser);
       
@@ -88,6 +92,7 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     const userName = user?.firstName || 'User';
     localStorage.removeItem('token');
+    localStorage.removeItem('user');
     setToken(null);
     setUser(null);
     showSuccess(`Goodbye, ${userName}! See you soon.`, 'Logged Out');

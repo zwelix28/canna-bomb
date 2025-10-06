@@ -4,16 +4,31 @@ import { useAuth } from '../contexts/AuthContext';
 import { useCart } from '../contexts/CartContext';
 import styled from 'styled-components';
 import PWAInstallButton from './PWAInstallButton';
+import {
+  RiLeafFill,
+  RiShoppingCart2Line,
+  RiUser3Line,
+  RiMenu3Fill,
+  RiCloseLine,
+  RiLogoutBoxRLine,
+  RiClipboardLine,
+  RiBarChart2Line,
+  RiDashboardLine,
+  RiRobot2Line,
+  RiGroupLine,
+  RiMoneyDollarCircleLine
+} from 'react-icons/ri';
 
 const HeaderContainer = styled.header`
-  background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+  background: radial-gradient(1200px 400px at 10% -20%, rgba(16, 185, 129, 0.12), transparent 60%),
+              linear-gradient(135deg, #0b1222 0%, #121c2f 55%, #1e293b 100%);
   backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(16, 185, 129, 0.2);
+  border-bottom: 1px solid rgba(16, 185, 129, 0.25);
   position: sticky;
   top: 0;
   z-index: 1000;
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 6px 28px rgba(0, 0, 0, 0.18);
   
   &::before {
     content: '';
@@ -22,7 +37,7 @@ const HeaderContainer = styled.header`
     left: 0;
     right: 0;
     height: 1px;
-    background: linear-gradient(90deg, transparent 0%, #10b981 50%, transparent 100%);
+    background: linear-gradient(90deg, transparent 0%, rgba(16, 185, 129, 0.9) 50%, transparent 100%);
   }
 `;
 
@@ -47,44 +62,46 @@ const Nav = styled.nav`
 `;
 
 const Logo = styled(Link)`
-  font-size: 28px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 26px;
   font-weight: 900;
-  background: linear-gradient(135deg, #10b981 0%, #34d399 50%, #6ee7b7 100%);
+  text-decoration: none;
+  letter-spacing: -0.8px;
+  position: relative;
+  background: linear-gradient(135deg, #e7fff5 0%, #a7f3d0 35%, #34d399 70%, #10b981 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  text-decoration: none;
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
-  letter-spacing: -0.8px;
-  position: relative;
+  transition: transform 0.3s ease, filter 0.3s ease;
   
   &::after {
     content: '';
     position: absolute;
-    bottom: -4px;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: linear-gradient(90deg, #10b981 0%, #34d399 100%);
-    transition: width 0.3s ease;
+    inset: -8px -12px;
+    background: linear-gradient(125deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0) 50%, rgba(16,185,129,0.08) 100%);
+    border-radius: 14px;
+    filter: blur(6px);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
   }
   
   &:hover {
-    transform: scale(1.05);
-    filter: brightness(1.1);
-    
-    &::after {
-      width: 100%;
-    }
+    transform: translateY(-1px);
+    filter: brightness(1.08);
   }
   
+  &:hover::after { opacity: 1; }
+  
   @media (max-width: 768px) {
-    font-size: 24px;
+    font-size: 22px;
     letter-spacing: -0.5px;
   }
   
   @media (max-width: 480px) {
-    font-size: 20px;
+    font-size: 19px;
     letter-spacing: -0.3px;
   }
 `;
@@ -123,9 +140,9 @@ const NavLink = styled(Link)`
   
   &:hover {
     color: #10b981;
-    background: rgba(16, 185, 129, 0.1);
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.18) 0%, rgba(52, 211, 153, 0.18) 100%);
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
+    box-shadow: 0 6px 16px rgba(16, 185, 129, 0.25);
     
     &::before {
       left: 100%;
@@ -134,8 +151,8 @@ const NavLink = styled(Link)`
   
   &.active {
     color: #10b981;
-    background: rgba(16, 185, 129, 0.15);
-    box-shadow: 0 2px 8px rgba(16, 185, 129, 0.2);
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.22) 0%, rgba(52, 211, 153, 0.22) 100%);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.28);
   }
 `;
 
@@ -153,18 +170,18 @@ const CartIcon = styled(Link)`
   padding: 8px;
   border-radius: 10px;
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: linear-gradient(180deg, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.06) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.24);
   display: flex;
   align-items: center;
   justify-content: center;
   
   &:hover {
     color: #10b981;
-    background: rgba(16, 185, 129, 0.2);
-    border-color: rgba(16, 185, 129, 0.3);
+    background: linear-gradient(180deg, rgba(16,185,129,0.25) 0%, rgba(16,185,129,0.12) 100%);
+    border-color: rgba(16, 185, 129, 0.35);
     transform: translateY(-1px);
-    box-shadow: 0 3px 10px rgba(16, 185, 129, 0.3);
+    box-shadow: 0 6px 16px rgba(16, 185, 129, 0.35);
   }
   
   @media (max-width: 768px) {
@@ -242,11 +259,11 @@ const UserButton = styled.button`
   height: 40px;
   
   &:hover {
-    background: rgba(16, 185, 129, 0.2);
-    border-color: rgba(16, 185, 129, 0.3);
+    background: linear-gradient(180deg, rgba(16,185,129,0.22) 0%, rgba(16,185,129,0.1) 100%);
+    border-color: rgba(16, 185, 129, 0.35);
     color: #10b981;
     transform: translateY(-1px);
-    box-shadow: 0 3px 10px rgba(16, 185, 129, 0.2);
+    box-shadow: 0 6px 16px rgba(16, 185, 129, 0.3);
   }
   
   @media (max-width: 768px) {
@@ -293,11 +310,12 @@ const DropdownMenu = styled.div`
   position: absolute;
   top: 100%;
   right: 0;
-  background: rgba(15, 23, 42, 0.98);
+  background: radial-gradient(800px 200px at 0% 0%, rgba(16,185,129,0.12), transparent 55%),
+              rgba(15, 23, 42, 0.98);
   backdrop-filter: blur(20px);
-  border: 1px solid rgba(16, 185, 129, 0.2);
+  border: 1px solid rgba(16, 185, 129, 0.28);
   border-radius: 16px;
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 24px 28px -8px rgba(0, 0, 0, 0.45), 0 10px 16px -6px rgba(0, 0, 0, 0.18);
   min-width: 220px;
   z-index: 1000;
   display: ${props => props.isOpen ? 'block' : 'none'};
@@ -317,7 +335,7 @@ const DropdownItem = styled(Link)`
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   
   &:hover {
-    background: rgba(16, 185, 129, 0.1);
+    background: linear-gradient(135deg, rgba(16,185,129,0.16) 0%, rgba(52,211,153,0.16) 100%);
     color: #10b981;
     padding-left: 24px;
   }
@@ -343,7 +361,7 @@ const LogoutButton = styled.button`
   border-top: 1px solid rgba(255, 255, 255, 0.05);
   
   &:hover {
-    background: rgba(248, 113, 113, 0.1);
+    background: linear-gradient(135deg, rgba(248,113,113,0.16) 0%, rgba(239,68,68,0.16) 100%);
     color: #ef4444;
     padding-left: 24px;
   }
@@ -452,7 +470,7 @@ const MobileMenuButton = styled.button`
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
   
   &:hover {
-    background: rgba(16, 185, 129, 0.2);
+    background: linear-gradient(180deg, rgba(16,185,129,0.22) 0%, rgba(16,185,129,0.1) 100%);
     color: #10b981;
     transform: translateY(-1px);
   }
@@ -487,10 +505,11 @@ const MobileMenu = styled.div`
   top: 100%;
   left: 0;
   right: 0;
-  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  background: radial-gradient(1200px 400px at 10% -20%, rgba(16, 185, 129, 0.12), transparent 60%),
+              linear-gradient(135deg, #0b1222 0%, #0f172a 50%, #1e293b 100%);
   backdrop-filter: blur(20px);
-  border-top: 1px solid rgba(16, 185, 129, 0.2);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  border-top: 1px solid rgba(16, 185, 129, 0.25);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.35);
   z-index: 999;
   opacity: ${props => props.isOpen ? 1 : 0};
   visibility: ${props => props.isOpen ? 'visible' : 'hidden'};
@@ -528,7 +547,7 @@ const MobileNavLink = styled(Link)`
   gap: 12px;
   
   &:hover {
-    background: rgba(16, 185, 129, 0.1);
+    background: linear-gradient(135deg, rgba(16,185,129,0.18) 0%, rgba(52,211,153,0.18) 100%);
     color: #10b981;
     transform: translateX(4px);
   }
@@ -697,32 +716,24 @@ const Header = () => {
   return (
     <HeaderContainer>
       <Nav>
-        <Logo to="/">🌿 Canna Bomb</Logo>
+        <Logo to="/">
+          <RiLeafFill /> Canna Bomb
+        </Logo>
         
         <NavLinks>
-          <NavLink to="/">Home</NavLink>
           <NavLink to="/products">Products</NavLink>
+          {isAuthenticated && user?.role === 'admin' && (
+            <NavLink to="/admin">Admin</NavLink>
+          )}
           {isAuthenticated && (
             <NavLink to="/orders">Orders</NavLink>
-          )}
-          {user?.role === 'admin' && (
-            <>
-              <NavLink to="/inventory">Inventory</NavLink>
-              <NavLink to="/statistics">Statistics</NavLink>
-              <NavLink to="/sales-dashboard">Sales Dashboard</NavLink>
-              <NavLink to="/ai-analytics">
-                AI Analytics
-                <NewTag>New</NewTag>
-              </NavLink>
-              <NavLink to="/users">Users</NavLink>
-            </>
           )}
         </NavLinks>
         
         <RightSection>
           <PWAInstallButton showText={false} />
-          <CartIcon to="/cart">
-            🛒
+          <CartIcon to="/cart" aria-label="Cart">
+            <RiShoppingCart2Line />
             {itemCount > 0 && <CartBadge>{itemCount}</CartBadge>}
           </CartIcon>
           
@@ -735,18 +746,29 @@ const Header = () => {
               </UserButton>
               <DropdownMenu isOpen={isDropdownOpen}>
                 <DropdownItem to="/profile" onClick={() => setIsDropdownOpen(false)}>
-                  👤 Profile
-                </DropdownItem>
-                <DropdownItem to="/orders" onClick={() => setIsDropdownOpen(false)}>
-                  📦 Orders
+                  <RiUser3Line /> Profile
                 </DropdownItem>
                 {user?.role === 'admin' && (
-                  <DropdownItem to="/inventory" onClick={() => setIsDropdownOpen(false)}>
-                    📋 Inventory
-                  </DropdownItem>
+                  <>
+                    <DropdownItem to="/inventory" onClick={() => setIsDropdownOpen(false)}>
+                      <RiDashboardLine /> Inventory
+                    </DropdownItem>
+                    <DropdownItem to="/statistics" onClick={() => setIsDropdownOpen(false)}>
+                      <RiBarChart2Line /> Statistics
+                    </DropdownItem>
+                    <DropdownItem to="/sales-dashboard" onClick={() => setIsDropdownOpen(false)}>
+                      <RiMoneyDollarCircleLine /> Sales Dashboard
+                    </DropdownItem>
+                <DropdownItem to="/ai-analytics" onClick={() => setIsDropdownOpen(false)} style={{ fontSize: '14px' }}>
+                  <RiRobot2Line /> AI Analytics <NewTag>New</NewTag>
+                </DropdownItem>
+                    <DropdownItem to="/users" onClick={() => setIsDropdownOpen(false)}>
+                      <RiGroupLine /> Users
+                    </DropdownItem>
+                  </>
                 )}
                 <LogoutButton onClick={handleLogout}>
-                  🚪 Logout
+                  <RiLogoutBoxRLine /> Logout
                 </LogoutButton>
               </DropdownMenu>
             </UserMenu>
@@ -761,8 +783,8 @@ const Header = () => {
             </AuthButtons>
           )}
           
-          <MobileMenuButton onClick={toggleMobileMenu}>
-            {isMobileMenuOpen ? '✕' : '☰'}
+          <MobileMenuButton onClick={toggleMobileMenu} aria-label="Toggle menu">
+            {isMobileMenuOpen ? <RiCloseLine /> : <RiMenu3Fill />}
           </MobileMenuButton>
         </RightSection>
       </Nav>
@@ -770,36 +792,13 @@ const Header = () => {
       <MobileMenu isOpen={isMobileMenuOpen}>
         <MobileMenuContent>
           <MobileNavLinks>
-            <MobileNavLink to="/" onClick={closeMobileMenu}>
-              🏠 Home
-            </MobileNavLink>
             <MobileNavLink to="/products" onClick={closeMobileMenu}>
-              🛍️ Products
+              <RiClipboardLine /> Products
             </MobileNavLink>
             {isAuthenticated && (
               <MobileNavLink to="/orders" onClick={closeMobileMenu}>
-                📦 Orders
+                <RiClipboardLine /> Orders
               </MobileNavLink>
-            )}
-            {user?.role === 'admin' && (
-              <>
-                <MobileNavLink to="/inventory" onClick={closeMobileMenu}>
-                  📋 Inventory
-                </MobileNavLink>
-                <MobileNavLink to="/statistics" onClick={closeMobileMenu}>
-                  📊 Statistics
-                </MobileNavLink>
-                <MobileNavLink to="/sales-dashboard" onClick={closeMobileMenu}>
-                  📈 Sales Dashboard
-                </MobileNavLink>
-                <MobileNavLink to="/ai-analytics" onClick={closeMobileMenu}>
-                  🤖 AI Analytics
-                  <NewTag>New</NewTag>
-                </MobileNavLink>
-                <MobileNavLink to="/users" onClick={closeMobileMenu}>
-                  👥 Users
-                </MobileNavLink>
-              </>
             )}
           </MobileNavLinks>
           
@@ -814,6 +813,7 @@ const Header = () => {
                   <MobileUserRole>{user?.role || 'Customer'}</MobileUserRole>
                 </MobileUserDetails>
               </MobileUserInfo>
+              {/* Admin links live under profile dropdown, not in mobile menu */}
               <MobileLogoutButton onClick={handleLogout}>
                 🚪 Logout
               </MobileLogoutButton>

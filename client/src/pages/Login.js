@@ -258,6 +258,7 @@ const Login = () => {
     try {
       const result = await login(formData.email, formData.password);
       if (result.success) {
+        // Navigate based on user role - the RoleBasedHome component will handle the redirect
         navigate('/');
       }
     } catch (error) {

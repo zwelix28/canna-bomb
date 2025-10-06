@@ -4,7 +4,7 @@ import { useAuth } from './contexts/AuthContext';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import AgeVerification from './pages/AgeVerification';
-import Home from './pages/Home';
+import RoleBasedHome from './components/RoleBasedHome';
 import Products from './pages/Products';
 import ProductDetail from './pages/ProductDetail';
 import Cart from './pages/Cart';
@@ -19,6 +19,7 @@ import Statistics from './pages/Statistics';
 import UserManagement from './pages/UserManagement';
 import AIAnalytics from './pages/AIAnalytics';
 import SalesDashboard from './pages/SalesDashboard';
+import AdminDashboard from './pages/AdminDashboard';
 
 import ProtectedRoute from './components/ProtectedRoute';
 import LoadingSpinner from './components/LoadingSpinner';
@@ -27,13 +28,14 @@ import { isAgeVerified } from './utils/ageVerification';
 
 // Main App Content Component
 const AppContent = () => {
+  const { user } = useAuth();
   return (
     <div className="App">
       <ScrollToTop />
       <Header />
       <main>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<RoleBasedHome />} />
           <Route path="/products" element={<Products />} />
           <Route path="/products/:id" element={<ProductDetail />} />
           <Route path="/login" element={<Login />} />
@@ -80,6 +82,11 @@ const AppContent = () => {
               <SalesDashboard />
             </ProtectedRoute>
           } />
+          <Route path="/admin" element={
+            <ProtectedRoute adminOnly>
+              <AdminDashboard />
+            </ProtectedRoute>
+          } />
           <Route path="/users" element={
             <ProtectedRoute>
               <UserManagement />
@@ -92,7 +99,7 @@ const AppContent = () => {
           } />
         </Routes>
       </main>
-      <Footer />
+      {user?.role !== 'admin' && <Footer />}
     </div>
   );
 };

@@ -93,8 +93,8 @@ const demoUsers = [
 
 const seedUsers = async () => {
   try {
-    // Connect to MongoDB
-    await mongoose.connect(process.env.MONGODB_URI);
+    // Connect to MongoDB (fallback to local URI if not provided)
+    await mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/canna-bomb');
     console.log('Connected to MongoDB');
 
     // Clear existing users (except keep admin accounts)
@@ -106,17 +106,20 @@ const seedUsers = async () => {
 
     // Check if admin user exists, if not create it
     const adminExists = await User.findOne({ email: 'admin@cannabomb.com' });
+    const adminData = demoUsers.find(user => user.role === 'admin');
     if (!adminExists) {
-      const adminData = demoUsers.find(user => user.role === 'admin');
-      const hashedAdminPassword = await bcrypt.hash(adminData.password, 12);
+      // Create admin WITHOUT pre-hashing; let model pre-save hash it once
       const adminUser = new User({
         ...adminData,
-        password: hashedAdminPassword
+        password: adminData.password
       });
       await adminUser.save();
       console.log('Admin user created');
     } else {
-      console.log('Admin user already exists');
+      // Ensure known admin password is set correctly (avoid double-hash issue)
+      adminExists.password = adminData.password;
+      await adminExists.save();
+      console.log('Admin user already exists - password reset to default');
     }
 
     // Hash passwords and create users (excluding admin)

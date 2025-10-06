@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { pwaUtils } from '../utils/pwaUtils';
+import { RiDownload2Line } from 'react-icons/ri';
 
 const InstallButton = styled.button`
   background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
@@ -39,7 +40,10 @@ const InstallButton = styled.button`
 `;
 
 const InstallIcon = styled.span`
-  font-size: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
 `;
 
 const InstallText = styled.span`
@@ -107,7 +111,9 @@ const PWAInstallButton = ({ className, showText = true }) => {
       onClick={handleInstall}
       disabled={isInstalling}
     >
-      <InstallIcon>📱</InstallIcon>
+      <InstallIcon>
+        <RiDownload2Line />
+      </InstallIcon>
       {showText && (
         <InstallText>
           {isInstalling ? 'Installing...' : 'Install App'}
