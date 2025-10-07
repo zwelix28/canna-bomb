@@ -17,7 +17,6 @@ import OrderDetail from './pages/OrderDetail';
 import Inventory from './pages/Inventory';
 import Statistics from './pages/Statistics';
 import UserManagement from './pages/UserManagement';
-import AIAnalytics from './pages/AIAnalytics';
 import SalesDashboard from './pages/SalesDashboard';
 import AdminDashboard from './pages/AdminDashboard';
 import TestOrder from './pages/TestOrder';
@@ -106,7 +105,7 @@ const AppContent = () => {
               <TestSales />
             </ProtectedRoute>
           } />
-          <Route path="/admin/test-ai" element={
+          <Route path="/admin/ai-analysis" element={
             <ProtectedRoute adminOnly>
               <TestAI />
             </ProtectedRoute>
@@ -114,11 +113,6 @@ const AppContent = () => {
           <Route path="/users" element={
             <ProtectedRoute>
               <UserManagement />
-            </ProtectedRoute>
-          } />
-          <Route path="/ai-analytics" element={
-            <ProtectedRoute>
-              <AIAnalytics />
             </ProtectedRoute>
           } />
         </Routes>

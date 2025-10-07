@@ -497,7 +497,7 @@ const TestAI = () => {
       <AIContent>
         <AIHeader>
           <Title>
-            <RiRobot2Line /> Test AI <AIBadge>Powered by GPT</AIBadge>
+            <RiRobot2Line /> AI Analysis <AIBadge>Powered by GPT</AIBadge>
           </Title>
           <AnalyzeButton onClick={analyzeWithAI} disabled={analyzing} $analyzing={analyzing}>
             {analyzing ? (
