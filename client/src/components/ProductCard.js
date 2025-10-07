@@ -44,14 +44,9 @@ const ImageContainer = styled.div`
 const ProductImage = styled.img`
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain; /* show entire image without cropping */
   object-position: center;
   background: transparent;
-  transition: transform 0.4s ease;
-  
-  ${Card}:hover & {
-    transform: scale(1.024);
-  }
 `;
 
 const SaleBadge = styled.div`
