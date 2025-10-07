@@ -14,133 +14,108 @@ const fadeIn = keyframes`
   }
 `;
 
-const pulse = keyframes`
-  0%, 100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.05);
-  }
-`;
 
 const AgeVerificationContainer = styled.div`
   min-height: 100vh;
-  background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+  background: linear-gradient(135deg, #0b1222 0%, #0f172a 50%, #1e293b 100%);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  padding: 24px 20px;
   position: relative;
   overflow: hidden;
   
   &::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    inset: 0;
     background: 
-      radial-gradient(circle at 20% 80%, rgba(16, 185, 129, 0.1) 0%, transparent 50%),
-      radial-gradient(circle at 80% 20%, rgba(16, 185, 129, 0.1) 0%, transparent 50%),
-      radial-gradient(circle at 40% 40%, rgba(16, 185, 129, 0.05) 0%, transparent 50%);
+      radial-gradient(1000px 400px at 10% -10%, rgba(16,185,129,0.12), transparent 60%),
+      radial-gradient(900px 300px at 90% 110%, rgba(52,211,153,0.08), transparent 70%);
     pointer-events: none;
   }
 `;
 
 const VerificationCard = styled.div`
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(20px);
-  border-radius: 24px;
-  padding: 60px 40px;
-  max-width: 500px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 16px;
+  padding: 28px 22px;
+  max-width: 460px;
   width: 100%;
   text-align: center;
-  box-shadow: 
-    0 20px 40px rgba(0, 0, 0, 0.1),
-    0 0 0 1px rgba(255, 255, 255, 0.2);
-  border: 1px solid rgba(16, 185, 129, 0.2);
-  animation: ${fadeIn} 0.8s ease-out;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18);
+  animation: ${fadeIn} 0.6s ease-out;
   position: relative;
-  
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, #10b981 0%, #059669 50%, #10b981 100%);
-    border-radius: 24px 24px 0 0;
-  }
 `;
 
 const Logo = styled.div`
-  font-size: 2.5rem;
+  font-size: 1.6rem;
   font-weight: 900;
-  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  background: linear-gradient(135deg, #ffffff 0%, #10b981 60%, #34d399 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  margin-bottom: 20px;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 8px;
 `;
 
 const Title = styled.h1`
-  font-size: 2rem;
-  font-weight: 800;
-  color: #0f172a;
-  margin-bottom: 16px;
-  line-height: 1.2;
+  font-size: 1.6rem;
+  font-weight: 900;
+  background: linear-gradient(135deg, #ffffff 0%, #10b981 60%, #34d399 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 8px;
 `;
 
 const Subtitle = styled.p`
-  font-size: 1.1rem;
-  color: #64748b;
-  margin-bottom: 40px;
+  font-size: 0.95rem;
+  color: #94a3b8;
+  margin-bottom: 20px;
   line-height: 1.6;
 `;
 
 const AgeIcon = styled.div`
-  width: 80px;
-  height: 80px;
-  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-  border-radius: 50%;
+  width: 64px;
+  height: 64px;
+  background: linear-gradient(135deg, rgba(16,185,129,0.18) 0%, rgba(52,211,153,0.18) 100%);
+  border: 1px solid rgba(16,185,129,0.35);
+  border-radius: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto 30px;
-  box-shadow: 0 8px 24px rgba(16, 185, 129, 0.3);
-  animation: ${pulse} 2s infinite;
+  margin: 6px auto 16px;
+  box-shadow: 0 8px 24px rgba(16, 185, 129, 0.18);
   
   svg {
-    width: 40px;
-    height: 40px;
-    color: white;
+    width: 28px;
+    height: 28px;
+    color: #10b981;
   }
 `;
 
 const WarningText = styled.div`
-  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
-  border: 1px solid #f59e0b;
+  background: rgba(245, 158, 11, 0.10);
+  border: 1px solid rgba(245, 158, 11, 0.30);
   border-radius: 12px;
-  padding: 20px;
-  margin-bottom: 30px;
+  padding: 12px;
+  margin-bottom: 16px;
   text-align: left;
   
   h3 {
-    color: #92400e;
-    font-size: 1rem;
+    color: #fde68a;
+    font-size: 0.9rem;
     font-weight: 700;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
     display: flex;
     align-items: center;
     gap: 8px;
   }
   
   p {
-    color: #92400e;
-    font-size: 0.9rem;
+    color: #fef3c7;
+    font-size: 0.85rem;
     line-height: 1.5;
     margin: 0;
   }
@@ -148,58 +123,53 @@ const WarningText = styled.div`
 
 const ButtonGroup = styled.div`
   display: flex;
-  gap: 16px;
-  margin-top: 30px;
+  gap: 10px;
+  margin-top: 16px;
 `;
 
 const ConfirmButton = styled.button`
   flex: 1;
-  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
   color: white;
   border: none;
-  border-radius: 12px;
-  padding: 16px 24px;
-  font-size: 1rem;
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-size: 0.95rem;
   font-weight: 700;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 16px rgba(16, 185, 129, 0.3);
+  box-shadow: 0 6px 18px rgba(16, 185, 129, 0.30);
   
   &:hover {
-    background: linear-gradient(135deg, #059669 0%, #047857 100%);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(16, 185, 129, 0.4);
-  }
-  
-  &:active {
-    transform: translateY(0);
+    transform: translateY(-1px);
+    box-shadow: 0 10px 24px rgba(16, 185, 129, 0.35);
   }
 `;
 
 const DeclineButton = styled.button`
   flex: 1;
-  background: transparent;
-  color: #64748b;
-  border: 2px solid #e2e8f0;
-  border-radius: 12px;
-  padding: 14px 24px;
-  font-size: 1rem;
+  background: rgba(255,255,255,0.06);
+  color: #94a3b8;
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-size: 0.95rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
   
   &:hover {
-    background: #f8fafc;
-    border-color: #cbd5e1;
-    color: #475569;
+    background: rgba(255,255,255,0.08);
+    border-color: rgba(255,255,255,0.24);
+    color: #e2e8f0;
   }
 `;
 
 const FooterText = styled.p`
   font-size: 0.8rem;
   color: #94a3b8;
-  margin-top: 30px;
-  line-height: 1.4;
+  margin-top: 14px;
+  line-height: 1.6;
 `;
 
 const AgeVerification = ({ onAgeVerified }) => {
