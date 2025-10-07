@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import { useAuth } from './contexts/AuthContext';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import MobileTabBar from './components/MobileTabBar';
 import AgeVerification from './pages/AgeVerification';
 import RoleBasedHome from './components/RoleBasedHome';
 import Products from './pages/Products';
@@ -35,7 +36,9 @@ const AppContent = () => {
   return (
     <div className="App">
       <ScrollToTop />
-      <Header />
+      <div className="app-header">
+        <Header />
+      </div>
       <main>
         <Routes>
           <Route path="/" element={<RoleBasedHome />} />
@@ -118,6 +121,7 @@ const AppContent = () => {
         </Routes>
       </main>
       {user?.role !== 'admin' && <Footer />}
+      <MobileTabBar />
     </div>
   );
 };
