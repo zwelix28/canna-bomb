@@ -82,7 +82,7 @@ const ProductImage = styled.img`
   transition: transform 0.3s ease;
   
   ${ProductCard}:hover & {
-    transform: scale(1.02);
+    transform: scale(1.016);
   }
   
   &[src=""], &:not([src]) {
