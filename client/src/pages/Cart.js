@@ -7,7 +7,7 @@ import { useNotification } from '../contexts/NotificationContext';
 const CartContainer = styled.div`
   min-height: 100vh;
   padding: 40px 0;
-  background: linear-gradient(135deg, #f8fafc 0%, #ffffff 50%, #f1f5f9 100%);
+  background: linear-gradient(135deg, #0b1222 0%, #0f172a 50%, #1e293b 100%);
   position: relative;
   
   &::before {
@@ -48,9 +48,9 @@ const CartHeader = styled.div`
 `;
 
 const Title = styled.h1`
-  font-size: 2.8rem;
-  font-weight: 700;
-  background: linear-gradient(135deg, #0f172a 0%, #10b981 100%);
+  font-size: 2rem;
+  font-weight: 900;
+  background: linear-gradient(135deg, #ffffff 0%, #10b981 60%, #34d399 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -66,8 +66,8 @@ const Title = styled.h1`
 `;
 
 const Subtitle = styled.p`
-  color: #64748b;
-  font-size: 1.1rem;
+  color: #94a3b8;
+  font-size: 0.95rem;
   font-weight: 400;
   max-width: 500px;
   margin: 0 auto;
@@ -86,12 +86,11 @@ const CartLayout = styled.div`
 `;
 
 const CartItems = styled.div`
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(20px);
-  border-radius: 20px;
-  padding: 32px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18);
   position: relative;
   
   &::before {
@@ -187,9 +186,9 @@ const ItemInfo = styled.div`
 `;
 
 const ItemName = styled.h3`
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 600;
-  color: #0f172a;
+  color: #e2e8f0;
   margin: 0;
   line-height: 1.3;
   
@@ -202,7 +201,7 @@ const ItemName = styled.h3`
 `;
 
 const ItemCategory = styled.span`
-  color: #10b981;
+  color: #34d399;
   font-size: 11px;
   font-weight: 600;
   text-transform: uppercase;
@@ -229,7 +228,7 @@ const ProductDetails = styled.div`
 const ItemPrice = styled.div`
   font-size: 1rem;
   font-weight: 600;
-  color: #0f172a;
+  color: #e2e8f0;
   
   /* Hide individual price on mobile PWA to avoid duplication */
   @media (max-width: 768px) {
@@ -314,7 +313,7 @@ const QuantityInput = styled.input`
 const ItemTotal = styled.div`
   font-size: 1.1rem;
   font-weight: 700;
-  color: #0f172a;
+  color: #e2e8f0;
   text-align: right;
   
   /* Mobile PWA optimizations - Grid positioning */
@@ -352,12 +351,11 @@ const RemoveButton = styled.button`
 `;
 
 const CartSummary = styled.div`
-  background: rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(20px);
-  border-radius: 20px;
-  padding: 32px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18);
   height: fit-content;
   position: sticky;
   top: 100px;
@@ -374,9 +372,9 @@ const CartSummary = styled.div`
 `;
 
 const SummaryTitle = styled.h2`
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: #0f172a;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #e2e8f0;
   margin-bottom: 24px;
 `;
 
@@ -399,13 +397,13 @@ const SummaryRow = styled.div`
 `;
 
 const SummaryLabel = styled.span`
-  color: #64748b;
+  color: #94a3b8;
   font-weight: 500;
   font-size: 14px;
 `;
 
 const SummaryValue = styled.span`
-  color: #0f172a;
+  color: #e2e8f0;
   font-weight: 600;
   font-size: 14px;
 `;
