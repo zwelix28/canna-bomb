@@ -34,16 +34,17 @@ const ImageContainer = styled.div`
   position: relative;
   aspect-ratio: 1;
   overflow: hidden;
-  background: linear-gradient(180deg, #ffffff 0%, #f7fffb 100%);
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.05) 0%, rgba(52, 211, 153, 0.05) 100%);
   display: flex;
   align-items: center;
   justify-content: center;
+  border-radius: 8px;
 `;
 
 const ProductImage = styled.img`
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
   object-position: center;
   background: transparent;
   transition: transform 0.4s ease;

@@ -73,11 +73,11 @@ const ProductCard = styled.div`
 const ProductImage = styled.img`
   width: 100%;
   aspect-ratio: 1;
-  object-fit: contain;
+  object-fit: cover;
   object-position: center;
   border-radius: 8px;
   margin-bottom: 12px;
-  background: rgba(255,255,255,0.04);
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.05) 0%, rgba(52, 211, 153, 0.05) 100%);
   display: block;
   transition: transform 0.3s ease;
   
