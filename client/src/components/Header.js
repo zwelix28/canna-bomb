@@ -754,7 +754,7 @@ const Header = () => {
                     <DropdownItem to="/admin/sales" onClick={() => setIsDropdownOpen(false)}>
                       <RiMoneyDollarCircleLine /> Sales
                     </DropdownItem>
-                    <DropdownItem to="/admin/test-order" onClick={() => setIsDropdownOpen(false)}>
+                    <DropdownItem to="/admin/order-management" onClick={() => setIsDropdownOpen(false)}>
                       <RiTestTubeLine /> Order Management
                     </DropdownItem>
                     <DropdownItem to="/admin/advanced-statistics" onClick={() => setIsDropdownOpen(false)}>

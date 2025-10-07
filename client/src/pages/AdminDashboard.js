@@ -316,11 +316,11 @@ export default function AdminDashboard() {
         </ControlsBar>
 
         <Grid>
-          <Tile to="/admin/test-order">
+          <Tile to="/admin/order-management">
             <TileTitle>Total Orders</TileTitle>
             <TileValue>{stats?.totalOrders ?? '—'}</TileValue>
           </Tile>
-          <Tile to="/admin/test-order">
+          <Tile to="/admin/order-management">
             <TileTitle>Pending Orders</TileTitle>
             <TileValue>{stats?.pendingOrders ?? '—'}</TileValue>
           </Tile>
@@ -344,7 +344,7 @@ export default function AdminDashboard() {
             </CardTitle>
             <List>
               {recentDisplayOrders.map((o) => (
-                <ListItem key={o._id} to="/admin/test-order">
+                <ListItem key={o._id} to="/admin/order-management">
                   <span style={{ fontWeight: 600 }}>
                     {o.customerInfo?.firstName || o.user?.firstName || 'Customer'} {o.customerInfo?.lastName || o.user?.lastName || ''}
                   </span>
@@ -375,7 +375,7 @@ export default function AdminDashboard() {
           <Card>
             <CardTitle>Quick Links</CardTitle>
             <List>
-              <ListItem to="/admin/test-order" style={{ padding:'8px' }}><span style={{ fontSize: '0.9rem' }}>Manage Orders</span><Badge>Go</Badge></ListItem>
+              <ListItem to="/admin/order-management" style={{ padding:'8px' }}><span style={{ fontSize: '0.9rem' }}>Manage Orders</span><Badge>Go</Badge></ListItem>
               <ListItem to="/statistics" style={{ padding:'8px' }}><span style={{ fontSize: '0.9rem' }}>Inventory & Stats</span><Badge>Go</Badge></ListItem>
               <ListItem to="/sales-dashboard" style={{ padding:'8px' }}><span style={{ fontSize: '0.9rem' }}>Sales Analytics</span><Badge>Go</Badge></ListItem>
               <ListItem to="/users" style={{ padding:'8px' }}><span style={{ fontSize: '0.9rem' }}>Users</span><Badge>Go</Badge></ListItem>
