@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const auth = require('../middleware/auth');
+const { auth } = require('../middleware/auth');
 
 // OpenAI API endpoint for business intelligence
 router.post('/analyze-business', auth, async (req, res) => {
