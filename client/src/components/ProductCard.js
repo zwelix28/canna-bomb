@@ -50,7 +50,7 @@ const ProductImage = styled.img`
   transition: transform 0.4s ease;
   
   ${Card}:hover & {
-    transform: scale(1.04);
+    transform: scale(1.024);
   }
 `;
 
