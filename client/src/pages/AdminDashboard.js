@@ -376,7 +376,7 @@ export default function AdminDashboard() {
             <CardTitle>Quick Links</CardTitle>
             <List>
               <ListItem to="/admin/order-management" style={{ padding:'8px' }}><span style={{ fontSize: '0.9rem' }}>Manage Orders</span><Badge>Go</Badge></ListItem>
-              <ListItem to="/statistics" style={{ padding:'8px' }}><span style={{ fontSize: '0.9rem' }}>Inventory & Stats</span><Badge>Go</Badge></ListItem>
+              <ListItem to="/admin/advanced-statistics" style={{ padding:'8px' }}><span style={{ fontSize: '0.9rem' }}>Inventory & Stats</span><Badge>Go</Badge></ListItem>
               <ListItem to="/sales-dashboard" style={{ padding:'8px' }}><span style={{ fontSize: '0.9rem' }}>Sales Analytics</span><Badge>Go</Badge></ListItem>
               <ListItem to="/users" style={{ padding:'8px' }}><span style={{ fontSize: '0.9rem' }}>Users</span><Badge>Go</Badge></ListItem>
             </List>
