@@ -100,7 +100,7 @@ const AppContent = () => {
               <TestStatistics />
             </ProtectedRoute>
           } />
-          <Route path="/admin/test-sales" element={
+          <Route path="/admin/sales" element={
             <ProtectedRoute adminOnly>
               <TestSales />
             </ProtectedRoute>

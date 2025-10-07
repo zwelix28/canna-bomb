@@ -17,7 +17,7 @@ import {
   RiRobot2Line,
   RiGroupLine,
   RiTestTubeLine,
-  RiArrowUpLine
+  RiMoneyDollarCircleLine
 } from 'react-icons/ri';
 
 const HeaderContainer = styled.header`
@@ -751,8 +751,8 @@ const Header = () => {
                     <DropdownItem to="/inventory" onClick={() => setIsDropdownOpen(false)}>
                       <RiDashboardLine /> Inventory
                     </DropdownItem>
-                    <DropdownItem to="/admin/test-sales" onClick={() => setIsDropdownOpen(false)}>
-                      <RiArrowUpLine /> Sales
+                    <DropdownItem to="/admin/sales" onClick={() => setIsDropdownOpen(false)}>
+                      <RiMoneyDollarCircleLine /> Sales
                     </DropdownItem>
                     <DropdownItem to="/admin/test-order" onClick={() => setIsDropdownOpen(false)}>
                       <RiTestTubeLine /> Order Management
