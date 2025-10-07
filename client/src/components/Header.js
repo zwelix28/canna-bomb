@@ -760,6 +760,9 @@ const Header = () => {
                     <DropdownItem to="/admin/advanced-statistics" onClick={() => setIsDropdownOpen(false)}>
                       <RiBarChart2Line /> Statistics & Business Insight
                     </DropdownItem>
+                    <DropdownItem to="/admin/test-ai" onClick={() => setIsDropdownOpen(false)}>
+                      <RiRobot2Line /> Test AI <NewTag>AI</NewTag>
+                    </DropdownItem>
                 <DropdownItem to="/ai-analytics" onClick={() => setIsDropdownOpen(false)} style={{ fontSize: '14px' }}>
                   <RiRobot2Line /> AI Analytics <NewTag>New</NewTag>
                 </DropdownItem>

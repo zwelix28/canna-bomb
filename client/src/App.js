@@ -23,6 +23,7 @@ import AdminDashboard from './pages/AdminDashboard';
 import TestOrder from './pages/TestOrder';
 import TestStatistics from './pages/TestStatistics';
 import TestSales from './pages/TestSales';
+import TestAI from './pages/TestAI';
 
 import ProtectedRoute from './components/ProtectedRoute';
 import LoadingSpinner from './components/LoadingSpinner';
@@ -103,6 +104,11 @@ const AppContent = () => {
           <Route path="/admin/sales" element={
             <ProtectedRoute adminOnly>
               <TestSales />
+            </ProtectedRoute>
+          } />
+          <Route path="/admin/test-ai" element={
+            <ProtectedRoute adminOnly>
+              <TestAI />
             </ProtectedRoute>
           } />
           <Route path="/users" element={
