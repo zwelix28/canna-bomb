@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { RiHome5Line, RiShoppingBag3Line, RiUser3Line, RiDashboardLine, RiShoppingCart2Line } from 'react-icons/ri';
@@ -54,6 +54,16 @@ const MobileTabBar = () => {
   const location = useLocation();
 
   const isActive = (path) => location.pathname === path || location.pathname.startsWith(path + '/');
+
+  // Add class to body for mobile padding when tab bar is visible
+  useEffect(() => {
+    if (window.innerWidth <= 768) {
+      document.body.classList.add('has-tab-bar');
+      return () => {
+        document.body.classList.remove('has-tab-bar');
+      };
+    }
+  }, []);
 
   return (
     <TabBar>

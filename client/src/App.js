@@ -121,7 +121,7 @@ const AppContent = () => {
         </Routes>
       </main>
       {user?.role !== 'admin' && <Footer />}
-      <MobileTabBar />
+      {user && <MobileTabBar />}
     </div>
   );
 };

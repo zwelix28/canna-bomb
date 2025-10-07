@@ -204,8 +204,8 @@ main {
     min-height: 44px;
   }
   
-  /* Hide top header on mobile to use bottom tab bar */
-  .app-header { display: none; }
-  /* Provide room for bottom tab bar */
-  main { padding-bottom: 72px; }
+  /* Provide room for bottom tab bar when authenticated */
+  body.has-tab-bar main { 
+    padding-bottom: 72px; 
+  }
 }
