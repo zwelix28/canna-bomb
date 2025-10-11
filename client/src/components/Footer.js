@@ -11,6 +11,11 @@ const FooterContainer = styled.footer`
   position: relative;
   overflow: hidden;
   
+  /* Hide entire footer on mobile for a cleaner PWA look */
+  @media (max-width: 768px) {
+    display: none;
+  }
+  
   &::before {
     content: '';
     position: absolute;

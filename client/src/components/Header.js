@@ -16,6 +16,7 @@ import {
   RiDashboardLine,
   RiRobot2Line,
   RiGroupLine,
+  RiTestTubeLine,
   RiMoneyDollarCircleLine
 } from 'react-icons/ri';
 
@@ -725,9 +726,6 @@ const Header = () => {
           {isAuthenticated && user?.role === 'admin' && (
             <NavLink to="/admin">Admin</NavLink>
           )}
-          {isAuthenticated && (
-            <NavLink to="/orders">Orders</NavLink>
-          )}
         </NavLinks>
         
         <RightSection>
@@ -753,15 +751,18 @@ const Header = () => {
                     <DropdownItem to="/inventory" onClick={() => setIsDropdownOpen(false)}>
                       <RiDashboardLine /> Inventory
                     </DropdownItem>
-                    <DropdownItem to="/statistics" onClick={() => setIsDropdownOpen(false)}>
-                      <RiBarChart2Line /> Statistics
+                    <DropdownItem to="/admin/sales" onClick={() => setIsDropdownOpen(false)}>
+                      <RiMoneyDollarCircleLine /> Sales
                     </DropdownItem>
-                    <DropdownItem to="/sales-dashboard" onClick={() => setIsDropdownOpen(false)}>
-                      <RiMoneyDollarCircleLine /> Sales Dashboard
+                    <DropdownItem to="/admin/order-management" onClick={() => setIsDropdownOpen(false)}>
+                      <RiTestTubeLine /> Order Management
                     </DropdownItem>
-                <DropdownItem to="/ai-analytics" onClick={() => setIsDropdownOpen(false)} style={{ fontSize: '14px' }}>
-                  <RiRobot2Line /> AI Analytics <NewTag>New</NewTag>
-                </DropdownItem>
+                    <DropdownItem to="/admin/advanced-statistics" onClick={() => setIsDropdownOpen(false)}>
+                      <RiBarChart2Line /> Statistics & Business Insight
+                    </DropdownItem>
+                    <DropdownItem to="/admin/ai-analysis" onClick={() => setIsDropdownOpen(false)}>
+                      <RiRobot2Line /> AI Analysis <NewTag>AI</NewTag>
+                    </DropdownItem>
                     <DropdownItem to="/users" onClick={() => setIsDropdownOpen(false)}>
                       <RiGroupLine /> Users
                     </DropdownItem>
@@ -795,11 +796,6 @@ const Header = () => {
             <MobileNavLink to="/products" onClick={closeMobileMenu}>
               <RiClipboardLine /> Products
             </MobileNavLink>
-            {isAuthenticated && (
-              <MobileNavLink to="/orders" onClick={closeMobileMenu}>
-                <RiClipboardLine /> Orders
-              </MobileNavLink>
-            )}
           </MobileNavLinks>
           
           {isAuthenticated ? (

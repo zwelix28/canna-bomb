@@ -8,26 +8,27 @@ const RegisterContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-  padding: 20px;
+  background: linear-gradient(135deg, #0b1222 0%, #0f172a 50%, #1e293b 100%);
+  padding: 24px 20px;
   
   @media (max-width: 768px) {
-    padding: 10px;
+    padding: 16px 14px;
     align-items: flex-start;
     padding-top: 20px;
   }
 `;
 
 const RegisterCard = styled.div`
-  background: white;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
   border-radius: 16px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-  padding: 40px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18);
+  padding: 28px 22px;
   width: 100%;
-  max-width: 500px;
+  max-width: 520px;
   
   @media (max-width: 768px) {
-    padding: 20px;
+    padding: 20px 16px;
     border-radius: 12px;
     max-width: 100%;
   }
@@ -38,9 +39,12 @@ const Logo = styled.div`
   margin-bottom: 30px;
   
   h1 {
-    font-size: 2rem;
-    font-weight: 700;
-    color: #10b981;
+    font-size: 1.6rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, #ffffff 0%, #10b981 60%, #34d399 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
     margin-bottom: 8px;
     
     @media (max-width: 768px) {
@@ -50,8 +54,8 @@ const Logo = styled.div`
   }
   
   p {
-    color: #64748b;
-    font-size: 1rem;
+    color: #94a3b8;
+    font-size: 0.95rem;
     
     @media (max-width: 768px) {
       font-size: 0.9rem;
@@ -91,54 +95,63 @@ const FormGroup = styled.div`
 `;
 
 const Label = styled.label`
-  font-weight: 500;
-  color: #374151;
-  font-size: 14px;
+  font-weight: 600;
+  color: #94a3b8;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 `;
 
 const Input = styled.input`
-  padding: 12px 16px;
-  border: 2px solid #e2e8f0;
-  border-radius: 8px;
+  padding: 12px 14px;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 10px;
   font-size: 16px;
-  transition: border-color 0.2s ease;
+  transition: all 0.2s ease;
+  background: rgba(255,255,255,0.06);
+  color: #e2e8f0;
+  
+  &::placeholder { color: #64748b; }
   
   &:focus {
     outline: none;
-    border-color: #10b981;
-    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+    border-color: rgba(16,185,129,0.4);
+    background: rgba(16,185,129,0.08);
+    box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.18);
   }
   
   &.error {
-    border-color: #ef4444;
+    border-color: rgba(239,68,68,0.6);
   }
   
   @media (max-width: 768px) {
-    padding: 10px 14px;
+    padding: 10px 12px;
     font-size: 16px; /* Prevent zoom on iOS */
   }
 `;
 
 const Select = styled.select`
-  padding: 12px 16px;
-  border: 2px solid #e2e8f0;
-  border-radius: 8px;
+  padding: 12px 14px;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 10px;
   font-size: 16px;
-  transition: border-color 0.2s ease;
-  background: white;
+  transition: all 0.2s ease;
+  background: rgba(255,255,255,0.06);
+  color: #e2e8f0;
   
   &:focus {
     outline: none;
-    border-color: #10b981;
-    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+    border-color: rgba(16,185,129,0.4);
+    background: rgba(16,185,129,0.08);
+    box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.18);
   }
   
   &.error {
-    border-color: #ef4444;
+    border-color: rgba(239,68,68,0.6);
   }
   
   @media (max-width: 768px) {
-    padding: 10px 14px;
+    padding: 10px 12px;
     font-size: 16px; /* Prevent zoom on iOS */
   }
 `;
@@ -150,31 +163,26 @@ const ErrorMessage = styled.div`
 `;
 
 const SubmitButton = styled.button`
-  background: #10b981;
+  background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
   color: white;
   border: none;
-  padding: 14px;
-  border-radius: 8px;
-  font-size: 16px;
-  font-weight: 600;
+  padding: 12px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 700;
   cursor: pointer;
   transition: all 0.2s ease;
+  box-shadow: 0 6px 18px rgba(16,185,129,0.3);
   
   &:hover {
-    background: #059669;
     transform: translateY(-1px);
+    box-shadow: 0 10px 24px rgba(16,185,129,0.35);
   }
   
   &:disabled {
-    background: #94a3b8;
+    background: #64748b;
     cursor: not-allowed;
     transform: none;
-  }
-  
-  @media (max-width: 768px) {
-    padding: 12px;
-    font-size: 15px;
-    border-radius: 6px;
   }
 `;
 
@@ -222,26 +230,17 @@ const LoginLink = styled.div`
 `;
 
 const AgeWarning = styled.div`
-  background: #fef3c7;
-  border: 1px solid #f59e0b;
-  border-radius: 8px;
+  background: rgba(245, 158, 11, 0.10);
+  border: 1px solid rgba(245, 158, 11, 0.30);
+  border-radius: 12px;
   padding: 12px;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
   
   p {
-    color: #92400e;
-    font-size: 14px;
+    color: #fde68a;
+    font-size: 13px;
     margin: 0;
     text-align: center;
-  }
-  
-  @media (max-width: 768px) {
-    padding: 10px;
-    margin-bottom: 16px;
-    
-    p {
-      font-size: 13px;
-    }
   }
 `;
 

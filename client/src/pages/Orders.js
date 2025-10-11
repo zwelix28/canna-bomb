@@ -104,135 +104,7 @@ const Subtitle = styled.p`
   letter-spacing: 0.3px;
 `;
 
-/* StatsGrid removed — tiles live on Admin Dashboard */
-const StatsGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(${props => props.isAdmin ? '200px' : '280px'}, 1fr));
-  gap: ${props => props.isAdmin ? '20px' : '32px'};
-  margin-bottom: ${props => props.isAdmin ? '32px' : '48px'};
-  
-  /* Mobile PWA optimizations for administrators */
-  @media (max-width: 768px) {
-    display: ${props => props.isAdmin ? 'grid' : 'none'};
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-    margin-bottom: 20px;
-  }
-`;
-
-/* StatCard removed — tiles live on Admin Dashboard */
-const StatCard = styled.div`
-  background: ${props => props.isAdmin ? 
-    'rgba(255, 255, 255, 0.05)' :
-    'linear-gradient(135deg, #ffffff 0%, #f8fafc 100%)'
-  };
-  backdrop-filter: ${props => props.isAdmin ? 'blur(20px)' : 'none'};
-  border-radius: ${props => props.isAdmin ? '16px' : '24px'};
-  padding: ${props => props.isAdmin ? '24px' : '40px'};
-  box-shadow: ${props => props.isAdmin ? 
-    '0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1)' :
-    '0 4px 20px rgba(0, 0, 0, 0.08)'
-  };
-  text-align: center;
-  border: ${props => props.isAdmin ? 
-    '1px solid rgba(255, 255, 255, 0.1)' :
-    '1px solid rgba(16, 185, 129, 0.1)'
-  };
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-  overflow: hidden;
-  
-  ${props => props.isAdmin && `
-    &::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, #10b981 0%, #34d399 50%, #6ee7b7 100%);
-      opacity: 0.8;
-    }
-    
-    &::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: linear-gradient(135deg, rgba(16, 185, 129, 0.05) 0%, rgba(52, 211, 153, 0.05) 100%);
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-  `}
-  
-  &:hover {
-    transform: ${props => props.isAdmin ? 'translateY(-8px) scale(1.02)' : 'translateY(-4px)'};
-    box-shadow: ${props => props.isAdmin ? 
-      '0 20px 60px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2)' :
-      '0 8px 30px rgba(0, 0, 0, 0.12)'
-    };
-    border-color: ${props => props.isAdmin ? 'rgba(16, 185, 129, 0.3)' : 'rgba(16, 185, 129, 0.3)'};
-    
-    ${props => props.isAdmin && `
-      &::after {
-        opacity: 1;
-      }
-    `}
-  }
-  
-  /* Mobile PWA optimizations for administrators */
-  @media (max-width: 768px) {
-    padding: ${props => props.isAdmin ? '16px 12px' : '40px'};
-    border-radius: ${props => props.isAdmin ? '12px' : '24px'};
-    
-    &:hover {
-      transform: ${props => props.isAdmin ? 'translateY(-2px)' : 'translateY(-4px)'};
-    }
-  }
-`;
-
-/* StatNumber removed — tiles live on Admin Dashboard */
-const StatNumber = styled.div`
-  font-size: ${props => props.isAdmin ? '2.2rem' : '3rem'};
-  font-weight: 900;
-  background: ${props => props.isAdmin ? 
-    'linear-gradient(135deg, #ffffff 0%, #10b981 100%)' :
-    `linear-gradient(135deg, ${props.color || '#10b981'} 0%, ${props.color || '#10b981'}CC 100%)`
-  };
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  margin-bottom: ${props => props.isAdmin ? '8px' : '12px'};
-  position: relative;
-  z-index: 1;
-  text-shadow: ${props => props.isAdmin ? '0 2px 4px rgba(0, 0, 0, 0.3)' : 'none'};
-  
-  /* Mobile PWA optimizations for administrators */
-  @media (max-width: 768px) {
-    font-size: ${props => props.isAdmin ? '1.8rem' : '3rem'};
-    margin-bottom: 6px;
-  }
-`;
-
-/* StatLabel removed — tiles live on Admin Dashboard */
-const StatLabel = styled.div`
-  color: ${props => props.isAdmin ? '#94a3b8' : '#64748b'};
-  font-size: ${props => props.isAdmin ? '0.85rem' : '1rem'};
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  font-weight: 600;
-  position: relative;
-  z-index: 1;
-  font-family: ${props => props.isAdmin ? "'Inter', -apple-system, BlinkMacSystemFont, sans-serif" : 'inherit'};
-  
-  /* Mobile PWA optimizations for administrators */
-  @media (max-width: 768px) {
-    font-size: ${props => props.isAdmin ? '0.75rem' : '1rem'};
-    letter-spacing: 0.5px;
-  }
-`;
+/* Removed unused StatsGrid/StatCard/StatNumber/StatLabel to fix CI ESLint warnings */
 
 const FilterBar = styled.div`
   display: flex;
@@ -985,6 +857,16 @@ const Orders = () => {
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthenticated, statusFilter, search]);
+
+  // Lightweight polling so regular users see near real-time status
+  useEffect(() => {
+    if (!isAuthenticated || isAdmin) return;
+    const id = setInterval(() => {
+      fetchOrders();
+    }, 15000);
+    return () => clearInterval(id);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isAuthenticated, isAdmin, fetchOrders]);
 
   const updateOrderStatus = async (orderId, newStatus) => {
     try {

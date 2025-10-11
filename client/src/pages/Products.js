@@ -28,40 +28,12 @@ const ProductsHeader = styled.div`
 `;
 
 const Title = styled.h1`
-  font-size: 2.8rem;
+  font-size: 2rem;
   font-weight: 900;
-  background: linear-gradient(135deg, #ffffff 0%, #10b981 30%, #34d399 60%, #6ee7b7 100%);
+  background: linear-gradient(135deg, #ffffff 0%, #10b981 60%, #34d399 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  margin-bottom: 16px;
-  letter-spacing: -0.8px;
-  position: relative;
-  
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: -8px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100px;
-    height: 2px;
-    background: linear-gradient(90deg, #10b981 0%, #34d399 100%);
-    border-radius: 2px;
-  }
-  
-  @media (max-width: 768px) {
-    font-size: 2.2rem;
-  }
-`;
-
-const Subtitle = styled.p`
-  color: #94a3b8;
-  font-size: 1.1rem;
-  font-weight: 500;
-  max-width: 600px;
-  margin: 0 auto;
-  line-height: 1.6;
 `;
 
 const FiltersSection = styled.div`
@@ -246,42 +218,40 @@ const SearchBar = styled.div`
 
 const SearchInput = styled.input`
   flex: 1;
-  padding: 14px 18px;
-  border: 2px solid rgba(16, 185, 129, 0.15);
+  padding: 10px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: 12px;
-  font-size: 14px;
-  background: rgba(255, 255, 255, 0.9);
+  font-size: 13px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #e2e8f0;
   font-weight: 600;
-  transition: border-color 0.3s ease, background-color 0.3s ease, transform 0.3s ease;
+  transition: all 0.3s ease;
   
   &:focus {
     outline: none;
-    border-color: #10b981;
-    background: white;
-    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
-    transform: translateY(-1px);
+    border-color: rgba(16, 185, 129, 0.35);
+    background: rgba(16, 185, 129, 0.1);
   }
   
   &:hover {
-    border-color: rgba(16, 185, 129, 0.3);
-    transform: translateY(-1px);
+    border-color: rgba(16, 185, 129, 0.35);
   }
   
   &::placeholder {
-    color: #94a3b8;
+    color: #a3b0c2;
     font-weight: 500;
   }
   
   @media (max-width: 768px) {
-    padding: 12px 16px;
-    border-radius: 10px;
-    font-size: 13px;
-  }
-  
-  @media (max-width: 480px) {
     padding: 10px 14px;
     border-radius: 8px;
     font-size: 12px;
+  }
+  
+  @media (max-width: 480px) {
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 11px;
   }
 `;
 
@@ -370,28 +340,39 @@ const ProductsGrid = styled.div`
 
 const NoProducts = styled.div`
   text-align: center;
-  padding: 80px 24px;
-  color: #64748b;
+  padding: 60px 24px;
+  color: #94a3b8;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  max-width: 1400px;
+  margin: 0 auto;
   
   h3 {
-    font-size: 1.5rem;
-    font-weight: 700;
-    margin-bottom: 12px;
-    color: #0f172a;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #e2e8f0;
   }
   
   p {
-    font-size: 1.1rem;
-    font-weight: 500;
+    font-size: 0.95rem;
+    font-weight: 400;
+    color: #94a3b8;
   }
 `;
 
 const LoadingSpinner = styled.div`
   text-align: center;
-  padding: 80px 24px;
-  color: #64748b;
-  font-size: 1.2rem;
-  font-weight: 600;
+  padding: 60px 24px;
+  color: #94a3b8;
+  font-size: 1rem;
+  font-weight: 500;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  max-width: 1400px;
+  margin: 0 auto;
 `;
 
 const Pagination = styled.div`
@@ -403,36 +384,32 @@ const Pagination = styled.div`
 `;
 
 const PageButton = styled.button`
-  padding: 14px 22px;
-  border: 2px solid rgba(16, 185, 129, 0.2);
-  background: rgba(255, 255, 255, 0.9);
-  color: #0f172a;
-  border-radius: 12px;
+  padding: 10px 18px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.08);
+  color: #e2e8f0;
+  border-radius: 10px;
   cursor: pointer;
-  font-weight: 700;
-  font-size: 14px;
-  transition: border-color 0.3s ease, background-color 0.3s ease, transform 0.3s ease;
+  font-weight: 600;
+  font-size: 13px;
+  transition: all 0.3s ease;
   
-  &:hover {
-    border-color: #10b981;
-    color: #10b981;
-    background: white;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 16px rgba(16, 185, 129, 0.2);
+  &:hover:not(:disabled) {
+    border-color: rgba(16, 185, 129, 0.4);
+    background: rgba(16, 185, 129, 0.1);
+    transform: translateY(-1px);
   }
   
   &.active {
     background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
-    border-color: #10b981;
+    border-color: rgba(16, 185, 129, 0.4);
     color: white;
-    box-shadow: 0 4px 16px rgba(16, 185, 129, 0.3);
   }
   
   &:disabled {
-    opacity: 0.5;
+    opacity: 0.4;
     cursor: not-allowed;
     transform: none;
-    box-shadow: none;
   }
 `;
 
@@ -710,7 +687,6 @@ const Products = () => {
     <ProductsContainer>
       <ProductsHeader>
         <Title>Our Products</Title>
-        <Subtitle>Discover premium cannabis products for your lifestyle</Subtitle>
       </ProductsHeader>
 
       <FiltersSection>

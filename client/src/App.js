@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import { useAuth } from './contexts/AuthContext';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import MobileTabBar from './components/MobileTabBar';
 import AgeVerification from './pages/AgeVerification';
 import RoleBasedHome from './components/RoleBasedHome';
 import Products from './pages/Products';
@@ -17,9 +18,12 @@ import OrderDetail from './pages/OrderDetail';
 import Inventory from './pages/Inventory';
 import Statistics from './pages/Statistics';
 import UserManagement from './pages/UserManagement';
-import AIAnalytics from './pages/AIAnalytics';
 import SalesDashboard from './pages/SalesDashboard';
 import AdminDashboard from './pages/AdminDashboard';
+import TestOrder from './pages/TestOrder';
+import TestStatistics from './pages/TestStatistics';
+import TestSales from './pages/TestSales';
+import TestAI from './pages/TestAI';
 
 import ProtectedRoute from './components/ProtectedRoute';
 import LoadingSpinner from './components/LoadingSpinner';
@@ -32,7 +36,9 @@ const AppContent = () => {
   return (
     <div className="App">
       <ScrollToTop />
-      <Header />
+      <div className="app-header">
+        <Header />
+      </div>
       <main>
         <Routes>
           <Route path="/" element={<RoleBasedHome />} />
@@ -87,19 +93,35 @@ const AppContent = () => {
               <AdminDashboard />
             </ProtectedRoute>
           } />
+          <Route path="/admin/order-management" element={
+            <ProtectedRoute adminOnly>
+              <TestOrder />
+            </ProtectedRoute>
+          } />
+          <Route path="/admin/advanced-statistics" element={
+            <ProtectedRoute adminOnly>
+              <TestStatistics />
+            </ProtectedRoute>
+          } />
+          <Route path="/admin/sales" element={
+            <ProtectedRoute adminOnly>
+              <TestSales />
+            </ProtectedRoute>
+          } />
+          <Route path="/admin/ai-analysis" element={
+            <ProtectedRoute adminOnly>
+              <TestAI />
+            </ProtectedRoute>
+          } />
           <Route path="/users" element={
             <ProtectedRoute>
               <UserManagement />
             </ProtectedRoute>
           } />
-          <Route path="/ai-analytics" element={
-            <ProtectedRoute>
-              <AIAnalytics />
-            </ProtectedRoute>
-          } />
         </Routes>
       </main>
       {user?.role !== 'admin' && <Footer />}
+      {user && <MobileTabBar />}
     </div>
   );
 };

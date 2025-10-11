@@ -204,4 +204,8 @@ main {
     min-height: 44px;
   }
   
+  /* Provide room for bottom tab bar when authenticated */
+  body.has-tab-bar main { 
+    padding-bottom: 72px; 
+  }
 }

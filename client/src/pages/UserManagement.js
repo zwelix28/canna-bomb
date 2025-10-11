@@ -1,101 +1,46 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useAuth } from '../contexts/AuthContext';
+import {
+  RiSearchLine,
+  RiUserAddLine,
+  RiEditLine,
+  RiLockPasswordLine,
+  RiDeleteBinLine
+} from 'react-icons/ri';
 
 const UserManagementContainer = styled.div`
   min-height: 100vh;
-  padding: 0;
-  background: linear-gradient(135deg, #0f172a 0%, #1e293b 25%, #334155 50%, #475569 75%, #64748b 100%);
-  position: relative;
-  overflow: hidden;
-  
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: 
-      radial-gradient(circle at 20% 80%, rgba(16, 185, 129, 0.1) 0%, transparent 50%),
-      radial-gradient(circle at 80% 20%, rgba(52, 211, 153, 0.1) 0%, transparent 50%),
-      radial-gradient(circle at 40% 40%, rgba(139, 92, 246, 0.05) 0%, transparent 50%);
-    z-index: 1;
-  }
-  
-  &::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent 0%, #10b981 50%, transparent 100%);
-    z-index: 2;
-  }
+  background: linear-gradient(135deg, #0b1222 0%, #0f172a 50%, #1e293b 100%);
 `;
 
 const UserManagementContent = styled.div`
-  max-width: 1600px;
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 60px 32px;
-  position: relative;
-  z-index: 3;
+  padding: 32px 20px;
 `;
 
 const UserManagementHeader = styled.div`
   text-align: center;
-  margin-bottom: 64px;
-  position: relative;
+  margin-bottom: 50px;
+  padding: 0 24px;
 `;
 
 const Title = styled.h1`
-  font-size: 3.5rem;
+  font-size: 2rem;
   font-weight: 900;
-  background: linear-gradient(135deg, #ffffff 0%, #10b981 30%, #34d399 60%, #6ee7b7 100%);
+  background: linear-gradient(135deg, #ffffff 0%, #10b981 60%, #34d399 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  margin-bottom: 24px;
-  letter-spacing: -1px;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  position: relative;
-  
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: -8px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 120px;
-    height: 3px;
-    background: linear-gradient(90deg, #10b981 0%, #34d399 100%);
-    border-radius: 2px;
-  }
-  
-  @media (max-width: 768px) {
-    font-size: 2.8rem;
-  }
-`;
-
-const Subtitle = styled.p`
-  color: #94a3b8;
-  font-size: 1.2rem;
-  font-weight: 400;
-  max-width: 600px;
-  margin: 0 auto;
-  line-height: 1.6;
-  letter-spacing: 0.3px;
 `;
 
 const ActionBar = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 32px;
-  gap: 20px;
+  margin-bottom: 24px;
+  gap: 16px;
   
   @media (max-width: 768px) {
     flex-direction: column;
@@ -107,17 +52,21 @@ const SearchBar = styled.div`
   position: relative;
   flex: 1;
   max-width: 400px;
+  
+  @media (max-width: 768px) {
+    max-width: 100%;
+  }
 `;
 
 const SearchInput = styled.input`
   width: 100%;
-  padding: 16px 20px 16px 50px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 16px;
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(20px);
-  color: #ffffff;
-  font-size: 1rem;
+  padding: 12px 16px 12px 44px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(10px);
+  color: #e2e8f0;
+  font-size: 0.9rem;
   font-weight: 500;
   transition: all 0.3s ease;
   
@@ -127,125 +76,100 @@ const SearchInput = styled.input`
   
   &:focus {
     outline: none;
-    border-color: rgba(16, 185, 129, 0.5);
-    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+    border-color: rgba(16, 185, 129, 0.4);
+    background: rgba(255, 255, 255, 0.08);
   }
 `;
 
-const SearchIcon = styled.span`
+const SearchIcon = styled.div`
   position: absolute;
-  left: 18px;
+  left: 14px;
   top: 50%;
   transform: translateY(-50%);
   color: #94a3b8;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
 `;
 
 const AddUserButton = styled.button`
-  background: linear-gradient(135deg, #10b981 0%, #34d399 50%, #6ee7b7 100%);
+  background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
   color: white;
   border: none;
-  padding: 16px 32px;
-  border-radius: 16px;
-  font-size: 1rem;
-  font-weight: 700;
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 
-    0 8px 32px rgba(16, 185, 129, 0.4),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
   display: flex;
   align-items: center;
   gap: 8px;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  letter-spacing: 0.5px;
   
   &:hover {
-    transform: translateY(-2px) scale(1.02);
-    box-shadow: 
-      0 12px 40px rgba(16, 185, 129, 0.5),
-      inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
   }
 `;
 
 const UsersGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 20px;
-  margin-bottom: 32px;
+  gap: 16px;
+  margin-bottom: 24px;
 `;
 
 const UserCard = styled.div`
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(20px);
-  border-radius: 20px;
-  padding: 24px;
-  box-shadow: 
-    0 6px 24px rgba(0, 0, 0, 0.3),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  position: relative;
-  overflow: hidden;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, #10b981 0%, #34d399 50%, #6ee7b7 100%);
-    opacity: 0.8;
-  }
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  padding: 20px;
+  transition: all 0.3s ease;
   
   &:hover {
-    transform: translateY(-6px) scale(1.02);
-    box-shadow: 
-      0 16px 48px rgba(0, 0, 0, 0.4),
-      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(16, 185, 129, 0.15);
     border-color: rgba(16, 185, 129, 0.3);
   }
 `;
 
 const UserAvatar = styled.div`
-  width: 64px;
-  height: 64px;
-  border-radius: 16px;
-  background: linear-gradient(135deg, #10b981 0%, #34d399 50%, #6ee7b7 100%);
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.6rem;
+  font-size: 1.3rem;
+  font-weight: 700;
   color: white;
-  margin-bottom: 16px;
-  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.3);
+  margin-bottom: 12px;
 `;
 
 const UserName = styled.h3`
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: #ffffff;
-  margin-bottom: 6px;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #e2e8f0;
+  margin-bottom: 4px;
 `;
 
 const UserEmail = styled.p`
   color: #94a3b8;
-  font-size: 0.85rem;
-  margin-bottom: 12px;
-  font-weight: 500;
+  font-size: 0.8rem;
+  margin-bottom: 8px;
+  font-weight: 400;
 `;
 
 const UserRole = styled.span`
   display: inline-block;
-  padding: 4px 12px;
-  border-radius: 16px;
-  font-size: 0.75rem;
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-size: 0.7rem;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.8px;
-  margin-bottom: 16px;
+  letter-spacing: 0.5px;
+  margin-bottom: 12px;
   background: ${props => props.role === 'admin' ? 'rgba(139, 92, 246, 0.15)' : 'rgba(16, 185, 129, 0.15)'};
   color: ${props => props.role === 'admin' ? '#a78bfa' : '#34d399'};
   border: 1px solid ${props => props.role === 'admin' ? 'rgba(139, 92, 246, 0.3)' : 'rgba(16, 185, 129, 0.3)'};
@@ -253,20 +177,23 @@ const UserRole = styled.span`
 
 const UserActions = styled.div`
   display: flex;
-  gap: 8px;
-  margin-top: 16px;
+  gap: 6px;
+  margin-top: 12px;
 `;
 
 const ActionButton = styled.button`
   flex: 1;
-  padding: 10px 12px;
+  padding: 8px 10px;
   border: none;
-  border-radius: 10px;
-  font-size: 0.8rem;
+  border-radius: 8px;
+  font-size: 0.75rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
   
   ${props => {
     switch(props.variant) {
@@ -278,7 +205,7 @@ const ActionButton = styled.button`
           
           &:hover {
             background: rgba(59, 130, 246, 0.25);
-            transform: translateY(-2px);
+            transform: translateY(-1px);
           }
         `;
       case 'password':
@@ -289,7 +216,7 @@ const ActionButton = styled.button`
           
           &:hover {
             background: rgba(245, 158, 11, 0.25);
-            transform: translateY(-2px);
+            transform: translateY(-1px);
           }
         `;
       case 'delete':
@@ -300,7 +227,12 @@ const ActionButton = styled.button`
           
           &:hover {
             background: rgba(239, 68, 68, 0.25);
-            transform: translateY(-2px);
+            transform: translateY(-1px);
+          }
+          
+          &:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
           }
         `;
       default:
@@ -319,8 +251,8 @@ const Modal = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.8);
-  backdrop-filter: blur(10px);
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(8px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -329,33 +261,32 @@ const Modal = styled.div`
 `;
 
 const ModalContent = styled.div`
-  background: rgba(15, 23, 42, 0.95);
+  background: rgba(15, 23, 42, 0.98);
   backdrop-filter: blur(20px);
-  border-radius: 20px;
-  padding: 32px;
+  border-radius: 16px;
+  padding: 28px;
   max-width: 450px;
   width: 100%;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
 `;
 
 const ModalTitle = styled.h2`
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   font-weight: 700;
-  color: #ffffff;
+  color: #e2e8f0;
   margin-bottom: 20px;
   text-align: center;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 `;
 
 const FormGroup = styled.div`
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 `;
 
 const Label = styled.label`
   display: block;
   color: #94a3b8;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   font-weight: 600;
   margin-bottom: 6px;
   text-transform: uppercase;
@@ -364,67 +295,66 @@ const Label = styled.label`
 
 const Input = styled.input`
   width: 100%;
-  padding: 12px 16px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(20px);
-  color: #ffffff;
+  padding: 10px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(10px);
+  color: #e2e8f0;
   font-size: 0.9rem;
-  font-weight: 500;
+  font-weight: 400;
   transition: all 0.3s ease;
   
   &:focus {
     outline: none;
-    border-color: rgba(16, 185, 129, 0.5);
-    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+    border-color: rgba(16, 185, 129, 0.4);
+    background: rgba(255, 255, 255, 0.08);
   }
   
   &::placeholder {
-    color: #94a3b8;
+    color: #64748b;
   }
 `;
 
 const Select = styled.select`
   width: 100%;
-  padding: 12px 16px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(20px);
-  color: #ffffff;
+  padding: 10px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(10px);
+  color: #e2e8f0;
   font-size: 0.9rem;
-  font-weight: 500;
+  font-weight: 400;
   transition: all 0.3s ease;
   
   &:focus {
     outline: none;
-    border-color: rgba(16, 185, 129, 0.5);
-    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+    border-color: rgba(16, 185, 129, 0.4);
+    background: rgba(255, 255, 255, 0.08);
   }
   
   option {
     background: #1e293b;
-    color: #ffffff;
+    color: #e2e8f0;
   }
 `;
 
 const ModalActions = styled.div`
   display: flex;
-  gap: 12px;
-  margin-top: 24px;
+  gap: 10px;
+  margin-top: 20px;
 `;
 
 const ModalButton = styled.button`
   flex: 1;
-  padding: 12px 20px;
+  padding: 10px 18px;
   border: none;
-  border-radius: 10px;
+  border-radius: 8px;
   font-size: 0.9rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   
   ${props => {
     if (props.variant === 'primary') {
@@ -434,7 +364,7 @@ const ModalButton = styled.button`
         
         &:hover {
           transform: translateY(-2px);
-          box-shadow: 0 8px 24px rgba(16, 185, 129, 0.4);
+          box-shadow: 0 6px 16px rgba(16, 185, 129, 0.3);
         }
       `;
     } else {
@@ -453,51 +383,47 @@ const ModalButton = styled.button`
 
 const LoadingSpinner = styled.div`
   text-align: center;
-  padding: 80px 20px;
+  padding: 60px 20px;
   color: #94a3b8;
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: 500;
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(20px);
-  border-radius: 24px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
   margin: 40px 0;
 `;
 
 const ErrorMessage = styled.div`
   background: rgba(239, 68, 68, 0.1);
   color: #fca5a5;
-  padding: 20px;
-  border-radius: 16px;
-  margin-bottom: 32px;
+  padding: 16px;
+  border-radius: 12px;
+  margin-bottom: 24px;
   font-size: 0.9rem;
   text-align: center;
   border: 1px solid rgba(239, 68, 68, 0.3);
-  backdrop-filter: blur(10px);
 `;
 
 const SuccessMessage = styled.div`
   background: rgba(16, 185, 129, 0.1);
   color: #34d399;
-  padding: 20px;
-  border-radius: 16px;
-  margin-bottom: 32px;
+  padding: 16px;
+  border-radius: 12px;
+  margin-bottom: 24px;
   font-size: 0.9rem;
   text-align: center;
   border: 1px solid rgba(16, 185, 129, 0.3);
-  backdrop-filter: blur(10px);
   font-weight: 500;
 `;
 
 const EmptyState = styled.div`
   text-align: center;
-  padding: 80px 20px;
+  padding: 60px 20px;
   color: #94a3b8;
-  font-size: 1.1rem;
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(20px);
-  border-radius: 24px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 1rem;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
 `;
 
 const UserManagement = () => {
@@ -573,7 +499,6 @@ const UserManagement = () => {
       resetForm();
       fetchUsers();
       
-      // Clear success message after 3 seconds
       setTimeout(() => setSuccess(null), 3000);
     } catch (error) {
       console.error('Create user error:', error);
@@ -605,7 +530,6 @@ const UserManagement = () => {
       resetForm();
       fetchUsers();
       
-      // Clear success message after 3 seconds
       setTimeout(() => setSuccess(null), 3000);
     } catch (error) {
       console.error('Update user error:', error);
@@ -636,7 +560,6 @@ const UserManagement = () => {
       setShowModal(false);
       resetForm();
       
-      // Clear success message after 3 seconds
       setTimeout(() => setSuccess(null), 3000);
     } catch (error) {
       console.error('Change password error:', error);
@@ -667,7 +590,6 @@ const UserManagement = () => {
       setSuccess('User deleted successfully!');
       fetchUsers();
       
-      // Clear success message after 3 seconds
       setTimeout(() => setSuccess(null), 3000);
     } catch (error) {
       console.error('Delete user error:', error);
@@ -693,6 +615,7 @@ const UserManagement = () => {
       });
     } else if (type === 'password' && user) {
       setFormData({
+        ...formData,
         password: ''
       });
     }
@@ -737,7 +660,6 @@ const UserManagement = () => {
       <UserManagementContent>
         <UserManagementHeader>
           <Title>User Management</Title>
-          <Subtitle>Manage user accounts and permissions</Subtitle>
         </UserManagementHeader>
 
         {success && (
@@ -754,7 +676,9 @@ const UserManagement = () => {
 
         <ActionBar>
           <SearchBar>
-            <SearchIcon>🔍</SearchIcon>
+            <SearchIcon>
+              <RiSearchLine />
+            </SearchIcon>
             <SearchInput
               type="text"
               placeholder="Search users..."
@@ -764,7 +688,7 @@ const UserManagement = () => {
           </SearchBar>
           
           <AddUserButton onClick={() => openModal('create')}>
-            <span>➕</span>
+            <RiUserAddLine />
             Add New User
           </AddUserButton>
         </ActionBar>
@@ -796,22 +720,22 @@ const UserManagement = () => {
                     variant="edit" 
                     onClick={() => openModal('edit', user)}
                   >
-                    Edit
+                    <RiEditLine /> Edit
                   </ActionButton>
                   
                   <ActionButton 
                     variant="password" 
                     onClick={() => openModal('password', user)}
                   >
-                    Password
+                    <RiLockPasswordLine /> Pass
                   </ActionButton>
                   
                   <ActionButton 
                     variant="delete" 
                     onClick={() => handleDeleteUser(user._id)}
-                    disabled={user._id === currentUser?._id} // Prevent deleting own account
+                    disabled={user._id === currentUser?._id}
                   >
-                    Delete
+                    <RiDeleteBinLine /> Del
                   </ActionButton>
                 </UserActions>
               </UserCard>

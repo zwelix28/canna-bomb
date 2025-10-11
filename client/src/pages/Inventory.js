@@ -6,107 +6,87 @@ import { useAuth } from '../contexts/AuthContext';
 
 const InventoryContainer = styled.div`
   min-height: 100vh;
-  padding: 40px 0;
+  background: linear-gradient(135deg, #0b1222 0%, #0f172a 50%, #1e293b 100%);
 `;
 
 const InventoryContent = styled.div`
   max-width: 1400px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 32px 20px;
 `;
 
 const InventoryHeader = styled.div`
   text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: 50px;
+  padding: 0 24px;
 `;
 
 const Title = styled.h1`
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: #1e293b;
-  margin-bottom: 16px;
-`;
-
-const Subtitle = styled.p`
-  color: #64748b;
-  font-size: 1.1rem;
-`;
-
-const ActionBar = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 30px;
-  gap: 20px;
-  
-  @media (max-width: 768px) {
-    flex-direction: column;
-    align-items: stretch;
-  }
+  font-size: 2rem;
+  font-weight: 900;
+  background: linear-gradient(135deg, #ffffff 0%, #10b981 60%, #34d399 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 `;
 
 const AddProductButton = styled.button`
-  background: #10b981;
+  background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
   color: white;
   border: none;
-  padding: 12px 24px;
-  border-radius: 8px;
+  padding: 10px 20px;
+  border-radius: 10px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
   
   &:hover {
-    background: #059669;
     transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(16, 185, 129, 0.3);
   }
 `;
 
 const InventoryGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(256px, 1fr));
-  gap: 32px;
-  margin-bottom: 40px;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+  margin-bottom: 20px;
 `;
 
 const ProductCard = styled.div`
-  background: #ffffff;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
   border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  border: 2px solid #ffffff;
-  transition: all 0.4s ease;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+  transition: all 0.3s ease;
   position: relative;
-  padding: 20px;
+  padding: 16px;
   
   &:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 16px 32px rgba(16, 185, 129, 0.15);
-    border-color: #f0f9ff;
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(16, 185, 129, 0.15);
+    border-color: rgba(16, 185, 129, 0.3);
   }
 `;
 
 const ProductImage = styled.img`
   width: 100%;
   aspect-ratio: 1;
-  object-fit: contain;
+  object-fit: contain; /* show entire image including margins */
   object-position: center;
   border-radius: 8px;
-  margin-bottom: 16px;
-  background: #ffffff;
+  margin-bottom: 12px;
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.05) 0%, rgba(52, 211, 153, 0.05) 100%);
   display: block;
-  transition: transform 0.4s ease;
-  
-  ${ProductCard}:hover & {
-    transform: scale(1.05);
-  }
   
   &[src=""], &:not([src]) {
-    background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+    background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.04) 100%);
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #64748b;
-    font-size: 14px;
+    color: #94a3b8;
+    font-size: 12px;
     
     &::after {
       content: "No Image";
@@ -115,28 +95,28 @@ const ProductImage = styled.img`
 `;
 
 const ProductName = styled.h3`
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-weight: 700;
-  color: #0f172a;
-  margin-bottom: 10px;
+  color: #e2e8f0;
+  margin-bottom: 8px;
   line-height: 1.3;
 `;
 
 const ProductCategory = styled.span`
-  color: #10b981;
-  font-size: 10px;
+  color: #34d399;
+  font-size: 9px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   display: block;
 `;
 
 const ProductDescription = styled.p`
-  color: #64748b;
-  font-size: 13px;
-  line-height: 1.5;
-  margin-bottom: 16px;
+  color: #94a3b8;
+  font-size: 12px;
+  line-height: 1.4;
+  margin-bottom: 12px;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
@@ -146,140 +126,144 @@ const ProductDescription = styled.p`
 const PriceSection = styled.div`
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 16px;
+  gap: 8px;
+  margin-bottom: 12px;
 `;
 
 const Price = styled.span`
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: 600;
-  color: #1e293b;
+  color: #e2e8f0;
 `;
 
 const SalePrice = styled.span`
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: 600;
-  color: #ef4444;
+  color: #fca5a5;
 `;
 
 const OriginalPrice = styled.span`
-  font-size: 1rem;
-  color: #94a3b8;
+  font-size: 0.9rem;
+  color: #64748b;
   text-decoration: line-through;
 `;
 
 const SaleBadge = styled.div`
   background: #ef4444;
   color: white;
-  padding: 4px 8px;
-  border-radius: 4px;
-  font-size: 12px;
+  padding: 3px 6px;
+  border-radius: 6px;
+  font-size: 10px;
   font-weight: 600;
 `;
 
 const FeaturedBadge = styled.div`
-  background: #10b981;
+  background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
   color: white;
-  padding: 4px 8px;
-  border-radius: 4px;
-  font-size: 12px;
+  padding: 3px 6px;
+  border-radius: 6px;
+  font-size: 10px;
   font-weight: 600;
-  margin-left: 8px;
+  margin-left: 6px;
 `;
 
 const StockInfo = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 16px;
-  padding: 12px;
-  background: #f8fafc;
+  margin-bottom: 12px;
+  padding: 8px;
+  background: rgba(255,255,255,0.04);
   border-radius: 8px;
 `;
 
 const StockLabel = styled.span`
-  color: #64748b;
-  font-size: 14px;
+  color: #94a3b8;
+  font-size: 12px;
   font-weight: 500;
 `;
 
 const StockQuantity = styled.span`
-  color: #1e293b;
+  color: #e2e8f0;
   font-weight: 600;
-  font-size: 16px;
+  font-size: 14px;
 `;
 
 const StockStatus = styled.span`
-  padding: 4px 8px;
-  border-radius: 4px;
-  font-size: 12px;
+  padding: 3px 6px;
+  border-radius: 6px;
+  font-size: 10px;
   font-weight: 600;
   
   &.in-stock {
-    background: #dcfce7;
-    color: #166534;
+    background: rgba(16, 185, 129, 0.15);
+    color: #34d399;
   }
   
   &.low-stock {
-    background: #fef3c7;
-    color: #92400e;
+    background: rgba(245, 158, 11, 0.15);
+    color: #fbbf24;
   }
   
   &.out-of-stock {
-    background: #fee2e2;
-    color: #991b1b;
+    background: rgba(239, 68, 68, 0.15);
+    color: #fca5a5;
   }
 `;
 
 const ActionButtons = styled.div`
   display: flex;
-  gap: 8px;
+  gap: 6px;
   flex-wrap: wrap;
 `;
 
 const ActionButton = styled.button`
   flex: 1;
-  padding: 8px 12px;
+  padding: 6px 10px;
   border: none;
   border-radius: 6px;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 500;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
   
   &.edit {
-    background: #3b82f6;
+    background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
     color: white;
     
     &:hover {
-      background: #2563eb;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
     }
   }
   
   &.stock {
-    background: #f59e0b;
+    background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
     color: white;
     
     &:hover {
-      background: #d97706;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
     }
   }
   
   &.sale {
-    background: #ef4444;
+    background: linear-gradient(135deg, #ef4444 0%, #fca5a5 100%);
     color: white;
     
     &:hover {
-      background: #dc2626;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
     }
   }
   
   &.delete {
-    background: #ef4444;
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
     color: white;
     
     &:hover {
-      background: #dc2626;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
     }
   }
 `;
@@ -299,13 +283,15 @@ const Modal = styled.div`
 `;
 
 const ModalContent = styled.div`
-  background: white;
-  border-radius: 12px;
-  padding: 30px;
+  background: rgba(15, 23, 42, 0.95);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 16px;
+  padding: 24px;
   max-width: 600px;
   width: 100%;
   max-height: 90vh;
   overflow-y: auto;
+  backdrop-filter: blur(20px);
 `;
 
 const ModalHeader = styled.div`
@@ -316,9 +302,9 @@ const ModalHeader = styled.div`
 `;
 
 const ModalTitle = styled.h2`
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   font-weight: 600;
-  color: #1e293b;
+  color: #e2e8f0;
 `;
 
 const CloseButton = styled.button`
@@ -326,67 +312,84 @@ const CloseButton = styled.button`
   border: none;
   font-size: 24px;
   cursor: pointer;
-  color: #64748b;
+  color: #94a3b8;
   
   &:hover {
-    color: #1e293b;
+    color: #e2e8f0;
   }
 `;
 
 const Form = styled.form`
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 16px;
 `;
 
 const FormGroup = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
 `;
 
 const FormLabel = styled.label`
   font-weight: 500;
-  color: #374151;
-  font-size: 14px;
+  color: #94a3b8;
+  font-size: 12px;
 `;
 
 const FormInput = styled.input`
-  padding: 12px;
-  border: 2px solid #e2e8f0;
-  border-radius: 6px;
+  padding: 10px 12px;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 8px;
   font-size: 14px;
+  background: rgba(255,255,255,0.06);
+  color: #e2e8f0;
   
   &:focus {
     outline: none;
     border-color: #10b981;
+    box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
+  }
+  
+  &::placeholder {
+    color: #64748b;
   }
 `;
 
 const FormTextarea = styled.textarea`
-  padding: 12px;
-  border: 2px solid #e2e8f0;
-  border-radius: 6px;
+  padding: 10px 12px;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 8px;
   font-size: 14px;
-  min-height: 100px;
+  min-height: 80px;
   resize: vertical;
+  background: rgba(255,255,255,0.06);
+  color: #e2e8f0;
   
   &:focus {
     outline: none;
     border-color: #10b981;
+    box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
+  }
+  
+  &::placeholder {
+    color: #64748b;
   }
 `;
 
 const FormSelect = styled.select`
-  padding: 12px;
-  border: 2px solid #e2e8f0;
-  border-radius: 6px;
+  padding: 10px 12px;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 8px;
   font-size: 14px;
-  background: white;
+  background: rgba(255,255,255,0.06);
+  color: #e2e8f0;
+  cursor: pointer;
   
   &:focus {
     outline: none;
     border-color: #10b981;
+    box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
   }
 `;
 
@@ -394,10 +397,10 @@ const CheckboxContainer = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 12px;
-  background: #f8fafc;
-  border-radius: 6px;
-  border: 2px solid #e2e8f0;
+  padding: 10px;
+  background: rgba(255,255,255,0.04);
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.08);
 `;
 
 const CheckboxInput = styled.input`
@@ -409,28 +412,28 @@ const CheckboxInput = styled.input`
 
 const CheckboxLabel = styled.label`
   font-weight: 500;
-  color: #374151;
-  font-size: 14px;
+  color: #94a3b8;
+  font-size: 12px;
   cursor: pointer;
   margin: 0;
 `;
 
 const FileUploadContainer = styled.div`
-  border: 2px dashed #d1d5db;
+  border: 2px dashed rgba(255,255,255,0.2);
   border-radius: 8px;
-  padding: 20px;
+  padding: 16px;
   text-align: center;
-  background: #f9fafb;
-  transition: all 0.2s ease;
+  background: rgba(255,255,255,0.04);
+  transition: all 0.3s ease;
   
   &:hover {
     border-color: #10b981;
-    background: #f0fdf4;
+    background: rgba(16, 185, 129, 0.08);
   }
   
   &.dragover {
     border-color: #10b981;
-    background: #f0fdf4;
+    background: rgba(16, 185, 129, 0.08);
   }
 `;
 
@@ -441,8 +444,8 @@ const FileUploadInput = styled.input`
 const FileUploadLabel = styled.label`
   display: block;
   cursor: pointer;
-  color: #6b7280;
-  font-size: 14px;
+  color: #94a3b8;
+  font-size: 12px;
   
   &:hover {
     color: #10b981;
@@ -455,8 +458,8 @@ const FileUploadText = styled.div`
 `;
 
 const FileUploadSubtext = styled.div`
-  font-size: 12px;
-  color: #9ca3af;
+  font-size: 10px;
+  color: #64748b;
 `;
 
 const ImagePreviewContainer = styled.div`
@@ -472,7 +475,7 @@ const ImagePreview = styled.div`
   height: 100px;
   border-radius: 8px;
   overflow: hidden;
-  background: #f3f4f6;
+  background: rgba(255,255,255,0.04);
 `;
 
 const ImagePreviewImg = styled.img`
@@ -505,7 +508,7 @@ const RemoveImageButton = styled.button`
 const FormRow = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 16px;
+  gap: 12px;
   
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
@@ -514,56 +517,59 @@ const FormRow = styled.div`
 
 const FormActions = styled.div`
   display: flex;
-  gap: 12px;
+  gap: 10px;
   justify-content: flex-end;
-  margin-top: 20px;
+  margin-top: 16px;
 `;
 
 const SubmitButton = styled.button`
-  background: #10b981;
+  background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
   color: white;
   border: none;
-  padding: 12px 24px;
-  border-radius: 6px;
+  padding: 10px 20px;
+  border-radius: 8px;
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: all 0.3s ease;
   
   &:hover {
-    background: #059669;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(16, 185, 129, 0.3);
   }
   
   &:disabled {
-    background: #94a3b8;
+    background: #64748b;
     cursor: not-allowed;
+    transform: none;
   }
 `;
 
 const CancelButton = styled.button`
-  background: #64748b;
+  background: rgba(100, 116, 139, 0.8);
   color: white;
   border: none;
-  padding: 12px 24px;
-  border-radius: 6px;
+  padding: 10px 20px;
+  border-radius: 8px;
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: all 0.3s ease;
   
   &:hover {
-    background: #475569;
+    background: rgba(100, 116, 139, 1);
+    transform: translateY(-1px);
   }
 `;
 
 const LoadingSpinner = styled.div`
   text-align: center;
   padding: 60px 20px;
-  color: #64748b;
+  color: #94a3b8;
 `;
 
 const NoProducts = styled.div`
   text-align: center;
   padding: 60px 20px;
-  color: #64748b;
+  color: #94a3b8;
 `;
 
 const Inventory = () => {
@@ -882,14 +888,12 @@ const Inventory = () => {
       <InventoryContent>
         <InventoryHeader>
           <Title>Inventory Management</Title>
-          <Subtitle>Manage your product catalog, stock levels, and sales</Subtitle>
+          <div style={{ marginTop: '16px' }}>
+            <AddProductButton onClick={openAddModal}>
+              + Add New Product
+            </AddProductButton>
+          </div>
         </InventoryHeader>
-
-        <ActionBar>
-          <AddProductButton onClick={openAddModal}>
-            + Add New Product
-          </AddProductButton>
-        </ActionBar>
 
         {products.length === 0 ? (
           <NoProducts>

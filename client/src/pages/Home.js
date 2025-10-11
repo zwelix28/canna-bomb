@@ -367,6 +367,11 @@ const StatsSection = styled.section`
   padding: 50px 0;
   position: relative;
   
+  /* Hide Why Choose section on mobile */
+  @media (max-width: 768px) {
+    display: none;
+  }
+  
   &::before {
     content: '';
     position: absolute;
